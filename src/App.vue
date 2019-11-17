@@ -1,21 +1,16 @@
 <template>
     <v-app>
-        <v-row>
-            <v-col cols="3">
-              <Menu></Menu>
-            </v-col>
-        </v-row>
+        <Home></Home>
     </v-app>
 </template>
 
 <script>
-
-    import Menu from "./components/Menu";
+    import Home from "./components/Home";
 
     export default {
         name: 'App',
         components: {
-            Menu
+            Home
         },
         data: () => ({}),
     };

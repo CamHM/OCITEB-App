@@ -1,16 +1,15 @@
 <template>
-    <v-container class="container">
-        <v-banner single-line>
+    <v-container class="dark-style text-xs-center" >
+        <h1 class="dark-style">
             OCITEB
-        </v-banner>
+        </h1>
         <v-btn block color="primary">
             <v-icon left>mdi-home-variant-outline</v-icon>
             Inicio
         </v-btn>
         <v-list dense>
             <v-subheader>{{listTitle}}</v-subheader>
-            <v-list-group v-for="item in items" :key="item.title" v-model="item.active"
-                          :prepend-icon="item.icon">
+            <v-list-group v-for="item in items" :key="item.title" v-model="item.active" :prepend-icon="item.icon">
                 <template v-slot:activator>
                     <v-list-item-content class="style-black">
                         <v-list-item-title v-text="item.title"></v-list-item-title>
@@ -24,6 +23,7 @@
                 </v-list-item>
             </v-list-group>
         </v-list>
+        <v-btn outlined color="primary">Ingresar</v-btn>
     </v-container>
 </template>
 
@@ -72,8 +72,10 @@
 </script>
 
 <style scoped>
-    .container {
+    .dark-style {
         background: #1f232c;
+        color: #f7b345;
+        align-self: center;
         margin-left: unset;
         margin-top: unset;
     }
