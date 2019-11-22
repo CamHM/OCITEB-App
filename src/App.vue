@@ -15,3 +15,7 @@
         data: () => ({}),
     };
 </script>
+
+<style>
+
+</style>

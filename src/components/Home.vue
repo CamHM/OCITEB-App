@@ -1,19 +1,20 @@
 <template>
-    <v-row>
-        <v-col cols="3">
-            <Menu></Menu>
+    <v-row no-gutters>
+        <v-col cols="2">
+            <SideBar></SideBar>
         </v-col>
-        <v-col cols="9">
-            <v-container>
+        <v-col cols="10">
+            <v-container class="dark-back">
                 <v-row>
-                    <v-col cols="5">
+                    <v-col cols="6">
+                        <Card v-bind:item="welcome"></Card>
+                    </v-col>
+                    <v-col cols="6">
                         <Card v-bind:item="welcome"></Card>
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-col v-for="item of items" v-bind:key="item.title">
-                        <Card v-bind:item="item"></Card>
-                    </v-col>
+                    <Card v-bind:item="item" v-for="item of items" v-bind:key="item.title"></Card>
                 </v-row>
             </v-container>
         </v-col>
@@ -21,13 +22,13 @@
 </template>
 
 <script>
-    import Menu from "./Menu";
+    import SideBar from "./SideBar";
     import Card from "./Card";
 
     export default {
         name: "Home",
         components: {
-            Menu,
+            SideBar,
             Card
         },
         data: () => {
@@ -65,5 +66,13 @@
 </script>
 
 <style scoped>
+
+    .dark-back {
+        background: #3f4a5b;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        position: relative;
+    }
 
 </style>
