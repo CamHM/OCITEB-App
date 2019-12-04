@@ -5,8 +5,13 @@
         </v-col>
         <v-col cols="10">
             <v-container class="dark-back">
-                <v-toolbar class="search">
-                    <Autocomplete placeholder="Búsqueda" aria-label="Búsqueda"></Autocomplete>
+                <v-toolbar class="search rounded-toolbar">
+                    <v-icon color="white">mdi-magnify</v-icon>
+                    <v-autocomplete cache-items
+                                    class="mx-2" flat hide-no-data
+                                    hide-details label="Búsqueda"
+                                    solo-inverted>
+                    </v-autocomplete>
                 </v-toolbar>
                 <v-row>
                     <v-col cols="6">
@@ -29,14 +34,12 @@
 <script>
     import SideBar from "./SideBar";
     import Card from "./Card";
-    import Autocomplete from '@trevoreyre/autocomplete-vue';
 
     export default {
         name: "Home",
         components: {
             SideBar,
-            Card,
-            Autocomplete
+            Card
         },
         data: () => {
             return {
@@ -86,4 +89,7 @@
         background: #1f232c;
     }
 
+    .rounded-toolbar {
+        border-radius: 10px;
+    }
 </style>
