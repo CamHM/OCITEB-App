@@ -1,6 +1,6 @@
 <template>
     <v-list color="secondary" dense>
-        <v-subheader light>{{listTitle}}</v-subheader>
+        <v-subheader dark>{{listTitle}}</v-subheader>
         <MenItem v-bind:key="item.title" v-bind:item="item" v-for="item of items"></MenItem>
     </v-list>
 </template>

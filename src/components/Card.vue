@@ -1,9 +1,6 @@
 <template>
-    <v-card
-        class="card"
-        elevation="5"
-        color="secondary"
-    >
+    <v-card class="card" elevation="5"
+        color="secondary">
         <br />
         <v-avatar color="orange" size="85">
             <v-icon class="text secondary--text headline font-weight-thin">{{ item.icon }}</v-icon>

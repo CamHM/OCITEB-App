@@ -5,6 +5,9 @@
         </v-col>
         <v-col cols="10">
             <v-container class="dark-back">
+                <v-toolbar class="search">
+                    <Autocomplete placeholder="Búsqueda" aria-label="Búsqueda"></Autocomplete>
+                </v-toolbar>
                 <v-row>
                     <v-col cols="6">
                         <Card v-bind:item="welcome"></Card>
@@ -14,7 +17,9 @@
                     </v-col>
                 </v-row>
                 <v-row>
-                    <Card v-bind:item="item" v-for="item of items" v-bind:key="item.title"></Card>
+                    <v-col cols="3" v-for="item of items" v-bind:key="item.title">
+                        <Card v-bind:item="item"></Card>
+                    </v-col>
                 </v-row>
             </v-container>
         </v-col>
@@ -24,12 +29,14 @@
 <script>
     import SideBar from "./SideBar";
     import Card from "./Card";
+    import Autocomplete from '@trevoreyre/autocomplete-vue';
 
     export default {
         name: "Home",
         components: {
             SideBar,
-            Card
+            Card,
+            Autocomplete
         },
         data: () => {
             return {
@@ -73,6 +80,10 @@
         height: 100%;
         margin: 0;
         position: relative;
+    }
+
+    .search {
+        background: #1f232c;
     }
 
 </style>
