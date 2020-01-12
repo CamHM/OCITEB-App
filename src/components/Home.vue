@@ -13,6 +13,16 @@
                                     solo-inverted>
                     </v-autocomplete>
                 </v-toolbar>
+                <v-row no-gutters>
+                    <v-col>
+                        <h3 class="foreground-init font-weight-thin">Inicio</h3>
+                    </v-col>
+                    <v-col lg="1">
+                        <v-btn class="button-info" icon small color="white">
+                            <v-icon>mdi-information-variant</v-icon>
+                        </v-btn>
+                    </v-col>
+                </v-row>
                 <v-row>
                     <v-col cols="6">
                         <Card v-bind:item="welcome"></Card>
@@ -26,6 +36,7 @@
                         <Card v-bind:item="item"></Card>
                     </v-col>
                 </v-row>
+                <Footer></Footer>
             </v-container>
         </v-col>
     </v-row>
@@ -34,40 +45,58 @@
 <script>
     import SideBar from "./SideBar";
     import Card from "./Card";
+    import Footer from "./Footer";
 
     export default {
         name: "Home",
         components: {
             SideBar,
-            Card
+            Card,
+            Footer
         },
         data: () => {
             return {
                 welcome: {
                     title: "Bienvenido a OCITEB",
-                    icon: "mdi-xbox-controller",
-                    description: "Observatorio de ciencia, innovación y tecnología de Boyacá."
+                    icon: "mdi-seal-variant",
+                    description: "Observatorio de ciencia, innovación y tecnología de Boyacá.",
+                    card_color: "primary",
+                    avatar_color: "orange",
+                    icon_color: "white"
                 },
                 items: [
                     {
                         title: "Facultades",
-                        icon: "mdi-xbox-controller",
-                        description: "Observatorio de ciencia, innovación y tecnología de Boyacá."
+                        icon: "mdi-checkbox-multiple-blank-outline",
+                        description: "Facultades de la Universidad Pedagógica y\n" +
+                            "Tecnológica de Colombia",
+                        card_color: "secondary",
+                        avatar_color: "white",
+                        icon_color: "blue"
                     },
                     {
                         title: "Escuelas",
-                        icon: "mdi-xbox-controller",
-                        description: "Observatorio de ciencia, innovación y tecnología de Boyacá."
+                        icon: "mdi-dock-left",
+                        description: "Escuelas por Facultad",
+                        card_color: "secondary",
+                        avatar_color: "white",
+                        icon_color: "green"
                     },
                     {
                         title: "Invetigadores",
-                        icon: "mdi-xbox-controller",
-                        description: "Observatorio de ciencia, innovación y tecnología de Boyacá."
+                        icon: "mdi-account",
+                        description: "Investigadores ubicados en la institución academica",
+                        card_color: "secondary",
+                        avatar_color: "white",
+                        icon_color: "pink"
                     },
                     {
                         title: "Grupos de Investigación",
-                        icon: "mdi-xbox-controller",
-                        description: "Observatorio de ciencia, innovación y tecnología de Boyacá."
+                        icon: "mdi-account-group",
+                        description: "Grupos de investigación cientifica de cada escuela",
+                        card_color: "secondary",
+                        avatar_color: "white",
+                        icon_color: "orange"
                     }
                 ]
             }
@@ -91,5 +120,13 @@
 
     .rounded-toolbar {
         border-radius: 10px;
+    }
+
+    .foreground-init {
+        color: white;
+    }
+
+    .button-info {
+        background-color: #f7b345;
     }
 </style>

@@ -15,7 +15,7 @@
         },
         data: () => {
             return {
-                listTitle: "Área",
+                listTitle: "Áreas",
                 items: [
                     {
                         title: 'Facultades',

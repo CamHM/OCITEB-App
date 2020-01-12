@@ -1,12 +1,15 @@
 <template>
     <v-card class="card" elevation="5"
-        color="secondary">
+        v-bind:color="item.card_color">
         <br />
-        <v-avatar color="orange" size="85">
-            <v-icon class="text secondary--text headline font-weight-thin">{{ item.icon }}</v-icon>
-        </v-avatar>
+        <div class="text-center">
+            <v-avatar v-bind:color="item.avatar_color" size="85">
+                <v-icon v-bind:color="item.icon_color">{{ item.icon }}</v-icon>
+            </v-avatar>
+        </div>
         <v-card-text>
-            <h2 class="text title warning--text font-weight-thin">{{ item.title }}</h2>
+            <h2 class="text title white--text font-weight-medium">{{ item.title }}</h2>
+            <h5 class="text white--text font-weight-thin">{{ item.description }}</h5>
         </v-card-text>
     </v-card>
 </template>
