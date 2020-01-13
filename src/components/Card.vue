@@ -7,7 +7,7 @@
             </v-avatar>
         </div>
         <v-card-text>
-            <h4 class="text title white--text font-weight-light">{{ item.title }}</h4>
+            <h4 class="text title white--text font-weight-regular">{{ item.title }}</h4>
             <h5 class="text white--text font-weight-light">{{ item.description }}</h5>
         </v-card-text>
     </v-card>
