@@ -1,14 +1,14 @@
 <template>
     <v-container class="dark-style bar">
-        <h1 class="dark-style">
+        <h4 class="dark-style">
             OCITEB
-        </h1>
-        <v-btn color="primary" class="child">
-            <v-icon left>mdi-home-variant-outline</v-icon>
+        </h4>
+        <v-btn color="primary" class="homeButton">
+            <v-icon left class="homeIcon">mdi-home-variant-outline</v-icon>
             Inicio
         </v-btn>
-        <Menu></Menu>
-        <v-btn outlined class="child" color="primary">Ingresar</v-btn>
+        <Menu />
+        <v-btn outlined class="child" color="primary" small>Ingresar</v-btn>
     </v-container>
 </template>
 
@@ -30,21 +30,28 @@
     .dark-style {
         background: #1f232c;
         color: #f7b345;
-        align-self: center;
     }
 
     .bar {
         height: 100vh;
-        margin: 0;
-        position: relative;
+        text-align: center;
+    }
+    .homeButton {
+        text-transform: capitalize;
+        width: 90%;
+        padding: 0;
+        font-family: Calibri, Serif, sans-serif ;
         display: flex;
         justify-content: flex-start;
-        flex-direction: column;
-        padding: 5px;
+        margin-left: 10px;
     }
-
     .child {
         margin: 10px;
+        width: 70%;
+        text-transform: capitalize;
+    }
+    .bar > h4 {
+        margin: 10px 0;
     }
 
 </style>

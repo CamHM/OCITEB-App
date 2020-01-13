@@ -1,42 +1,41 @@
 <template>
     <v-row no-gutters>
         <v-col cols="2">
-            <SideBar></SideBar>
+            <SideBar />
         </v-col>
         <v-col cols="10">
             <v-container class="dark-back">
-                <v-toolbar class="search rounded-toolbar">
-                    <v-icon color="white">mdi-magnify</v-icon>
-                    <v-autocomplete cache-items
-                                    class="mx-2" flat hide-no-data
-                                    hide-details label="Búsqueda"
-                                    solo-inverted>
-                    </v-autocomplete>
-                </v-toolbar>
-                <v-row no-gutters>
-                    <v-col>
-                        <h3 class="foreground-init font-weight-thin">Inicio</h3>
-                    </v-col>
-                    <v-col lg="1">
-                        <v-btn class="button-info" icon small color="white">
-                            <v-icon>mdi-information-variant</v-icon>
-                        </v-btn>
-                    </v-col>
+                <v-text-field
+                        dense
+                        label="Búsqueda"
+                        prepend-inner-icon="mdi-magnify"
+                        solo
+                        color="white"
+                        background-color="#1f232c"
+                        class="searchField"
+                > </v-text-field>
+                <v-row no-gutters class="infoHeader">
+                    <h3 class="foreground-init font-weight-thin">Inicio</h3>
+                    <v-btn class="button-info" icon small color="white">
+                        <v-icon>mdi-information-variant</v-icon>
+                    </v-btn>
                 </v-row>
                 <v-row>
                     <v-col cols="6">
-                        <Card v-bind:item="welcome"></Card>
+                        <Card v-bind:item="welcome"/>
                     </v-col>
                     <v-col cols="6">
-                        <Card v-bind:item="welcome"></Card>
+                        <Card v-bind:item="statistics"/>
                     </v-col>
                 </v-row>
                 <v-row>
                     <v-col cols="3" v-for="item of items" v-bind:key="item.title">
-                        <Card v-bind:item="item"></Card>
+                        <Card v-bind:item="item"/>
                     </v-col>
                 </v-row>
-                <Footer></Footer>
+                <v-row class="footerRow">
+                    <Footer> </Footer>
+                </v-row>
             </v-container>
         </v-col>
     </v-row>
@@ -60,9 +59,17 @@
                     title: "Bienvenido a OCITEB",
                     icon: "mdi-seal-variant",
                     description: "Observatorio de ciencia, innovación y tecnología de Boyacá.",
-                    card_color: "primary",
-                    avatar_color: "orange",
-                    icon_color: "white"
+                    card_color: "#f6c16e",
+                    avatar_color: "#f7af40",
+                    icon_color: "white",
+                    avatar_size: 85,
+                    card_height: 280,
+                },
+                statistics: {
+                    title: "Indicadores",
+                    description: "Observatorio de ciencia, innovación y tecnología de Boyacá.",
+                    card_color: "secondary",
+                    card_height: 280,
                 },
                 items: [
                     {
@@ -71,32 +78,40 @@
                         description: "Facultades de la Universidad Pedagógica y\n" +
                             "Tecnológica de Colombia",
                         card_color: "secondary",
-                        avatar_color: "white",
-                        icon_color: "blue"
+                        avatar_color: "#d5d1fb",
+                        icon_color: "#8174f2",
+                        avatar_size: 40,
+                        card_height: 200,
                     },
                     {
                         title: "Escuelas",
-                        icon: "mdi-dock-left",
+                        icon: "mdi-file-outline",
                         description: "Escuelas por Facultad",
                         card_color: "secondary",
-                        avatar_color: "white",
-                        icon_color: "green"
+                        avatar_color: "#e6f7ee",
+                        icon_color: "#2dcd7a",
+                        avatar_size: 40,
+                        card_height: 200,
                     },
                     {
                         title: "Invetigadores",
-                        icon: "mdi-account",
+                        icon: "mdi-account-outline",
                         description: "Investigadores ubicados en la institución academica",
                         card_color: "secondary",
-                        avatar_color: "white",
-                        icon_color: "pink"
+                        avatar_color: "#fceaea",
+                        icon_color: "#ed6464",
+                        avatar_size: 40,
+                        card_height: 200,
                     },
                     {
                         title: "Grupos de Investigación",
-                        icon: "mdi-account-group",
+                        icon: "mdi-account-group-outline",
                         description: "Grupos de investigación cientifica de cada escuela",
                         card_color: "secondary",
-                        avatar_color: "white",
-                        icon_color: "orange"
+                        avatar_color: "#ffdfc2",
+                        icon_color: "#ffa34c",
+                        avatar_size: 40,
+                        card_height: 200,
                     }
                 ]
             }
@@ -105,28 +120,32 @@
 </script>
 
 <style scoped>
-
     .dark-back {
         background: #3f4a5b;
         width: 100%;
-        height: 100%;
+        height: 100vh;
         margin: 0;
+        padding: 20px;
+        overflow-y: scroll;
+    }
+    .searchField {
+        color: white;
+        margin: 50px;
+    }
+    .infoHeader {
+        display: flex;
+        justify-content: space-between;
         position: relative;
+        top: -7px;
     }
-
-    .search {
-        background: #1f232c;
-    }
-
-    .rounded-toolbar {
-        border-radius: 10px;
-    }
-
     .foreground-init {
         color: white;
     }
-
     .button-info {
         background-color: #f7b345;
+    }
+    .footerRow {
+        position: relative;
+        top: 15px;
     }
 </style>

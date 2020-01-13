@@ -1,15 +1,14 @@
 <template>
-    <v-card class="card" elevation="5"
-        v-bind:color="item.card_color">
-        <br />
+    <v-card class="card mx-auto" elevation="5"
+        v-bind:color="item.card_color" :height="item.card_height">
         <div class="text-center">
-            <v-avatar v-bind:color="item.avatar_color" size="85">
+            <v-avatar v-bind:color="item.avatar_color" :size="item.avatar_size">
                 <v-icon v-bind:color="item.icon_color">{{ item.icon }}</v-icon>
             </v-avatar>
         </div>
         <v-card-text>
-            <h2 class="text title white--text font-weight-medium">{{ item.title }}</h2>
-            <h5 class="text white--text font-weight-thin">{{ item.description }}</h5>
+            <h4 class="text title white--text font-weight-light">{{ item.title }}</h4>
+            <h5 class="text white--text font-weight-light">{{ item.description }}</h5>
         </v-card-text>
     </v-card>
 </template>
@@ -27,14 +26,15 @@
 
 <style scoped>
     .card {
-        box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px;
+        box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
         transition: all .3s ease-in-out;
-        height: 230px;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
     }
     .card:hover {
-        transform: translate3d(0px, -18px, 0px);
         cursor: pointer;
-        background-color: rgba(255, 255, 255, 0.1) !important;
     }
     .text {
         text-align: center;

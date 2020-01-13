@@ -1,12 +1,12 @@
 <template>
     <v-list color="secondary" dense>
-        <v-subheader dark>{{listTitle}}</v-subheader>
-        <MenItem v-bind:key="item.title" v-bind:item="item" v-for="item of items"></MenItem>
+        <v-subheader dark class="menuHeader">{{listTitle}}</v-subheader>
+        <MenItem v-bind:key="item.title" v-bind:item="item" v-for="item of items" />
     </v-list>
 </template>
 
 <script>
-    import MenItem from "./MenItem";
+    import MenItem from "./MenuItem";
 
     export default {
         name: "Menu",
@@ -19,7 +19,7 @@
                 items: [
                     {
                         title: 'Facultades',
-                        icon: 'mdi-checkbox-multiple-blank-outline'
+                        icon: 'mdi-vector-arrange-below'
                     },
                     {
                         title: 'Escuelas',
@@ -28,11 +28,11 @@
                     },
                     {
                         title: 'Investigadores',
-                        icon: 'mdi-account'
+                        icon: 'mdi-file-document-outline'
                     },
                     {
                         title: 'Grupos de invetigación',
-                        icon: 'mdi-account-group'
+                        icon: 'mdi-checkbox-marked-circle-outline'
                     }
                 ]
             }
@@ -41,9 +41,7 @@
 </script>
 
 <style scoped>
-
-    .dark-style {
-        color: white;
+    .menuHeader {
+        padding: 0 18px;
     }
-
 </style>
