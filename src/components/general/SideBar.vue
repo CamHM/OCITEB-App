@@ -44,6 +44,7 @@
         display: flex;
         justify-content: flex-start;
         margin-left: 10px;
+        box-shadow: 0 0 10px #f7b345;
     }
     .child {
         margin: 10px;

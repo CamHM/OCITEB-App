@@ -9,9 +9,7 @@
 <script>
     export default {
         name: "MenItem",
-        props: ["item"],
-        data: () => {
-        }
+        props: ["item"]
     }
 </script>
 

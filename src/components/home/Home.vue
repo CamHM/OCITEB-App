@@ -1,24 +1,12 @@
-<template class="home">
+<template>
     <v-row class="home" no-gutters>
         <v-col cols="2">
             <SideBar />
         </v-col>
         <v-col cols="10">
             <v-container class="dark-back">
-                <v-text-field
-                        dense
-                        label="Búsqueda"
-                        prepend-inner-icon="mdi-magnify"
-                        solo
-                        color="white"
-                        background-color="#1f232c"
-                        class="white--text"
-                > </v-text-field>
-                <v-row no-gutters class="infoHeader">
-                    <h3 class="foreground-init font-weight-thin">Inicio</h3>
-                    <v-btn class="button-info" icon small color="white">
-                        <v-icon>mdi-information-variant</v-icon>
-                    </v-btn>
+                <v-row>
+                    <Header />
                 </v-row>
                 <v-row>
                     <v-col cols="6">
@@ -42,9 +30,10 @@
 </template>
 
 <script>
-    import SideBar from "./SideBar";
+    import SideBar from "../general/SideBar";
     import Card from "./Card";
-    import Footer from "./Footer";
+    import Header from "../general/Header";
+    import Footer from "../general/Footer";
     import CardIndicators from "./CardIndicators";
 
     export default {
@@ -52,6 +41,7 @@
         components: {
             SideBar,
             Card,
+            Header,
             Footer,
             CardIndicators
         },
@@ -124,29 +114,17 @@
 <style scoped>
     .home {
         width: 100%;
-        overflow-y: scroll;
-    }
-    .home::-webkit-scrollbar {
-        display: none;
+        background-color: #3f4a5b;
     }
     .dark-back {
         background: #3f4a5b;
-        width: 100%;
         height: 100vh;
         margin: 0;
-        padding: 25px;
+        padding: 30px 30px 10px 30px;
+        overflow-y: scroll;
     }
-    .infoHeader {
-        display: flex;
-        justify-content: space-between;
-        position: relative;
-        top: -7px;
-    }
-    .foreground-init {
-        color: white;
-    }
-    .button-info {
-        background-color: #f7b345;
+    .dark-back::-webkit-scrollbar {
+        display: none;
     }
     .footerRow {
         position: relative;
