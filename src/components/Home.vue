@@ -25,7 +25,7 @@
                         <Card v-bind:item="welcome"/>
                     </v-col>
                     <v-col cols="6">
-                        <Card v-bind:item="statistics"/>
+                        <CardIndicators v-bind:item="statistics"/>
                     </v-col>
                 </v-row>
                 <v-row>
@@ -45,13 +45,15 @@
     import SideBar from "./SideBar";
     import Card from "./Card";
     import Footer from "./Footer";
+    import CardIndicators from "./CardIndicators";
 
     export default {
         name: "Home",
         components: {
             SideBar,
             Card,
-            Footer
+            Footer,
+            CardIndicators
         },
         data: () => {
             return {
@@ -67,7 +69,7 @@
                 },
                 statistics: {
                     title: "Indicadores",
-                    description: "Observatorio de ciencia, innovación y tecnología de Boyacá.",
+                    description: "Visualiza y compara las metricas de \n los indicadores con base en cada area disponible",
                     card_color: "secondary",
                     card_height: 280,
                 },
