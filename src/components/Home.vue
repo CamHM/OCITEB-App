@@ -1,5 +1,5 @@
-<template>
-    <v-row no-gutters>
+<template class="home">
+    <v-row class="home" no-gutters>
         <v-col cols="2">
             <SideBar />
         </v-col>
@@ -122,13 +122,19 @@
 </script>
 
 <style scoped>
+    .home {
+        width: 100%;
+        overflow-y: scroll;
+    }
+    .home::-webkit-scrollbar {
+        display: none;
+    }
     .dark-back {
         background: #3f4a5b;
         width: 100%;
         height: 100vh;
         margin: 0;
-        padding: 20px;
-        overflow-y: scroll;
+        padding: 25px;
     }
     .infoHeader {
         display: flex;

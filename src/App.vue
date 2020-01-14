@@ -30,7 +30,4 @@
 #app {
     font-family: 'Montserrat';
 }
-    #app::-webkit-scrollbar {
-        display: none;
-    }
 </style>
