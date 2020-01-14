@@ -12,7 +12,7 @@
                         solo
                         color="white"
                         background-color="#1f232c"
-                        class="searchField"
+                        class="white--text"
                 > </v-text-field>
                 <v-row no-gutters class="infoHeader">
                     <h3 class="foreground-init font-weight-thin">Inicio</h3>
@@ -127,10 +127,6 @@
         margin: 0;
         padding: 20px;
         overflow-y: scroll;
-    }
-    .searchField {
-        color: white;
-        margin: 50px;
     }
     .infoHeader {
         display: flex;

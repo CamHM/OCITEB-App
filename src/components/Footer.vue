@@ -1,6 +1,6 @@
 <template>
     <v-footer color="dark" class="footer" width="100%">
-        <h5 class="light-text font-weight-thin">COPYRIGHT @ 2019 <span class="primary-text">UPTC</span>, All rights Reserved</h5>
+        <h6 class="light-text font-weight-thin">COPYRIGHT @ 2019 <span class="primary-text">UPTC</span> All rights Reserved</h6>
     </v-footer>
 </template>
 

@@ -18,12 +18,19 @@
 
 <style>
 @font-face {
-    font-family: 'Avenir';
-    src: url("fonts/AvenirLTStd-Book.otf") format('OpenType'),
-        url("fonts/AvenirLTStd-Medium.otf") format('OpenType'),
-        url("fonts/AvenirLTStd-Roman.otf") format('OpenType')
+    font-family: 'Montserrat';
+    src:
+        url("fonts/montserrat/Montserrat-Light.otf") format('OpenType'),
+        url("fonts/montserrat/Montserrat-Bold.otf") format('OpenType'),
+        url("fonts/montserrat/Montserrat-Black.otf") format('OpenType'),
+        url("fonts/montserrat/Montserrat-Medium.otf") format('OpenType'),
+        url("fonts/montserrat/Montserrat-Regular.otf") format('OpenType'),
+        url("fonts/montserrat/Montserrat-SemiBold.otf") format('OpenType')
 }
 #app {
-    font-family: Avenir;
+    font-family: 'Montserrat';
 }
+    #app::-webkit-scrollbar {
+        display: none;
+    }
 </style>
