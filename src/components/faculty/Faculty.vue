@@ -8,8 +8,16 @@
                 <v-row>
                     <Header />
                 </v-row>
-                <v-row>
-                    <p>Bienvenido {{ $route.params.faculty }}</p>
+                <v-row class="firstRow">
+                    <p>Selects</p>
+                </v-row>
+                <v-row class="secondRow">
+                    <v-col cols="8" class="firstCol">
+
+                    </v-col>
+                    <v-col cols="4" class="secondCol">
+
+                    </v-col>
                 </v-row>
                 <v-row>
                     <Footer />
@@ -30,6 +38,11 @@
             SideBar,
             Header,
             Footer
+        },
+        data () {
+            return {
+                indicators: ['I01', 'I02', 'I03', 'I04', 'I05', 'I06']
+            }
         }
     }
 </script>
@@ -44,5 +57,18 @@
     }
     .dark-back::-webkit-scrollbar {
         display: none;
+    }
+    .firstRow {
+        background-color: crimson;
+    }
+    .secondRow {
+        background-color: #f7b345;
+        height: 100%;
+    }
+    .firstCol {
+        background-color: aqua;
+    }
+    .secondCol {
+        background-color: chartreuse;
     }
 </style>

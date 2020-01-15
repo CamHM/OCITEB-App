@@ -24,11 +24,11 @@
 
     export default {
         name: "Comparison",
-        components: [
+        components: {
             SideBar,
             Header,
             Footer
-        ]
+        }
     }
 </script>
 
