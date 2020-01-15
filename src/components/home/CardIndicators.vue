@@ -16,59 +16,69 @@
 
                 </v-col>
             </v-row>
-            <v-divider light></v-divider>
+            <v-divider/>
             <v-row>
                 <v-col cols="6">
-                    <h6 class="text-left">{{investment.title}}</h6>
-                    <v-progress-linear rounded color="deep-purple darken-1" background-color="white"
-                                       v-model="investment.num"></v-progress-linear>
+                    <ProgressIndicator v-bind:indicator="investment"/>
                 </v-col>
                 <v-col cols="6">
-                    <h6 class="text-left">{{capacity.title}}</h6>
+                    <h6>{{capacity.title}}</h6>
                     <v-progress-linear rounded color="blue darken-3" background-color="white"
-                                       v-model="capacity.num"></v-progress-linear>
+                                       v-model="capacity.num"/>
                 </v-col>
             </v-row>
             <v-row>
                 <v-col cols="6">
-                    <h6 class="text-left">{{formation.title}}</h6>
-                    <v-progress-linear rounded color="blue darken-3" background-color="white"
-                                       v-model="formation.num"></v-progress-linear>
+                    <div>
+                        <h6>{{formation.title}}</h6>
+                        <v-progress-linear rounded color="blue darken-3" background-color="white"
+                                           v-model="formation.num"/>
+                    </div>
                 </v-col>
                 <v-col cols="6">
-                    <h6 class="text-left">{{production.title}}</h6>
+                    <h6>{{production.title}}</h6>
                     <v-progress-linear rounded color="blue darken-3" background-color="white"
-                                       v-model="production.num"></v-progress-linear>
+                                       v-model="production.num"/>
                 </v-col>
             </v-row>
         </div>
     </v-card>
+
 </template>
 
 <script>
+    // import ProgressIndicator from "./ProgressIndicator";
+
     export default {
         name: "Card",
         props: [
             'item',
+        ],
+        components: [
+            // ProgressIndicator
         ],
         methods: {},
         data: () => {
             return {
                 investment: {
                     title: "Inversión",
-                    num: 12
+                    num: 12,
+                    color: "deep-purple darken-1"
                 },
                 capacity: {
                     title: "Capacidad",
-                    num: 35
+                    num: 35,
+                    color: "deep-purple darken-1"
                 },
                 formation: {
                     title: "Formación",
-                    num: 20
+                    num: 20,
+                    color: "deep-purple darken-1"
                 },
                 production: {
                     title: "Producción bibliográfica",
-                    num: 70
+                    num: 70,
+                    color: "deep-purple darken-1"
                 }
             }
         }
@@ -110,5 +120,10 @@
         font-family: Calibri, Serif, sans-serif;
         display: flex;
         margin-left: 10px;
+    }
+
+    h6 {
+        color: white;
+        align-self: flex-start;
     }
 </style>
