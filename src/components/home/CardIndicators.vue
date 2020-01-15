@@ -15,7 +15,7 @@
                 <img src="../../assets/indicators.jpg" width="235">
             </v-col>
         </v-row>
-        <v-divider class="darken-2 grey"> </v-divider>
+        <v-divider class="darken-2 grey"></v-divider>
         <v-row class="secondRow" no-gutters>
             <v-col cols="6" class="thirdCol endPosition">
                 <div class="indicatorProgress">
@@ -46,42 +46,39 @@
 </template>
 
 <script>
-import ProgressIndicator from "./ProgressIndicator";
 
-export default {
-    name: "Card",
-    props: [
-        'item',
-    ],
-    components: [
-        ProgressIndicator
-    ],
-    methods: {},
-    data: () => {
-        return {
-            investment: {
-                title: "Inversión",
-                num: 50,
-                color: "#7567f0"
-            },
-            capacity: {
-                title: "Capacidad",
-                num: 50,
-                color: "deep-purple darken-1"
-            },
-            formation: {
-                title: "Formación",
-                num: 50,
-                color: "deep-purple darken-1"
-            },
-            production: {
-                title: "Producción bibliográfica",
-                num: 50,
-                color: "deep-purple darken-1"
+    export default {
+        name: "Card",
+        props: [
+            'item',
+        ],
+        components: [],
+        methods: {},
+        data: () => {
+            return {
+                investment: {
+                    title: "Inversión",
+                    num: 50,
+                    color: "#7567f0"
+                },
+                capacity: {
+                    title: "Capacidad",
+                    num: 50,
+                    color: "deep-purple darken-1"
+                },
+                formation: {
+                    title: "Formación",
+                    num: 50,
+                    color: "deep-purple darken-1"
+                },
+                production: {
+                    title: "Producción bibliográfica",
+                    num: 50,
+                    color: "deep-purple darken-1"
+                }
             }
         }
     }
-}
 </script>
 
 <style scoped>
@@ -89,9 +86,11 @@ export default {
         padding: 20px;
         color: white;
     }
+
     .card:hover {
         cursor: context-menu;
     }
+
     .firstRow {
         height: 75%;
         padding-bottom: 10px;
@@ -108,35 +107,44 @@ export default {
         padding-bottom: 5px;
         padding-right: 10px;
     }
+
     .secondCol {
         display: flex;
         padding-left: 10px;
     }
+
     .thirdCol {
         padding-right: 10px;
     }
+
     .fourthCol {
         padding-left: 10px;
     }
+
     .endPosition {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
     }
+
     .indicatorProgress {
         margin-bottom: 5px;
     }
+
     .homeButton {
         font-size: 11px;
         text-transform: lowercase;
     }
+
     h4 {
         font-size: 17px;
     }
+
     p {
         color: lightgray;
         font-size: 11px;
     }
+
     h6 {
         color: lightgray;
         font-size: 11px;

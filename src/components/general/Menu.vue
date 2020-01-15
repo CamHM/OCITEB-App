@@ -26,7 +26,7 @@
                         title: 'Escuelas',
                         icon: 'mdi-dock-left',
                         active: false,
-                        path: '/faculties'
+                        path: '/comparison'
                     },
                     {
                         title: 'Investigadores',
