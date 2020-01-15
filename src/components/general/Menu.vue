@@ -19,20 +19,24 @@
                 items: [
                     {
                         title: 'Facultades',
-                        icon: 'mdi-vector-arrange-below'
+                        icon: 'mdi-vector-arrange-below',
+                        path: '/faculties'
                     },
                     {
                         title: 'Escuelas',
                         icon: 'mdi-dock-left',
-                        active: false
+                        active: false,
+                        path: '/faculties'
                     },
                     {
                         title: 'Investigadores',
-                        icon: 'mdi-file-document-outline'
+                        icon: 'mdi-file-document-outline',
+                        path: '/faculties'
                     },
                     {
                         title: 'Grupos de invetigación',
-                        icon: 'mdi-checkbox-marked-circle-outline'
+                        icon: 'mdi-checkbox-marked-circle-outline',
+                        path: '/faculties'
                     }
                 ]
             }

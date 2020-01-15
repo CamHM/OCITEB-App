@@ -1,5 +1,5 @@
 <template>
-    <v-list-item @click="item" class="menuItem" dense>
+    <v-list-item @click="navigate" class="menuItem" dense>
         <v-icon color="white" size="medium" class="menuItemIcon">{{item.icon}}</v-icon>
         <p>{{item.title}}</p>
         <v-icon color="white" size="medium" class="arrowIcon menuItemIcon">mdi-chevron-right</v-icon>
@@ -9,7 +9,12 @@
 <script>
     export default {
         name: "MenItem",
-        props: ["item"]
+        props: ["item"],
+        methods: {
+            navigate() {
+                this.$router.push(this.item.path).catch(() => {});
+            }
+        }
     }
 </script>
 

@@ -3,7 +3,7 @@
         <h4 class="dark-style">
             OCITEB
         </h4>
-        <v-btn color="primary" class="homeButton">
+        <v-btn color="primary" class="homeButton" @click="goHome">
             <v-icon left class="homeIcon">mdi-home-variant-outline</v-icon>
             Inicio
         </v-btn>
@@ -23,6 +23,11 @@
         data() {
             return {}
         },
+        methods: {
+            goHome () {
+                this.$router.push('/').catch(() => {});
+            }
+        }
     }
 </script>
 

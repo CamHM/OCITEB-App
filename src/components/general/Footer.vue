@@ -17,4 +17,8 @@
     .primary-text {
         color: #f7b345;
     }
+    .footer {
+        position: fixed;
+        bottom: 10px;
+    }
 </style>
