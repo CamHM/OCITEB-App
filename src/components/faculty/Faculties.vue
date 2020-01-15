@@ -1,5 +1,5 @@
 <template>
-    <v-row class="faculties" no-gutters>
+    <v-row no-gutters>
         <v-col cols="2" class="colA">
             <SideBar />
         </v-col>
@@ -65,25 +65,19 @@
 </script>
 
 <style scoped>
-    .faculties {
-        height: 100vh;
-    }
-
     .colB {
         background-color: #3f4a5b;
-        overflow-y: scroll;
     }
-
-    .colB::-webkit-scrollbar {
-        display: none;
-    }
-
     .dark-back {
         background: #3f4a5b;
+        height: 100vh;
         margin: 0;
         padding: 30px 30px 10px 30px;
+        overflow-y: scroll;
     }
-
+    .dark-back::-webkit-scrollbar {
+        display: none;
+    }
     .facultiesContainer {
         margin: 10px 11px;
         background-color: #1f232c;
@@ -96,7 +90,7 @@
 
     .facultiesContainer > h3 {
         font-weight: 100;
-        margin-bottom: 35px;
+        margin-bottom: 25px;
     }
 
     .facultiesList {
@@ -108,7 +102,7 @@
         color: lightgray;
         border: darkgray 1px dashed;
         padding: 10px 20px;
-        font-size: 15px;
+        font-size: 13px;
         font-weight: 400;
         width: 50%;
         border-radius: 10px;
