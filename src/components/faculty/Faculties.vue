@@ -18,7 +18,7 @@
                                 {{ faculty }}
                             </div>
                         </div>
-                        <v-btn color="primary" class="facultyIndicatorButton">VER INDICADORES</v-btn>
+                        <v-btn color="primary" class="facultyIndicatorButton" @click="navigate">VER INDICADORES</v-btn>
                     </div>
                 </v-row>
                 <v-row class="footer">
@@ -59,6 +59,9 @@
         methods: {
             changeCurrentFaculty(facultyIndex) {
                 this.currentFaculty = facultyIndex
+            },
+            navigate() {
+                this.$router.push({ name: 'faculty', params: { faculty: `${this.currentFaculty}` } })
             }
         }
     }

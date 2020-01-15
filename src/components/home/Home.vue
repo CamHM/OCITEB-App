@@ -131,8 +131,4 @@
     .dark-back::-webkit-scrollbar {
         display: none;
     }
-    .footerRow {
-        position: relative;
-        top: 15px;
-    }
 </style>

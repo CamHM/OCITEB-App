@@ -29,7 +29,7 @@
         margin: 0 10px 0 10px;
         color: white;
         font-weight: lighter;
-        font-size: 13px;
+        font-size: 12px;
         align-self: flex-start;
     }
     .menuItemIcon {
