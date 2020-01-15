@@ -5,49 +5,51 @@
             <v-card-text>
                 <h4>{{ item.title }}</h4>
                 <b>{{ item.description }}</b>
-            </v-card-text>
-            <v-row>
-                <v-col cols="6">
-                    <v-btn color="primary" class="homeButton">
-                        Conoce los indicadores
-                    </v-btn>
-                </v-col>
-                <v-col cols="6">
+                <v-row>
+                    <v-col cols="6">
+                        <v-btn color="primary" class="homeButton">
+                            Conoce los indicadores
+                        </v-btn>
+                    </v-col>
+                    <v-col cols="6">
 
-                </v-col>
-            </v-row>
-            <v-divider/>
-            <v-row>
-                <v-col cols="6">
-                    <ProgressIndicator v-bind:indicator="investment"/>
-                </v-col>
-                <v-col cols="6">
-                    <h6>{{capacity.title}}</h6>
-                    <v-progress-linear rounded color="blue darken-3" background-color="white"
-                                       v-model="capacity.num"/>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="6">
-                    <div>
-                        <h6>{{formation.title}}</h6>
+                    </v-col>
+                </v-row>
+                <v-divider class="white"/>
+                <v-row>
+                    <v-col cols="6">
+                        <ProgressIndicator v-bind:indicator="investment"/>
+                        <!--                    <h6>{{investment.title}}</h6>-->
+                        <!--                    <v-progress-linear rounded color="blue darken-3" background-color="white"-->
+                        <!--                                       v-model="investment.num"/>-->
+                    </v-col>
+                    <v-col cols="6">
+                        <h6>{{capacity.title}}</h6>
                         <v-progress-linear rounded color="blue darken-3" background-color="white"
-                                           v-model="formation.num"/>
-                    </div>
-                </v-col>
-                <v-col cols="6">
-                    <h6>{{production.title}}</h6>
-                    <v-progress-linear rounded color="blue darken-3" background-color="white"
-                                       v-model="production.num"/>
-                </v-col>
-            </v-row>
+                                           v-model="capacity.num"/>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="6">
+                        <div>
+                            <h6>{{formation.title}}</h6>
+                            <v-progress-linear rounded color="blue darken-3" background-color="white"
+                                               v-model="formation.num"/>
+                        </div>
+                    </v-col>
+                    <v-col cols="6">
+                        <h6>{{production.title}}</h6>
+                        <v-progress-linear rounded color="blue darken-3" background-color="white"
+                                           v-model="production.num"/>
+                    </v-col>
+                </v-row>
+            </v-card-text>
         </div>
     </v-card>
-
 </template>
 
 <script>
-    // import ProgressIndicator from "./ProgressIndicator";
+    import ProgressIndicator from "./ProgressIndicator";
 
     export default {
         name: "Card",
@@ -55,7 +57,7 @@
             'item',
         ],
         components: [
-            // ProgressIndicator
+            ProgressIndicator
         ],
         methods: {},
         data: () => {
