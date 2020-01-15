@@ -1,6 +1,6 @@
 <template>
     <v-card class="card mx-auto" elevation="5"
-        v-bind:color="item.card_color" :height="item.card_height">
+        v-bind:color="item.card_color" :height="item.card_height" @click="navigate">
         <div>
             <div class="text-center">
                 <v-avatar v-bind:color="item.avatar_color" :size="item.avatar_size">
@@ -22,6 +22,9 @@
             'item',
         ],
         methods: {
+            navigate() {
+                this.$router.push(this.item.path);
+            }
         }
     }
 </script>

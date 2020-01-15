@@ -56,6 +56,7 @@
                     icon_color: "white",
                     avatar_size: 85,
                     card_height: 280,
+                    path: '/'
                 },
                 statistics: {
                     title: "Indicadores",
@@ -74,6 +75,7 @@
                         icon_color: "#8174f2",
                         avatar_size: 40,
                         card_height: 200,
+                        path: '/faculties',
                     },
                     {
                         title: "Escuelas",
@@ -84,6 +86,7 @@
                         icon_color: "#2dcd7a",
                         avatar_size: 40,
                         card_height: 200,
+                        path: '/faculties',
                     },
                     {
                         title: "Invetigadores",
@@ -94,6 +97,7 @@
                         icon_color: "#ed6464",
                         avatar_size: 40,
                         card_height: 200,
+                        path: '/faculties',
                     },
                     {
                         title: "Grupos de Investigación",
@@ -104,6 +108,7 @@
                         icon_color: "#ffa34c",
                         avatar_size: 40,
                         card_height: 200,
+                        path: '/faculties',
                     }
                 ]
             }
