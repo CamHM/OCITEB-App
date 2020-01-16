@@ -8,7 +8,14 @@
                 <v-row>
                     <Header/>
                 </v-row>
+                <v-row>
+                    <v-col cols="9">
 
+                    </v-col>
+                    <v-col cols="3">
+                        <SidebarComparison/>
+                    </v-col>
+                </v-row>
                 <v-row class="footerRow">
                     <Footer/>
                 </v-row>
@@ -21,13 +28,15 @@
     import SideBar from "../general/SideBar";
     import Header from "../general/Header";
     import Footer from "../general/Footer";
+    import SidebarComparison from "./SidebarComparison";
 
     export default {
         name: "Comparison",
         components: {
             SideBar,
             Header,
-            Footer
+            Footer,
+            SidebarComparison
         }
     }
 </script>
