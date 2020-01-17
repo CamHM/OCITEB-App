@@ -5,6 +5,18 @@
                 <v-icon :color="item.iconColor" size="20px">{{item.icon}}</v-icon>
             </v-avatar>
             <p>{{item.title}}</p>
+            <svg height="100" width="300" :style="chartStyle">
+                <path d="
+                        M 0,60
+                        C 0,60 20,60 30,50
+                        S 50,5 80,70
+                        Q 100,100 130,60
+                        T 190,80
+                        Q 205,100 230,30
+                        T 270,60
+                        C 280,90 290,30 300,30
+                " />
+            </svg>
         </div>
         <div v-else class="normalCard">
             <p>{{item.title}}</p>
@@ -15,7 +27,12 @@
 <script>
     export default {
         name: "IndicatorCard",
-        props: ['item']
+        props: ['item'],
+        data () {
+            return {
+                chartStyle: `fill:none;stroke:${this.item.iconColor};stroke-width:2;stroke-linejoin:round;`
+            }
+        }
     }
 </script>
 

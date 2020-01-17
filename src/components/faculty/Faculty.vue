@@ -113,7 +113,8 @@
                     iconColor: '#2dcd7a',
                 },
                 faculties: [
-                    'Facultad de Ingenieria',
+                    'Facultad de Ingenieria' +
+                    '',
                     'Facultad de Ciencias Agropecuarias',
                     'Facultad de Ciencias',
                     'Facultad de Ciencias de la salud',
