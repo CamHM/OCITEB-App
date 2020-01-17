@@ -7,7 +7,19 @@
             </label>
         </div>
         <v-row no-gutters class="infoHeader">
-            <h3 class="foreground-init font-weight-thin">Inicio</h3>
+            <div>
+                <v-row>
+                    <v-col cols="3">
+                        <h3 class="foreground-init font-weight-thin">Inicio</h3>
+                    </v-col>
+                    <v-col cols="2">
+                        <v-divider class="mx-4 white" vertical/>
+                    </v-col>
+                    <v-col cols="7">
+                        <v-breadcrumbs class="breadcrumb" :items="itemsBreadc" divider=">>"/>
+                    </v-col>
+                </v-row>
+            </div>
             <v-btn class="button-info" icon small color="white" @click="showDialog">
                 <v-icon>mdi-information-variant</v-icon>
             </v-btn>
@@ -24,6 +36,9 @@
         components: {
             InfoDialog
         },
+        props: [
+            'itemsBreadc'
+        ],
         data: function() {
             return {
                 showInfo: false

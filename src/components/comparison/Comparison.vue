@@ -9,6 +9,14 @@
                     <Header/>
                 </v-row>
                 <v-row>
+                    <v-col cols="2" offset-md="8">
+                        <v-select class="combobox" :items="items" label="Tipo de gráfica" outlined dense/>
+                    </v-col>
+                    <v-col class="ml-auto" cols="2" offset-md="10">
+                        <v-select class="combobox" :items="items" label="Año" outlined dense/>
+                    </v-col>
+                </v-row>
+                <v-row>
                     <v-col cols="9">
 
                     </v-col>
@@ -37,7 +45,12 @@
             Header,
             Footer,
             SidebarComparison
-        }
+        },
+        data: function () {
+            return {
+                items: ['2014', '2015', '2016']
+            }
+        },
     }
 </script>
 
@@ -49,7 +62,12 @@
         padding: 30px 30px 10px 30px;
         overflow-y: scroll;
     }
+
     .dark-back::-webkit-scrollbar {
         display: none;
+    }
+
+    .combobox {
+
     }
 </style>

@@ -15,7 +15,7 @@
                 <img src="../../assets/indicators.jpg" width="235">
             </v-col>
         </v-row>
-        <v-divider class="darken-2 grey"></v-divider>
+        <v-divider class="darken-2 grey"/>
         <v-row class="secondRow" no-gutters>
             <v-col cols="6" class="thirdCol endPosition">
                 <div class="indicatorProgress">
