@@ -17,11 +17,8 @@
                     </v-col>
                     <v-col cols="7">
                         <v-breadcrumbs :items="itemsBreadc">
-                            <template v-slot:item="props">
-                                <v-breadcrumbs-item :href="props.item.href"
-                                        :class="[props.item.disabled && 'disabled']">
-                                    {{ props.item.text.toUpperCase() }}
-                                </v-breadcrumbs-item>
+                            <template v-slot:divider>
+                                <v-icon color="primary">mdi-chevron-double-right</v-icon>
                             </template>
                         </v-breadcrumbs>
                     </v-col>
