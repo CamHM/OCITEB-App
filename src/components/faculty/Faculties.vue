@@ -6,7 +6,7 @@
         <v-col cols="10" class="colB">
             <v-container class="dark-back">
                 <v-row>
-                    <Header />
+                    <Header :items-breadc="itemsBreadc"/>
                 </v-row>
                 <v-row>
                     <div class="facultiesContainer">
@@ -53,7 +53,19 @@
                     'Facultad de Derecho y ciencias Sociales',
                     'Facultad de Estudios a Distancia.'
                 ],
-                currentFaculty: 0
+                currentFaculty: 0,
+                itemsBreadc: [
+                    {
+                        text: '',
+                        disabled: false,
+                        href: '/'
+                    },
+                    {
+                        text: 'Facultades',
+                        disabled: true,
+                        href: '',
+                    }
+                ]
             }
         },
         methods: {

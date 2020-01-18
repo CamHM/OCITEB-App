@@ -6,7 +6,7 @@
         <v-col cols="10">
             <v-container class="dark-back">
                 <v-row>
-                    <Header v-bind:itemsBreadc="itemsBreadc"/>
+                    <Header />
                 </v-row>
                 <v-row>
                     <v-col cols="6">
@@ -109,18 +109,6 @@
                         avatar_size: 40,
                         card_height: 200,
                         path: '/faculties',
-                    }
-                ],
-                itemsBreadc: [
-                    {
-                        text: 'Inicio',
-                        disabled: false,
-                        href: '/'
-                    },
-                    {
-                        text: 'Inicio',
-                        disabled: true,
-                        href: '',
                     }
                 ]
             }

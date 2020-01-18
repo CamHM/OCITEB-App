@@ -6,9 +6,8 @@
         <v-col cols="10">
             <v-container class="dark-back">
                 <v-row>
-                    <Header />
+                    <Header :items-breadc="itemsBreadc"/>
                 </v-row>
-                <p style="color: white; font-size: 13px">{{faculties[$route.params.faculty]}}</p>
                 <v-row class="firstRow">
                     <div class="select">
                         <v-select :items="indicators" label="Indicadores" style="width: 200px" solo dense> </v-select>
@@ -122,6 +121,23 @@
                     'Facultad de Ciencias de la educacion',
                     'Facultad de Derecho y ciencias Sociales',
                     'Facultad de Estudios a Distancia'
+                ],
+                itemsBreadc: [
+                    {
+                        text: '',
+                        disabled: false,
+                        href: '/'
+                    },
+                    {
+                        text: 'Facultades',
+                        disabled: false,
+                        href: 'faculties',
+                    },
+                    {
+                        text: `${this.$route.params.faculty}`,
+                        disabled: true,
+                        href: '',
+                    }
                 ],
             }
         }

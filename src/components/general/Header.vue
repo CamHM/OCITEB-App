@@ -7,22 +7,17 @@
             </label>
         </div>
         <v-row no-gutters class="infoHeader">
-            <div>
-                <v-row>
-                    <v-col cols="3">
-                        <h3 class="foreground-init font-weight-thin">Inicio</h3>
-                    </v-col>
-                    <v-col cols="2">
-                        <v-divider class="mx-4 white" vertical/>
-                    </v-col>
-                    <v-col cols="7">
-                        <v-breadcrumbs :items="itemsBreadc">
-                            <template v-slot:divider>
-                                <v-icon color="primary">mdi-chevron-double-right</v-icon>
-                            </template>
-                        </v-breadcrumbs>
-                    </v-col>
-                </v-row>
+            <div class="navigationInfo">
+                <h3 class="foreground-init font-weight-thin">Inicio</h3>
+                <div v-if="itemsBreadc" class="navigationInfo">
+                    <v-divider class="mx-4 white" vertical/>
+                    <v-icon style="color: #f7b345;font-size: 15px" @click="goHome">mdi-home-variant-outline</v-icon>
+                    <v-breadcrumbs :items="itemsBreadc" class="breadcrumb" dark>
+                        <template v-slot:divider>
+                            <v-icon color="white">mdi-chevron-double-right</v-icon>
+                        </template>
+                    </v-breadcrumbs>
+                </div>
             </div>
             <v-btn class="button-info" icon small color="white" @click="showDialog">
                 <v-icon>mdi-information-variant</v-icon>
@@ -54,6 +49,9 @@
             },
             closeDialog() {
                 this.showInfo = false;
+            },
+            goHome() {
+                this.$router.push('/');
             }
         }
     }
@@ -99,5 +97,12 @@
     .disabled {
         color: gray;
         pointer-events: none;
+    }
+    .navigationInfo {
+        display: flex;
+    }
+    .breadcrumb {
+        padding: 0;
+        color: white;
     }
 </style>
