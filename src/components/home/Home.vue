@@ -114,6 +114,11 @@
                 itemsBreadc: [
                     {
                         text: 'Inicio',
+                        disabled: false,
+                        href: '/'
+                    },
+                    {
+                        text: 'Inicio',
                         disabled: true,
                         href: '',
                     }

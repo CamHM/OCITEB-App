@@ -16,7 +16,14 @@
                         <v-divider class="mx-4 white" vertical/>
                     </v-col>
                     <v-col cols="7">
-                        <v-breadcrumbs class="breadcrumb" :items="itemsBreadc" divider=">>"/>
+                        <v-breadcrumbs :items="itemsBreadc">
+                            <template v-slot:item="props">
+                                <v-breadcrumbs-item :href="props.item.href"
+                                        :class="[props.item.disabled && 'disabled']">
+                                    {{ props.item.text.toUpperCase() }}
+                                </v-breadcrumbs-item>
+                            </template>
+                        </v-breadcrumbs>
                     </v-col>
                 </v-row>
             </div>
@@ -91,5 +98,9 @@
     .searchInput:focus {
         outline: none !important;
         border:none;
+    }
+    .disabled {
+        color: gray;
+        pointer-events: none;
     }
 </style>

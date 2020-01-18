@@ -10,10 +10,10 @@
                 </v-row>
                 <v-row>
                     <v-col cols="2" offset-md="8">
-                        <v-select class="combobox" :items="items" label="Tipo de gráfica" outlined dense/>
+                        <v-select :items="items" label="Tipo de gráfico" solo dense/>
                     </v-col>
                     <v-col class="ml-auto" cols="2" offset-md="10">
-                        <v-select class="combobox" :items="items" label="Año" outlined dense/>
+                        <v-select :items="items" label="Año" solo dense/>
                     </v-col>
                 </v-row>
                 <v-row>
@@ -67,7 +67,15 @@
         display: none;
     }
 
-    .combobox {
-
+    .firstRow {
+        display: flex;
+        margin-top: 5px;
+        height: 40px;
+    }
+    .select {
+        width: auto;
+        display: flex;
+        margin-left: 12px;
+        margin-right: 12px;
     }
 </style>
