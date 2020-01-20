@@ -57,7 +57,7 @@
                     colors: ['#8770fa', '#ffa653', '#eb6262'],
                     fill: {
                         opacity: 1,
-                    },/*
+                    },
                     legend: {
                         show: true,
                         showForSingleSeries: false,
@@ -69,13 +69,27 @@
                             colors: ['#bdbdbd', '#bdbdbd', '#bdbdbd'],
                             useSeriesColors: false
                         },
+                        markers: {
+                            width: 12,
+                            height: 12,
+                            strokeWidth: 2,
+                            strokeColor: '#fff',
+                            fillColors: undefined,
+                            radius: 12,
+                            customHTML: function() {
+                                return '<span class="custom-marker"><i class="custom-i"></i></span>'
+                            },
+                            onClick: undefined,
+                            offsetX: 0,
+                            offsetY: 0
+                        },
                         onItemClick: {
                             toggleDataSeries: true
                         },
                         onItemHover: {
                             highlightDataSeries: true
                         },
-                    },*/
+                    },
                     stroke: {
                         lineCap: "round",
                     }
@@ -87,5 +101,4 @@
 </script>
 
 <style scoped>
-
 </style>

@@ -8,10 +8,7 @@
                 <v-row>
                     <Header :items-breadc="itemsBreadc"/>
                 </v-row>
-                <v-row class="firstRow">
-                    <div class="select">
-                        <v-select :items="indicators" label="Indicadores" style="width: 200px" solo dense> </v-select>
-                    </div>
+                <v-row class="firstRow" v-if="showOptions">
                     <div class="select">
                         <v-select :items="charts" label="Tipo de gráfico" style="width: 200px" solo dense> </v-select>
                         <v-select :items="years" label="Año" solo dense style="margin-left: 20px; width: 120px"> </v-select>
@@ -21,7 +18,9 @@
                     <v-col cols="8" class="firstCol">
                         <v-row class="indicatorsFirstRow">
                             <v-col cols="6" v-for="(indicator, number) in selectedIndicators" :key="number">
-                                <IndicatorCard :item="indicator" />
+                                <IndicatorCard :item="indicator" @on-options="changeShowOptions">
+                                    <RadialBar />
+                                </IndicatorCard>
                             </v-col>
                         </v-row>
                         <v-row class="indicatorsSecondRow">
@@ -51,6 +50,7 @@
     import Header from "../general/Header";
     import Footer from "../general/Footer";
     import IndicatorCard from "../indicators/IndicatorCard";
+    import RadialBar from "../charts/RadialBar";
 
     export default {
         name: "Faculty",
@@ -59,10 +59,11 @@
             Header,
             Footer,
             IndicatorCard,
+            RadialBar,
         },
         data () {
             return {
-                indicators: ['I01', 'I02', 'I03', 'I04', 'I05', 'I06'],
+                showOptions: false,
                 charts: ['Tarta', 'Pie', 'Dona', 'Y todo tipo de comida más'],
                 years: ['2016', '2017', '2018', '2019'],
                 panelIndicators: [
@@ -143,6 +144,11 @@
                     }
                 ],
             }
+        },
+        methods: {
+            changeShowOptions() {
+                this.showOptions = !this.showOptions
+            }
         }
     }
 </script>
@@ -160,7 +166,7 @@
     }
     .firstRow {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         margin-top: 5px;
         height: 40px;
     }
@@ -173,13 +179,12 @@
     .secondRow {
         height: 120%;
     }
-    .firstCol {
-    }
     .indicatorsFirstRow {
         height: 55%;
     }
     .indicatorsSecondRow {
         height: 45%;
+        margin-top: 12px;
     }
     .panelRow {
         height: 33%;

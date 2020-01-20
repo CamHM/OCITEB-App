@@ -1,5 +1,5 @@
 <template>
-    <v-card class="card">
+    <v-card class="card" @click="showOptions">
         <div v-if="item.isPanel" class="layout panelCard">
             <v-avatar :color="item.bgc" size="36px">
                 <v-icon :color="item.iconColor" size="20px">{{item.icon}}</v-icon>
@@ -28,23 +28,25 @@
         </div>
         <div v-else class="normalCard">
             <p>{{item.title}}</p>
-            <RadialBar />
+            <slot> </slot>
         </div>
     </v-card>
 </template>
 
 <script>
-    import RadialBar from "../charts/RadialBar";
-
     export default {
         name: "IndicatorCard",
         components: {
-            RadialBar,
         },
         props: ['item'],
         data () {
             return {
                 chartStyle: `fill:url(#gradient) #3f4a5b;stroke:${this.item.iconColor};stroke-width:2;stroke-linejoin:round;`
+            }
+        },
+        methods: {
+            showOptions() {
+                this.$emit('on-options')
             }
         }
     }
@@ -57,7 +59,7 @@
         width: 100%;
         height: 100%;
         color: beige;
-        padding: 12px 20px;
+        padding: 10px 20px 5px 20px;
     }
     .panelCard {
         font-size: 12px;
