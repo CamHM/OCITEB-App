@@ -72,6 +72,7 @@
                         isPanel: true,
                         bgc: '#ffdfc2',
                         iconColor: '#ff9e43',
+                        iconRGBColor: '255, 158, 67',
                     },
                     {
                         title: 'I06 - Ingresos por extensión y proyección social',
@@ -79,6 +80,7 @@
                         isPanel: true,
                         bgc: '#fceaea',
                         iconColor: '#ed5f5f',
+                        iconRGBColor: '237, 95, 95',
                     },
                     {
                         title: 'F03 - Semilleros de investigación',
@@ -86,6 +88,7 @@
                         isPanel: true,
                         bgc: '#e6f7ee',
                         iconColor: '#2dcd7a',
+                        iconRGBColor: '45, 205, 122',
                     },
                 ],
                 selectedIndicators: [

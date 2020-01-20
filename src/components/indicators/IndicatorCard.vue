@@ -5,7 +5,14 @@
                 <v-icon :color="item.iconColor" size="20px">{{item.icon}}</v-icon>
             </v-avatar>
             <p>{{item.title}}</p>
-            <svg height="100" width="300" :style="chartStyle">
+            <svg height="100" width="300" :style="chartStyle" class="panelChart">
+                <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#d6a57f" stop-opacity="1"/>
+                        <stop offset="60%" stop-color="#997c6f" stop-opacity="1"/>
+                        <stop offset="100%" stop-color="#373a56" stop-opacity="0.9"/>
+                    </linearGradient>
+                </defs>
                 <path d="
                         M 0,60
                         C 0,60 20,60 30,50
@@ -14,7 +21,8 @@
                         T 190,80
                         Q 205,100 230,30
                         T 270,60
-                        C 280,90 290,30 300,30
+                        C 280,90 290,30 301,30
+                        V 101 H -1 V 60
                 " />
             </svg>
         </div>
@@ -36,7 +44,7 @@
         props: ['item'],
         data () {
             return {
-                chartStyle: `fill:none;stroke:${this.item.iconColor};stroke-width:2;stroke-linejoin:round;`
+                chartStyle: `fill:url(#gradient) #3f4a5b;stroke:${this.item.iconColor};stroke-width:2;stroke-linejoin:round;`
             }
         }
     }
