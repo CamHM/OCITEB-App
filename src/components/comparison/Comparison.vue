@@ -1,5 +1,5 @@
 <template>
-    <v-row no-gutters>
+    <v-row class="comparison" no-gutters>
         <v-col cols="2">
             <SideBar/>
         </v-col>
@@ -10,21 +10,30 @@
                 </v-row>
                 <v-row>
                     <v-col cols="2" offset-md="8">
-                        <v-select :items="items" label="Tipo de gráfico" solo dense/>
+                        <v-select :items="charts" label="Tipo de gráfico" solo dense/>
                     </v-col>
                     <v-col class="ml-auto" cols="2" offset-md="10">
-                        <v-select :items="items" label="Año" solo dense/>
+                        <v-select :items="years" label="Año" solo dense/>
                     </v-col>
                 </v-row>
                 <v-row>
                     <v-col cols="9">
-
+                        <v-row class="indicatorsFirstRow">
+                            <v-col cols="6" v-for="(indicator, number) in selectedIndicators" :key="number">
+                                <IndicatorCard :item="indicator"/>
+                            </v-col>
+                        </v-row>
+                        <v-row class="indicatorsSecondRow">
+                            <v-col cols="12">
+                                <IndicatorCard :item="mainIndicator"/>
+                            </v-col>
+                        </v-row>
                     </v-col>
                     <v-col cols="3">
                         <SidebarComparison/>
                     </v-col>
                 </v-row>
-                <v-row class="footerRow">
+                <v-row>
                     <Footer/>
                 </v-row>
             </v-container>
@@ -37,6 +46,7 @@
     import Header from "../general/Header";
     import Footer from "../general/Footer";
     import SidebarComparison from "./SidebarComparison";
+    import IndicatorCard from "../indicators/IndicatorCard";
 
     export default {
         name: "Comparison",
@@ -44,17 +54,46 @@
             SideBar,
             Header,
             Footer,
-            SidebarComparison
+            SidebarComparison,
+            IndicatorCard
         },
         data: function () {
             return {
-                items: ['2014', '2015', '2016']
+                charts: ['Tarta', 'Pie', 'Dona', 'Y todo tipo de comida más'],
+                years: ['2016', '2017', '2018', '2019'],
+                selectedIndicators: [
+                    {
+                        title: 'I02 - Inversión en I+D a nivel de proyectos',
+                        icon: 'mdi-currency-usd',
+                        isPanel: false,
+                        bgc: '#e6f7ee',
+                        iconColor: '#2dcd7a',
+                    },
+                    {
+                        title: 'I01 - Número de proyectos de investigación según financiación',
+                        icon: 'mdi-currency-usd',
+                        isPanel: false,
+                        bgc: '#e6f7ee',
+                        iconColor: '#2dcd7a',
+                    },
+                ],
+                mainIndicator: {
+                    title: 'I05 - Ingresos recursos propios posgrados',
+                    icon: 'mdi-currency-usd',
+                    isPanel: false,
+                    bgc: '#e6f7ee',
+                    iconColor: '#2dcd7a',
+                }
             }
         },
     }
 </script>
 
 <style scoped>
+    .comparison {
+        width: 100%;
+        background-color: #3f4a5b;
+    }
     .dark-back {
         background: #3f4a5b;
         height: 100vh;
@@ -67,15 +106,11 @@
         display: none;
     }
 
-    .firstRow {
-        display: flex;
-        margin-top: 5px;
-        height: 40px;
+    .indicatorsFirstRow {
+        height: 60%;
     }
-    .select {
-        width: auto;
-        display: flex;
-        margin-left: 12px;
-        margin-right: 12px;
+
+    .indicatorsSecondRow {
+        height: 60%;
     }
 </style>

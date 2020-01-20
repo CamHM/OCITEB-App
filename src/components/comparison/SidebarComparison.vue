@@ -24,7 +24,7 @@
                     {
                         title: 'Facultades',
                         path: '/faculties',
-                        options: []
+                        // options: []
                     },
                     {
                         title: 'Seccionales',
@@ -39,12 +39,12 @@
                     {
                         title: 'Escuelas',
                         path: '/faculties',
-                        options: []
+                        // options: []
                     },
                     {
                         title: 'Grupos de invetigación',
                         path: '/faculties',
-                        options: []
+                        // options: []
                     }
                 ],
                 items2: [

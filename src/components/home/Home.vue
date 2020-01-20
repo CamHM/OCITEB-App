@@ -21,8 +21,8 @@
                         <Card v-bind:item="item"/>
                     </v-col>
                 </v-row>
-                <v-row class="footerRow">
-                    <Footer> </Footer>
+                <v-row>
+                    <Footer/>
                 </v-row>
             </v-container>
         </v-col>

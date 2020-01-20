@@ -5,7 +5,7 @@
                 <v-list-item-title v-text="item.title"/>
             </v-list-item-content>
         </template>
-        <v-radio-group multiple>
+        <v-radio-group multiple v-if="item.options">
             <v-list-item v-for="subItem in item.options" :key="subItem">
                 <v-radio color="primary"/>
                 <v-list-item-content class="white--text">

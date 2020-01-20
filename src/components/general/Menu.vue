@@ -19,24 +19,29 @@
                 items: [
                     {
                         title: 'Facultades',
-                        icon: 'mdi-vector-arrange-below',
+                        icon: 'mdi-checkbox-multiple-blank-outline',
                         path: '/faculties'
                     },
                     {
                         title: 'Escuelas',
-                        icon: 'mdi-dock-left',
+                        icon: 'mdi-file-outline',
                         active: false,
-                        path: '/comparison'
+                        path: '/faculties'
                     },
                     {
                         title: 'Investigadores',
-                        icon: 'mdi-file-document-outline',
+                        icon: 'mdi-account-outline',
                         path: '/faculties'
                     },
                     {
-                        title: 'Grupos de invetigación',
-                        icon: 'mdi-checkbox-marked-circle-outline',
+                        title: 'Grupos de investigación',
+                        icon: 'mdi-account-group-outline',
                         path: '/faculties'
+                    },
+                    {
+                        title: 'Camparación',
+                        icon: 'mdi-checkbox-marked-circle-outline',
+                        path: '/comparison'
                     }
                 ]
             }
