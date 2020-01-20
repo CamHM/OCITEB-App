@@ -20,13 +20,19 @@
         </div>
         <div v-else class="normalCard">
             <p>{{item.title}}</p>
+            <RadialBar />
         </div>
     </v-card>
 </template>
 
 <script>
+    import RadialBar from "../charts/RadialBar";
+
     export default {
         name: "IndicatorCard",
+        components: {
+            RadialBar,
+        },
         props: ['item'],
         data () {
             return {
