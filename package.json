@@ -9,9 +9,16 @@
   },
   "dependencies": {
     "apexcharts": "^3.15.2",
+    "apollo-cache-inmemory": "^1.6.5",
+    "apollo-client": "^2.6.8",
+    "apollo-link": "^1.2.13",
+    "apollo-link-http": "^1.5.16",
     "core-js": "^3.3.2",
+    "graphql": "^14.5.8",
+    "graphql-tag": "^2.10.1",
     "vue": "^2.6.10",
     "vue-apexcharts": "^1.5.2",
+    "vue-apollo": "^3.0.2",
     "vue-router": "^3.1.4",
     "vuetify": "^2.1.0"
   },
