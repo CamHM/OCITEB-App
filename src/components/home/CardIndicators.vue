@@ -7,7 +7,7 @@
                     <h4><b>{{ item.title }}</b></h4>
                     <p>{{ item.description }}</p>
                 </div>
-                <v-btn small color="primary" class="homeButton">
+                <v-btn small color="primary" class="homeButton" @click="goComparison">
                     Conoce los indicadores
                 </v-btn>
             </v-col>
@@ -53,7 +53,6 @@
             'item',
         ],
         components: [],
-        methods: {},
         data: () => {
             return {
                 investment: {
@@ -76,6 +75,11 @@
                     num: 50,
                     color: "deep-purple darken-1"
                 }
+            }
+        },
+        methods: {
+            goComparison () {
+                this.$router.push('/comparison').catch(() => {});
             }
         }
     }

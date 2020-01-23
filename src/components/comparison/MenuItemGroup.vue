@@ -9,7 +9,7 @@
             <v-list-item v-for="subItem in item.options" :key="subItem">
                 <v-radio color="primary"/>
                 <v-list-item-content class="white--text">
-                    <v-list-item-title v-text="subItem"/>
+                    <v-list-item-title class="text-wrap" v-text="subItem"/>
                 </v-list-item-content>
             </v-list-item>
         </v-radio-group>
