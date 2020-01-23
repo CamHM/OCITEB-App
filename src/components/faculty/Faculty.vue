@@ -69,7 +69,7 @@
     import IndicatorCard from "../indicators/IndicatorCard";
     import RadialBar from "../charts/RadialBar";
     import DonutChart from "../charts/DonutChart";
-    import AreaChart from "../charts/AreaChart";
+    import AreaChart from "../charts/LineChart";
 
     export default {
         name: "Faculty",
