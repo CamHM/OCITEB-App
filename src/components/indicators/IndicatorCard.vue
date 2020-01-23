@@ -1,5 +1,5 @@
 <template>
-    <v-card class="card" @click="showOptions">
+    <v-card class="card">
         <div v-if="item.isPanel" class="layout panelCard">
             <v-avatar :color="item.bgc" size="36px">
                 <v-icon :color="item.iconColor" size="20px">{{item.icon}}</v-icon>
@@ -27,8 +27,10 @@
             </svg>
         </div>
         <div v-else class="normalCard">
-            <p>{{item.title}}</p>
-            <slot> </slot>
+            <div class="indicator-header">
+                <slot name="indicator-header"> </slot>
+            </div>
+            <slot name="indicator-chart"> </slot>
         </div>
     </v-card>
 </template>
@@ -44,11 +46,6 @@
                 chartStyle: `fill:url(#gradient) #3f4a5b;stroke:${this.item.iconColor};stroke-width:2;stroke-linejoin:round;`
             }
         },
-        methods: {
-            showOptions() {
-                this.$emit('on-options')
-            }
-        }
     }
 </script>
 
@@ -73,5 +70,9 @@
     }
     .normalCard > p {
         font-size: 13px;
+    }
+    .indicator-header {
+        display: flex;
+        justify-content: space-between;
     }
 </style>

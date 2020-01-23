@@ -17,15 +17,32 @@
                 <v-row class="secondRow">
                     <v-col cols="8" class="firstCol">
                         <v-row class="indicatorsFirstRow">
-                            <v-col cols="6" v-for="(indicator, number) in selectedIndicators" :key="number">
-                                <IndicatorCard :item="indicator" @on-options="changeShowOptions">
-                                    <RadialBar />
+                            <v-col cols="6">
+                                <IndicatorCard :item="selectedIndicators[0]">
+                                    <div slot="indicator-header" class="indicator-header">
+                                        <p>I01 - Número de proyectos de investigación según financiación</p>
+                                        <v-icon color="white" @click="changeShowOptions">mdi-dots-vertical</v-icon>
+                                    </div>
+                                    <RadialBar slot="indicator-chart"> </RadialBar>
+                                </IndicatorCard>
+                            </v-col>
+                            <v-col cols="6">
+                                <IndicatorCard :item="selectedIndicators[1]">
+                                    <div slot="indicator-header">
+                                        <p>I01 - Número de proyectos de investigación según financiación</p>
+                                    </div>
+                                    <DonutChart slot="indicator-chart"> </DonutChart>
                                 </IndicatorCard>
                             </v-col>
                         </v-row>
                         <v-row class="indicatorsSecondRow">
                             <v-col cols="12">
-                                <IndicatorCard :item="mainIndicator"/>
+                                <IndicatorCard :item="mainIndicator">
+                                    <div slot="indicator-header">
+                                        <p>I01 - Número de proyectos de investigación según financiación</p>
+                                    </div>
+                                    <AreaChart slot="indicator-chart"> </AreaChart>
+                                </IndicatorCard>
                             </v-col>
                         </v-row>
                     </v-col>
@@ -51,6 +68,8 @@
     import Footer from "../general/Footer";
     import IndicatorCard from "../indicators/IndicatorCard";
     import RadialBar from "../charts/RadialBar";
+    import DonutChart from "../charts/DonutChart";
+    import AreaChart from "../charts/AreaChart";
 
     export default {
         name: "Faculty",
@@ -60,6 +79,8 @@
             Footer,
             IndicatorCard,
             RadialBar,
+            DonutChart,
+            AreaChart,
         },
         data () {
             return {
@@ -184,9 +205,14 @@
     }
     .indicatorsSecondRow {
         height: 45%;
-        margin-top: 12px;
+        margin-top: 10px;
     }
     .panelRow {
         height: 33%;
+    }
+    .indicator-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
     }
 </style>
