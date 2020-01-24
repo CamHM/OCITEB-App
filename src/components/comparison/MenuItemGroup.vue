@@ -5,12 +5,13 @@
                 <v-list-item-title v-text="item.title"/>
             </v-list-item-content>
         </template>
-        <v-radio-group multiple v-if="item.options">
+        <v-radio-group multiple v-if="item.options.length > 0">
             <v-list-item v-for="subItem in item.options" :key="subItem">
-                <v-radio color="primary"/>
-                <v-list-item-content class="white--text">
-                    <v-list-item-title class="text-wrap" v-text="subItem"/>
-                </v-list-item-content>
+                <v-radio color="primary">
+                    <template v-slot:label>
+                        <h6 class="text-wrap white--text"> {{subItem}}</h6>
+                    </template>
+                </v-radio>
             </v-list-item>
         </v-radio-group>
     </v-list-group>
@@ -18,7 +19,7 @@
 
 <script>
     export default {
-        name: "MenItem",
+        name: "MenuItemGroup",
         props: ["item"]
     }
 </script>
