@@ -25,14 +25,31 @@
                     <v-col cols="8" class="firstCol">
                         <v-row class="indicatorsFirstRow">
                             <v-col cols="6">
-
+                                <IndicatorCard :item="selectedIndicators[0]">
+                                    <div slot="indicator-header" class="indicator-header">
+                                        <p>I01 - Número de proyectos de investigación según financiación</p>
+                                        <v-icon color="white" @click="changeShowOptions">mdi-dots-vertical</v-icon>
+                                    </div>
+                                    <RadialBar slot="indicator-chart"> </RadialBar>
+                                </IndicatorCard>
                             </v-col>
                             <v-col cols="6">
-
+                                <IndicatorCard :item="selectedIndicators[1]">
+                                    <div slot="indicator-header">
+                                        <p>I01 - Número de proyectos de investigación según financiación</p>
+                                    </div>
+                                    <DonutChart slot="indicator-chart"> </DonutChart>
+                                </IndicatorCard>
                             </v-col>
                         </v-row>
                         <v-row class="indicatorsSecondRow">
                             <v-col cols="12">
+                                <IndicatorCard :item="mainIndicator">
+                                    <div slot="indicator-header">
+                                        <p>I01 - Número de proyectos de investigación según financiación</p>
+                                    </div>
+                                    <LineChart slot="indicator-chart"> </LineChart>
+                                </IndicatorCard>
                             </v-col>
                         </v-row>
                     </v-col>
@@ -73,6 +90,9 @@
     import Header from "../general/Header";
     import Footer from "../general/Footer";
     import IndicatorCard from "../indicators/IndicatorCard";
+    import RadialBar from "../charts/RadialBar";
+    import DonutChart from "../charts/DonutChart";
+    import LineChart from "../charts/LineChart";
     import gql from "graphql-tag";
 
     export default {
@@ -82,6 +102,9 @@
             Header,
             Footer,
             IndicatorCard,
+            RadialBar,
+            DonutChart,
+            LineChart,
         },
         data () {
             return {
