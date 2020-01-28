@@ -1,0 +1,13 @@
+query reportsByIndicator($value: String!) {
+    Indicator(value: $value) {
+        name
+        reports {
+            code
+            value
+            graphic
+            icon
+            bgc
+            iconColor
+        }
+    }
+}

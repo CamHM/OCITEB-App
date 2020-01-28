@@ -1,0 +1,11 @@
+query findFaculty($_id: String!) {
+    Faculty(
+        _id: $_id
+    ) {
+        _id
+        name
+        abbreviation
+        report
+        type
+    }
+}

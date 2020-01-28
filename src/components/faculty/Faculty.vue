@@ -6,9 +6,16 @@
         <v-col cols="10">
             <v-container class="dark-back">
                 <v-row>
-                    <Header :items-breadc="itemsBreadc"/>
+                    <Header :items-breadc="itemsBreadc.concat({
+                        text: `${Faculty.name}`,
+                        disabled: true,
+                        href: '',
+                    })"/>
                 </v-row>
                 <v-row class="firstRow" v-if="showOptions">
+                    <v-col cols="4">
+                        <v-select :items="indicators" v-model="value" label="Indicadores" solo dense> </v-select>
+                    </v-col>
                     <div class="select">
                         <v-select :items="charts" label="Tipo de gráfico" style="width: 200px" solo dense> </v-select>
                         <v-select :items="years" label="Año" solo dense style="margin-left: 20px; width: 120px"> </v-select>
@@ -18,40 +25,39 @@
                     <v-col cols="8" class="firstCol">
                         <v-row class="indicatorsFirstRow">
                             <v-col cols="6">
-                                <IndicatorCard :item="selectedIndicators[0]">
-                                    <div slot="indicator-header" class="indicator-header">
-                                        <p>I01 - Número de proyectos de investigación según financiación</p>
-                                        <v-icon color="white" @click="changeShowOptions">mdi-dots-vertical</v-icon>
-                                    </div>
-                                    <RadialBar slot="indicator-chart"> </RadialBar>
-                                </IndicatorCard>
+
                             </v-col>
                             <v-col cols="6">
-                                <IndicatorCard :item="selectedIndicators[1]">
-                                    <div slot="indicator-header">
-                                        <p>I01 - Número de proyectos de investigación según financiación</p>
-                                    </div>
-                                    <DonutChart slot="indicator-chart"> </DonutChart>
-                                </IndicatorCard>
+
                             </v-col>
                         </v-row>
                         <v-row class="indicatorsSecondRow">
                             <v-col cols="12">
-                                <IndicatorCard :item="mainIndicator">
-                                    <div slot="indicator-header">
-                                        <p>I01 - Número de proyectos de investigación según financiación</p>
-                                    </div>
-                                    <AreaChart slot="indicator-chart"> </AreaChart>
-                                </IndicatorCard>
                             </v-col>
                         </v-row>
                     </v-col>
                     <v-col cols="4" class="secondCol">
-                        <v-row class="panelRow" v-for="(indicator, number) in panelIndicators " :key="number">
-                            <v-col>
-                                <IndicatorCard :item="indicator"/>
-                            </v-col>
-                        </v-row>
+                        <ApolloQuery
+                                :query="require('../../graphql/Reports.gql')"
+                                :variables="{ value }"
+                        >
+                            <template slot-scope="{ result: { loading, data, error }}">
+                                <div v-if="loading">
+                                    <v-progress-linear indeterminate color="cyan"> </v-progress-linear>
+                                </div>
+                                <div v-else-if="error">
+                                    {{error.message}}
+                                </div>
+                                <div v-else-if="data" class="panel">
+                                    <v-row v-for="report in data.Indicator.reports" :key="report.code" class="panelRow">
+                                        <v-col>
+                                            <IndicatorCard :item="report" panel="true"/>
+                                        </v-col>
+                                    </v-row>
+                                </div>
+                                <div v-else class="no-result apollo">Selecciona un Indicador para empezar </div>
+                            </template>
+                        </ApolloQuery>
                     </v-col>
                 </v-row>
                 <v-row>
@@ -67,9 +73,7 @@
     import Header from "../general/Header";
     import Footer from "../general/Footer";
     import IndicatorCard from "../indicators/IndicatorCard";
-    import RadialBar from "../charts/RadialBar";
-    import DonutChart from "../charts/DonutChart";
-    import AreaChart from "../charts/LineChart";
+    import gql from "graphql-tag";
 
     export default {
         name: "Faculty",
@@ -78,41 +82,16 @@
             Header,
             Footer,
             IndicatorCard,
-            RadialBar,
-            DonutChart,
-            AreaChart,
         },
         data () {
             return {
-                showOptions: false,
+                Faculty: {},
+                value: '',
+                showOptions: true,
+                indicators: ['Inversión', 'Formación', 'Capacidades', 'Producción Bibliografica'],
+                Indicator: { },
                 charts: ['Tarta', 'Pie', 'Dona', 'Y todo tipo de comida más'],
                 years: ['2016', '2017', '2018', '2019'],
-                panelIndicators: [
-                    {
-                        title: 'I03 - Inversión en I+D por tipo de entidad',
-                        icon: 'mdi-shopping-outline',
-                        isPanel: true,
-                        bgc: '#ffdfc2',
-                        iconColor: '#ff9e43',
-                        iconRGBColor: '255, 158, 67',
-                    },
-                    {
-                        title: 'I06 - Ingresos por extensión y proyección social',
-                        icon: 'mdi-cart-outline',
-                        isPanel: true,
-                        bgc: '#fceaea',
-                        iconColor: '#ed5f5f',
-                        iconRGBColor: '237, 95, 95',
-                    },
-                    {
-                        title: 'F03 - Semilleros de investigación',
-                        icon: 'mdi-currency-usd',
-                        isPanel: true,
-                        bgc: '#e6f7ee',
-                        iconColor: '#2dcd7a',
-                        iconRGBColor: '45, 205, 122',
-                    },
-                ],
                 selectedIndicators: [
                     {
                         title: 'I02 - Inversión en I+D a nivel de proyectos',
@@ -136,17 +115,6 @@
                     bgc: '#e6f7ee',
                     iconColor: '#2dcd7a',
                 },
-                faculties: [
-                    'Facultad de Ingenieria' +
-                    '',
-                    'Facultad de Ciencias Agropecuarias',
-                    'Facultad de Ciencias',
-                    'Facultad de Ciencias de la salud',
-                    'Facultad de Ciencias economicas y administrativas',
-                    'Facultad de Ciencias de la educacion',
-                    'Facultad de Derecho y ciencias Sociales',
-                    'Facultad de Estudios a Distancia'
-                ],
                 itemsBreadc: [
                     {
                         text: '',
@@ -158,11 +126,6 @@
                         disabled: false,
                         href: 'faculties',
                     },
-                    {
-                        text: `${this.$route.params.faculty}`,
-                        disabled: true,
-                        href: '',
-                    }
                 ],
             }
         },
@@ -170,6 +133,25 @@
             changeShowOptions() {
                 this.showOptions = !this.showOptions
             }
+        },
+        apollo: {
+            Faculty: {
+                query: gql`
+                    query findFaculty ($_id: String!) {
+                        Faculty(_id: $_id) {
+                            _id
+                            name
+                            abbreviation
+                            report
+                            type
+                        }
+                    }`,
+                variables () {
+                    return {
+                        _id: this.$route.params.faculty
+                    }
+                }
+            },
         }
     }
 </script>
@@ -187,7 +169,7 @@
     }
     .firstRow {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         margin-top: 5px;
         height: 40px;
     }
@@ -206,6 +188,16 @@
     .indicatorsSecondRow {
         height: 45%;
         margin-top: 10px;
+    }
+    .secondCol {
+        overflow-y: scroll;
+        overflow-x: auto;
+        padding: 20px 10px;
+        height: 110vh;
+        margin-top: 20px;
+    }
+    .secondCol::-webkit-scrollbar {
+        display: none;
     }
     .panelRow {
         height: 33%;

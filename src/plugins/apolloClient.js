@@ -1,5 +1,6 @@
+// En caso de instalcion manual
 import Vue from 'vue';
-import VueApollo, {ApolloProvider} from 'vue-apollo';
+import VueApollo from 'vue-apollo';
 
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from "apollo-link-http";

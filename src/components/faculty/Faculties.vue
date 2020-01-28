@@ -12,10 +12,11 @@
                     <div class="facultiesContainer">
                         <h3>Facultades</h3>
                         <div class="facultiesList">
-                            <div v-for="(faculty, number) in faculties" :key="faculty"
-                                 :class="{facultyCard: currentFaculty >=0, facultyCardSelected: currentFaculty === number}"
-                                 @click="changeCurrentFaculty(number)" >
-                                {{ faculty }}
+                            <v-progress-linear indeterminate color="cyan" v-if="$apollo.queries.Faculties.loading"> </v-progress-linear>
+                            <div v-for="faculty in Faculties" :key="faculty._id"
+                                 :class="{facultyCard: currentFaculty.length >= 0, facultyCardSelected: currentFaculty === faculty._id}"
+                                 @click="changeCurrentFaculty(faculty._id)" >
+                                {{ faculty.name }}
                             </div>
                         </div>
                         <v-btn color="primary" class="facultyIndicatorButton" @click="navigate">VER INDICADORES</v-btn>
@@ -33,6 +34,7 @@
     import SideBar from "../general/SideBar";
     import Header from "../general/Header";
     import Footer from "../general/Footer";
+    import gql from 'graphql-tag';
 
     export default {
         name: "Faculties",
@@ -43,17 +45,8 @@
         },
         data () {
             return {
-                faculties: [
-                    'Facultad de Ingenieria.',
-                    'Facultad de Ciencias Agropecuarias',
-                    'Facultad de Ciencias.',
-                    'Facultad de Ciencias de la salud.',
-                    'Facultad de Ciencias economicas y administrativas.',
-                    'Facultad de Ciencias de la educacion.',
-                    'Facultad de Derecho y ciencias Sociales',
-                    'Facultad de Estudios a Distancia.'
-                ],
-                currentFaculty: 0,
+                Faculties: [],
+                currentFaculty: '',
                 itemsBreadc: [
                     {
                         text: '',
@@ -73,8 +66,21 @@
                 this.currentFaculty = facultyIndex
             },
             navigate() {
-                this.$router.push({ name: 'faculty', params: { faculty: `${this.currentFaculty}` } })
+                this.$router.push({
+                    name: 'faculty',
+                    params: { faculty: `${this.currentFaculty}` },
+                })
             }
+        },
+        apollo: {
+            Faculties: gql`
+                query faculties {
+                    Faculties {
+                        _id
+                        name
+                    }
+                }
+            `,
         }
     }
 </script>

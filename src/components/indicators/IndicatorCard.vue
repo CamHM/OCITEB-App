@@ -1,10 +1,10 @@
 <template>
     <v-card class="card">
-        <div v-if="item.isPanel" class="layout panelCard">
+        <div v-if="panel" class="layout panelCard">
             <v-avatar :color="item.bgc" size="36px">
                 <v-icon :color="item.iconColor" size="20px">{{item.icon}}</v-icon>
             </v-avatar>
-            <p>{{item.title}}</p>
+            <p>{{item.code}} - {{ item.value }}</p>
             <svg height="100" width="300" :style="chartStyle" class="panelChart">
                 <defs>
                     <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -40,12 +40,18 @@
         name: "IndicatorCard",
         components: {
         },
-        props: ['item'],
+        props: ['item', 'panel'],
         data () {
             return {
                 chartStyle: `fill:url(#gradient) #3f4a5b;stroke:${this.item.iconColor};stroke-width:2;stroke-linejoin:round;`
             }
         },
+        methods: {
+            randomIcon(id) {
+                const icons = ['mdi-shopping-outline', 'mdi-cart-outline', 'mdi-currency-usd'];
+                return icons[id-1];
+            }
+        }
     }
 </script>
 
@@ -56,7 +62,7 @@
         width: 100%;
         height: 100%;
         color: beige;
-        padding: 10px 20px 5px 20px;
+        padding: 10px 20px 10px 20px;
     }
     .panelCard {
         font-size: 12px;
@@ -74,5 +80,9 @@
     .indicator-header {
         display: flex;
         justify-content: space-between;
+    }
+    .panelChart {
+        border: #1f232c 1px solid;
+        border-radius: 0 0 5px 5px;
     }
 </style>
