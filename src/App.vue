@@ -26,3 +26,7 @@
     font-family: 'Montserrat';
 }
 </style>
+
+<style lang="scss">
+    @import 'assets/scss/style';
+</style>

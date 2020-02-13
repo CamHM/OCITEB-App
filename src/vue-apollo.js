@@ -46,18 +46,44 @@ const defaultOptions = {
   // clientState: { resolvers: { ... }, defaults: { ... } }
 }
 
+
+const clientAOptions = {
+  httpEndpoint: 'https://ociteb.herokuapp.com/graphql'
+}
+
+const clientBOptions = {
+  httpEndpoint: 'http://3.20.217.224:4001/graphql'//'http://localhost:4001/graphql',
+}
+
+
+
+
 // Call this in the Vue app file
+// eslint-disable-next-line no-unused-vars
 export function createProvider (options = {}) {
   // Create apollo client
-  const { apolloClient, wsClient } = createApolloClient({
+  const apolloClientA  = createApolloClient({
     ...defaultOptions,
-    ...options,
+    ...clientAOptions,
   })
-  apolloClient.wsClient = wsClient
+  // apolloClientA.wsClient = wsClient
+
+  const apolloClientB  = createApolloClient({
+    ...defaultOptions,
+    ...clientBOptions,
+  })
+  // apolloClientB.wsClient = wsClientB
+
+  const a = apolloClientA.apolloClient
+  const b = apolloClientB.apolloClient
 
   // Create vue apollo provider
   const apolloProvider = new VueApollo({
-    defaultClient: apolloClient,
+    clients:{
+      a,
+      b
+    },
+    defaultClient: a,
     defaultOptions: {
       $query: {
         fetchPolicy: 'cache-and-network',

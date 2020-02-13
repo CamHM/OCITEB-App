@@ -42,7 +42,12 @@
                         title: 'Camparación',
                         icon: 'mdi-checkbox-marked-circle-outline',
                         path: '/comparison'
-                    }
+                    },
+                    {
+                        title: 'Grafo',
+                        icon: 'mdi-checkbox-marked-circle-outline',
+                        path: '/graph'
+                    },
                 ]
             }
         }
