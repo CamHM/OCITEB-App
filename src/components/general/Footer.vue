@@ -18,6 +18,6 @@
         color: #f7b345;
     }
     .footer {
-        margin-top: 50px;
+        margin-top: 140px;
     }
 </style>

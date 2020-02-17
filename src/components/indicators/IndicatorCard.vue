@@ -70,6 +70,9 @@
     .panelCard > p {
         margin: 10px 0;
     }
+    .panelCard:hover {
+        cursor: pointer;
+    }
     .layout {
         display: flex;
         flex-direction: column;

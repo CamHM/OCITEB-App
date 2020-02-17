@@ -19,7 +19,7 @@
                                 {{ faculty.name }}
                             </div>
                         </div>
-                        <v-btn color="primary" class="facultyIndicatorButton" @click="navigate">VER INDICADORES</v-btn>
+                        <v-btn color="primary" class="facultyIndicatorButton" @click="navigate" :disabled="currentFaculty === ''">VER INDICADORES</v-btn>
                     </div>
                 </v-row>
                 <v-row class="footer">

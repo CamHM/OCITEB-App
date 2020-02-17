@@ -22,33 +22,19 @@
                     </div>
                 </v-row>
                 <v-row class="secondRow">
-                    <v-col cols="8" class="firstCol">
+                    <v-col v-if="indicator" cols="8" class="firstCol">
                         <v-row class="indicatorsFirstRow">
-                            <v-col cols="6">
+                            <v-col :cols="(graphic === 'bar' || graphic === 'pie' || graphic === 'radial') ? 6 : 12" v-for="graphic in indicator.graphic" :key="graphic">
                                 <IndicatorCard :item="selectedIndicators[0]">
                                     <div slot="indicator-header" class="indicator-header">
-                                        <p>I01 - Número de proyectos de investigación según financiación</p>
+                                        <p>{{ indicator.code}} - {{indicator.value}}</p>
                                         <v-icon color="white" @click="changeShowOptions">mdi-dots-vertical</v-icon>
                                     </div>
-                                    <RadialBar slot="indicator-chart"> </RadialBar>
-                                </IndicatorCard>
-                            </v-col>
-                            <v-col cols="6">
-                                <IndicatorCard :item="selectedIndicators[1]">
-                                    <div slot="indicator-header">
-                                        <p>I01 - Número de proyectos de investigación según financiación</p>
-                                    </div>
-                                    <DonutChart slot="indicator-chart"> </DonutChart>
-                                </IndicatorCard>
-                            </v-col>
-                        </v-row>
-                        <v-row class="indicatorsSecondRow">
-                            <v-col cols="12">
-                                <IndicatorCard :item="mainIndicator">
-                                    <div slot="indicator-header">
-                                        <p>I01 - Número de proyectos de investigación según financiación</p>
-                                    </div>
-                                    <LineChart slot="indicator-chart"> </LineChart>
+                                    <RadialBar v-if="graphic === 'radial'" slot="indicator-chart"> </RadialBar>
+                                    <DonutChart v-if="graphic === 'pie'" slot="indicator-chart"> </DonutChart>
+                                    <BarChart v-if="graphic === 'bar'" slot="indicator-chart"> </BarChart>
+                                    <LineChart v-if="graphic === 'points'" slot="indicator-chart"></LineChart>
+                                    <p>{{graphic}}</p>
                                 </IndicatorCard>
                             </v-col>
                         </v-row>
@@ -66,7 +52,7 @@
                                     {{error.message}}
                                 </div>
                                 <div v-else-if="data" class="panel">
-                                    <v-row v-for="report in data.Indicator.reports" :key="report.code" class="panelRow">
+                                    <v-row v-for="report in data.Indicator.reports" :key="report.code" class="panelRow" @click="showActualIndicator(report)">
                                         <v-col>
                                             <IndicatorCard :item="report" panel="true"/>
                                         </v-col>
@@ -92,6 +78,7 @@
     import IndicatorCard from "../indicators/IndicatorCard";
     import RadialBar from "../charts/RadialBar";
     import DonutChart from "../charts/DonutChart";
+    import BarChart from "../charts/BarChart";
     import LineChart from "../charts/LineChart";
     import gql from "graphql-tag";
 
@@ -104,6 +91,7 @@
             IndicatorCard,
             RadialBar,
             DonutChart,
+            BarChart,
             LineChart,
         },
         data () {
@@ -112,7 +100,8 @@
                 value: '',
                 showOptions: true,
                 indicators: ['Inversión', 'Formación', 'Capacidades', 'Producción Bibliografica'],
-                Indicator: { },
+                cardNumber: 0,
+                indicator: null,
                 charts: ['Tarta', 'Pie', 'Dona', 'Y todo tipo de comida más'],
                 years: ['2016', '2017', '2018', '2019'],
                 selectedIndicators: [
@@ -155,7 +144,10 @@
         methods: {
             changeShowOptions() {
                 this.showOptions = !this.showOptions
-            }
+            },
+            showActualIndicator(indicator) {
+                    this.indicator = indicator;
+            },
         },
         apollo: {
             Faculty: {
@@ -184,7 +176,7 @@
         background: #3f4a5b;
         height: 100vh;
         margin: 0;
-        padding: 30px 30px 10px 30px;
+        padding: 30px 30px 30px 30px;
         overflow-y: scroll;
     }
     .dark-back::-webkit-scrollbar {
@@ -208,16 +200,13 @@
     .indicatorsFirstRow {
         height: 55%;
     }
-    .indicatorsSecondRow {
-        height: 45%;
-        margin-top: 10px;
-    }
     .secondCol {
         overflow-y: scroll;
         overflow-x: auto;
         padding: 20px 10px;
         height: 110vh;
         margin-top: 20px;
+        float: right;
     }
     .secondCol::-webkit-scrollbar {
         display: none;
