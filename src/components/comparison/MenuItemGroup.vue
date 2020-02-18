@@ -2,36 +2,57 @@
     <v-list-group no-action>
         <template v-slot:activator>
             <v-list-item-content class="white--text">
-                <v-list-item-title v-text="item.title"/>
+                <v-list-item-title v-text="title"/>
             </v-list-item-content>
         </template>
-        <v-radio-group multiple v-if="item.options.length > 0">
-            <v-list-item v-for="subItem in item.options" :key="subItem">
-                <v-radio color="primary">
-                    <template v-slot:label>
-                        <h6 class="text-wrap white--text"> {{subItem}}</h6>
-                    </template>
-                </v-radio>
-            </v-list-item>
-        </v-radio-group>
+        <template style="margin: 0" v-if="type === 'O'">
+            <v-checkbox v-for="subItem in items" :key="subItem._id" color="primary"
+                        :value="subItem._id" :label="subItem.name" dark
+                        off-icon="mdi-checkbox-blank-circle-outline"
+                        on-icon="mdi-disc" class="checkbox-property"
+                        v-on:change="select(subItem._id)" v-model="enable"/>
+        </template>
+        <template style="margin: 0" v-if="type === 'I'">
+            <v-checkbox v-for="subItem in items" :key="subItem.code" color="primary"
+                        :value="subItem.code" :label="subItem.code + ' - ' +subItem.value" dark
+                        off-icon="mdi-checkbox-blank-circle-outline"
+                        on-icon="mdi-disc" class="checkbox-property"
+                        v-on:change="select(subItem.code)" v-model="enable"/>
+        </template>
     </v-list-group>
 </template>
 
 <script>
     export default {
         name: "MenuItemGroup",
-        props: ["item"]
+        props: ['title', 'items', 'type'],
+        data: () => {
+            return {
+                list: []
+            }
+        },
+        methods: {
+            enable() {
+                return this. list.length < 3;
+
+            },
+            select(code) {
+                if (this.list.find(item => item === code)) {
+                    this.list = this.list.filter(function (e) {
+                        return e !== code;
+                    });
+                } else {
+                    if (this.list.length < 3) {
+                        this.list.push(code);
+                    }
+                }
+                this.$emit('selectIndicator', this.list);
+            }
+        }
     }
 </script>
 
 <style scoped>
-    .menuItem {
-        margin: 0;
-        text-align: left;
-        display: flex;
-        justify-content: flex-start;
-    }
-
     .menuItem > p {
         margin: 0 10px 0 10px;
         color: white;
@@ -40,7 +61,15 @@
         align-self: flex-start;
     }
 
-    .arrowIcon {
-        margin-left: auto;
+    .checkbox-property {
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 12px;
+        padding: 0;
+    }
+
+    .checkbox-property /deep/ label {
+        color: white;
+        font-size: 11px;
     }
 </style>

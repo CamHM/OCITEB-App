@@ -39,7 +39,7 @@
                         path: '/faculties'
                     },
                     {
-                        title: 'Camparación',
+                        title: 'Comparación',
                         icon: 'mdi-checkbox-marked-circle-outline',
                         path: '/comparison'
                     },

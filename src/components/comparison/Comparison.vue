@@ -18,14 +18,33 @@
                 </v-row>
                 <v-row>
                     <v-col cols="9">
-                        <v-row class="indicatorsFirstRow">
-                            <v-col cols="6" v-for="(indicator, number) in selectedIndicators" :key="number">
-                                <IndicatorCard :item="indicator"/>
+                        <v-row>
+                            <v-col cols="6">
+                                <IndicatorCard :item="selectedIndicators[0]">
+                                    <div slot="indicator-header" class="indicator-header">
+                                        <p>I01 - Número de proyectos de investigación según financiación</p>
+                                        <v-icon color="white">mdi-dots-vertical</v-icon>
+                                    </div>
+                                    <RadialBar slot="indicator-chart"/>
+                                </IndicatorCard>
+                            </v-col>
+                            <v-col cols="6">
+                                <IndicatorCard :item="selectedIndicators[1]">
+                                    <div slot="indicator-header">
+                                        <p>I01 - Número de proyectos de investigación según financiación</p>
+                                    </div>
+                                    <DonutChart slot="indicator-chart"/>
+                                </IndicatorCard>
                             </v-col>
                         </v-row>
                         <v-row class="indicatorsSecondRow">
                             <v-col cols="12">
-                                <IndicatorCard :item="mainIndicator"/>
+                                <IndicatorCard :item="mainIndicator">
+                                    <div slot="indicator-header">
+                                        <p>I01 - Número de proyectos de investigación según financiación</p>
+                                    </div>
+                                    <LineChart slot="indicator-chart"/>
+                                </IndicatorCard>
                             </v-col>
                         </v-row>
                     </v-col>
@@ -47,6 +66,9 @@
     import Footer from "../general/Footer";
     import SidebarComparison from "./SidebarComparison";
     import IndicatorCard from "../indicators/IndicatorCard";
+    import RadialBar from "../charts/RadialBar";
+    import DonutChart from "../charts/DonutChart";
+    import LineChart from "../charts/LineChart";
 
     export default {
         name: "Comparison",
@@ -55,7 +77,10 @@
             Header,
             Footer,
             SidebarComparison,
-            IndicatorCard
+            IndicatorCard,
+            RadialBar,
+            DonutChart,
+            LineChart
         },
         data: function () {
             return {
@@ -94,6 +119,7 @@
         width: 100%;
         background-color: #3f4a5b;
     }
+
     .dark-back {
         background: #3f4a5b;
         height: 100vh;
@@ -101,16 +127,7 @@
         padding: 30px 30px 10px 30px;
         overflow-y: scroll;
     }
-
     .dark-back::-webkit-scrollbar {
         display: none;
-    }
-
-    .indicatorsFirstRow {
-        height: 60%;
-    }
-
-    .indicatorsSecondRow {
-        height: 60%;
     }
 </style>
