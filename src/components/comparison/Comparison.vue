@@ -39,6 +39,7 @@
                     </v-col>
                     <v-col v-if="indicators.length < 1 || faculties.length < 1" cols="9">
                         <LinePoints/>
+                        <BarPointLine/>
                     </v-col>
                     <v-col cols="3">
                         <SidebarComparison @selectFaculties="setFaculties" @selectIndicators="setIndicators"/>
@@ -63,6 +64,7 @@
     import LineChart from "../charts/LineChart";
     import BarChart from "../charts/BarChart";
     import LinePoints from "../charts/LinePoints";
+    import BarPointLine from "../charts/BarPointLine";
 
     export default {
         name: "Comparison",
@@ -76,7 +78,8 @@
             DonutChart,
             LineChart,
             BarChart,
-            LinePoints
+            LinePoints,
+            BarPointLine
         },
         data: function () {
             return {

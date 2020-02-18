@@ -25,7 +25,7 @@
                             },
                         }
                     },
-                    colors: ['#8770fa', '#ffa653', '#eb6262'],
+                    colors: ['#8770fa', '#eb6262', '#ffa653'],
                     dataLabels: {
                         enabled: true,
                         offsetY: -20,
