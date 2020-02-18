@@ -31,10 +31,13 @@
                                         <p>{{ indicator.code}} - {{indicator.value}}</p>
                                         <v-icon color="white" @click="changeShowOptions">mdi-dots-vertical</v-icon>
                                     </div>
-                                    <RadialBar v-if="graphic === 'radial'" slot="indicator-chart"></RadialBar>
+                                    <RadialBar v-if="graphic === 'radial' || graphic === 'points'"  slot="indicator-chart"></RadialBar>
                                     <DonutChart v-if="graphic === 'pie'" slot="indicator-chart"></DonutChart>
                                     <BarChart v-if="graphic === 'bar'" slot="indicator-chart"></BarChart>
                                     <LineChart v-if="graphic === 'line' || graphic === 'area'" :type="graphic" slot="indicator-chart"></LineChart>
+                                    <LineChart v-if="graphic === 'line-compare'" type="line" slot="indicator-chart"></LineChart>
+                                    <BarCompare v-if="graphic === 'bar-compare'" type="area" slot="indicator-chart"></BarCompare>
+                                    <BarPointLine v-if="graphic === 'bar-point-line'" slot="indicator-chart"> </BarPointLine>
                                     <LinePoints v-if="graphic === 'line-points'" slot="indicator-chart"> </LinePoints>
                                     <p>{{graphic}}</p>
                                 </IndicatorCard>
@@ -67,7 +70,6 @@
                     </v-col>
                 </v-row>
                 <v-row>
-                    <Footer/>
                 </v-row>
             </v-container>
         </v-col>
@@ -77,13 +79,15 @@
 <script>
     import SideBar from "../general/SideBar";
     import Header from "../general/Header";
-    import Footer from "../general/Footer";
+    // import Footer from "../general/Footer";
     import IndicatorCard from "../indicators/IndicatorCard";
     import RadialBar from "../charts/RadialBar";
     import DonutChart from "../charts/DonutChart";
     import BarChart from "../charts/BarChart";
     import LineChart from "../charts/LineChart";
     import LinePoints from "../charts/LinePoints";
+    import BarCompare from "../charts/BarCompare";
+    import BarPointLine from "../charts/BarPointLine";
     import gql from "graphql-tag";
 
     export default {
@@ -91,13 +95,15 @@
         components: {
             SideBar,
             Header,
-            Footer,
+            // Footer,
             IndicatorCard,
             RadialBar,
             DonutChart,
             BarChart,
             LineChart,
             LinePoints,
+            BarCompare,
+            BarPointLine,
         },
         data() {
             return {

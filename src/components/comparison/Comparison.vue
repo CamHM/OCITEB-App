@@ -67,6 +67,7 @@
     import LinePoints from "../charts/LinePoints";
     import BarPointLine from "../charts/BarPointLine";
     import BarCompare from "../charts/BarCompare";
+    import gql from "graphql-tag";
 
     export default {
         name: "Comparison",
@@ -121,6 +122,137 @@
             },
             setIndicators(list) {
                 this.indicators = list;
+            }
+        },
+        apollo: {
+            Faculties: gql`
+                query faculties {
+                    Faculties {
+                        _id
+                        name
+                        type
+                    }
+                }
+            `,
+            Indicators: gql`
+                query indicators {
+                    Indicators {
+                        name
+                        reports {
+                            code
+                            value
+                        }
+                    }
+                }
+            `,
+            FacultyIndicator: {
+                query(indicator) {
+                    if (indicator === 'IO1') {
+                        return gql`{
+                            randomTag {
+                                id
+                                label
+                                type
+                            }
+                        }`
+                    } else if (indicator === 'IO2') {
+                        return gql`{
+                            randomTag {
+                                id
+                                label
+                                type
+                            }
+                        }`
+                    } else if (indicator === 'IO3') {
+                        return gql`{
+                            randomTag {
+                                id
+                                label
+                                type
+                            }
+                        }`
+                    } else if (indicator === 'IO4') {
+                        return gql`{
+                            randomTag {
+                                id
+                                label
+                                type
+                            }
+                        }`
+                    } else if (indicator === 'IO5') {
+                        return gql`{
+                            randomTag {
+                                id
+                                label
+                                type
+                            }
+                        }`
+                    } else if (indicator === 'IO5') {
+                        return gql`{
+                            randomTag {
+                                id
+                                label
+                                type
+                            }
+                        }`
+                    } else if (indicator === 'F01') {
+                        return gql`{
+                            randomTag {
+                                id
+                                label
+                                type
+                            }
+                        }`
+                    } else if (indicator === 'F02') {
+                        return gql`{
+                            randomTag {
+                                id
+                                label
+                                type
+                            }
+                        }`
+                    } else if (indicator === 'F03') {
+                        return gql`{
+                            randomTag {
+                                id
+                                label
+                                type
+                            }
+                        }`
+                    } else if (indicator === 'C01') {
+                        return gql`{
+                            randomTag {
+                                id
+                                label
+                                type
+                            }
+                        }`
+                    } else if (indicator === 'C02') {
+                        return gql`{
+                            randomTag {
+                                id
+                                label
+                                type
+                            }
+                        }`
+                    } else if (indicator === 'C02.1') {
+                        return gql`{
+                            randomTag {
+                                id
+                                label
+                                type
+                            }
+                        }`
+                    } else if (indicator === 'PB03') {
+                        return gql`{
+                            randomTag {
+                                id
+                                label
+                                type
+                            }
+                        }`
+                    }
+                }
             }
         }
     }
