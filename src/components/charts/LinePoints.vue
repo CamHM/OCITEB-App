@@ -52,9 +52,6 @@
                         curve: 'straight',
                         colors: ['#8770fa', '#ffa653', '#eb6262'],
                     },
-                    legend: {
-                        show: false
-                    },
                     fill: {
                         colors: ['#8770fa', '#ffa653', '#eb6262']
                     },
@@ -104,6 +101,21 @@
                     tooltip: {
                         shared: false,
                         intersect: true
+                    },
+                    legend: {
+                        show: true,
+                        showForSingleSeries: true,
+                        showForNullSeries: true,
+                        showForZeroSeries: true,
+                        position: 'bottom',
+                        horizontalAlign: 'center',
+                        floating: false,
+                        fontSize: '12px',
+                        fontFamily: 'Helvetica, Arial, sans-serif',
+                        labels: {
+                            colors: '#fff',
+                            useSeriesColors: false
+                        }
                     }
                 }
             }

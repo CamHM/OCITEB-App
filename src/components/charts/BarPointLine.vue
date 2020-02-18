@@ -34,6 +34,11 @@
                             show: false
                         }
                     },
+                    plotOptions: {
+                        bar: {
+                            columnWidth: '30%',
+                        }
+                    },
                     title: {
                         text: '$658,980,000',
                         align: 'left',
@@ -49,9 +54,6 @@
                         width: 4,
                         curve: 'straight',
                         colors: ['#8770fa', '#eb6262', '#ffa653'],
-                    },
-                    legend: {
-                        show: false
                     },
                     fill: {
                         color: ['#8770fa', '#eb6262', '#ffa653']
@@ -81,6 +83,21 @@
                         }
                     },
                     colors: ['#8770fa', '#ffa653', '#eb6262'],
+                    legend: {
+                        show: true,
+                        showForSingleSeries: true,
+                        showForNullSeries: true,
+                        showForZeroSeries: true,
+                        position: 'bottom',
+                        horizontalAlign: 'center',
+                        floating: false,
+                        fontSize: '12px',
+                        fontFamily: 'Helvetica, Arial, sans-serif',
+                        labels: {
+                            colors: '#fff',
+                            useSeriesColors: false
+                        }
+                    }
                 }
             }
         }

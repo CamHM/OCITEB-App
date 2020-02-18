@@ -52,6 +52,33 @@
                             offsetY: -35,
                         }
                     },
+                    yaxis: {
+                        labels: {
+                            show: true,
+                            align: 'right',
+                            maxWidth: 160,
+                            style: {
+                                color: '#bdbdbd',
+                                fontSize: '12px',
+                                fontFamily: 'Helvetica, Arial, sans-serif',
+                            }
+                        }
+                    },
+                    legend: {
+                        show: true,
+                        showForSingleSeries: true,
+                        showForNullSeries: true,
+                        showForZeroSeries: true,
+                        position: 'bottom',
+                        horizontalAlign: 'center',
+                        floating: false,
+                        fontSize: '12px',
+                        fontFamily: 'Helvetica, Arial, sans-serif',
+                        labels: {
+                            colors: '#fff',
+                            useSeriesColors: false
+                        }
+                    }
                 },
             }
         }
