@@ -11,7 +11,7 @@ const GraphVisualizer = () => import("../components/graph/GraphVisualizer");
 Vue.use(VueRouter);
 
 export default new VueRouter({
-
+    mode: 'history',
     routes: [
         { path: '/', component: Home },
         { path: '/faculties', name: 'faculties', component: Faculties },

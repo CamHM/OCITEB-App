@@ -142,7 +142,7 @@
                     {
                         text: 'Facultades',
                         disabled: false,
-                        href: 'faculties',
+                        href: '/faculties',
                     },
                 ],
             }
