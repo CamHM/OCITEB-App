@@ -50,14 +50,6 @@
                     dataLabels: {
                         enabled: false
                     },
-                    stroke: {
-                        width: 4,
-                        curve: 'straight',
-                        colors: ['#8770fa', '#eb6262', '#ffa653'],
-                    },
-                    fill: {
-                        color: ['#8770fa', '#eb6262', '#ffa653']
-                    },
                     xaxis: {
                         categories: ['2014', '2015', '2016', '2017', '2018', '2019'],
                         labels: {

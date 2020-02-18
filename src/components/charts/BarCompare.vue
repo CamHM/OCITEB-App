@@ -23,6 +23,12 @@
                     }
                 ],
                 chartOptions: {
+                    chart: {
+                        height: 350,
+                        toolbar: {
+                            show: false
+                        }
+                    },
                     plotOptions: {
                         bar: {
                             columnWidth: '35%',

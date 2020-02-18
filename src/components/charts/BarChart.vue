@@ -16,6 +16,12 @@
                     data: [2.3, 3.1, 4.0]
                 }],
                 chartOptions: {
+                    chart: {
+                        height: 350,
+                        toolbar: {
+                            show: false
+                        }
+                    },
                     plotOptions: {
                         bar: {
                             columnWidth: '35%',
