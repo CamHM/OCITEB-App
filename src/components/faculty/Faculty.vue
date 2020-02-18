@@ -35,7 +35,7 @@
                                     <RadialBar v-if="graphic === 'radial'" slot="indicator-chart"></RadialBar>
                                     <DonutChart v-if="graphic === 'pie'" slot="indicator-chart"></DonutChart>
                                     <BarChart v-if="graphic === 'bar'" slot="indicator-chart"></BarChart>
-                                    <LineChart v-if="graphic === 'points'" slot="indicator-chart"></LineChart>
+                                    <LineChart v-if="graphic === 'line' || graphic === 'area'" :type="graphic" slot="indicator-chart"></LineChart>
                                     <p>{{graphic}}</p>
                                 </IndicatorCard>
                             </v-col>

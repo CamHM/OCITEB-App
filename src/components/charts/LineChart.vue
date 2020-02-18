@@ -1,6 +1,6 @@
 <template>
     <div>
-        <VueApexCharts type="line" :series="series" :options="chartOptions" height="220"> </VueApexCharts>
+        <VueApexCharts :type="type" :series="series" :options="chartOptions" height="220"> </VueApexCharts>
     </div>
 </template>
 
@@ -12,6 +12,7 @@
         components: {
             VueApexCharts
         },
+        props: ['type'],
         data() {
             return {
                 series: [{
