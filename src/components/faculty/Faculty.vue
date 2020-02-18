@@ -1,7 +1,7 @@
 <template>
     <v-row no-gutters>
         <v-col cols="2">
-            <SideBar />
+            <SideBar/>
         </v-col>
         <v-col cols="10">
             <v-container class="dark-back">
@@ -14,25 +14,27 @@
                 </v-row>
                 <v-row class="firstRow" v-if="showOptions">
                     <v-col cols="4">
-                        <v-select :items="indicators" v-model="value" label="Indicadores" solo dense> </v-select>
+                        <v-select :items="indicators" v-model="value" label="Indicadores" solo dense></v-select>
                     </v-col>
                     <div class="select">
-                        <v-select :items="charts" label="Tipo de gráfico" style="width: 200px" solo dense> </v-select>
-                        <v-select :items="years" label="Año" solo dense style="margin-left: 20px; width: 120px"> </v-select>
+                        <v-select :items="charts" label="Tipo de gráfico" style="width: 200px" solo dense></v-select>
+                        <v-select :items="years" label="Año" solo dense
+                                  style="margin-left: 20px; width: 120px"></v-select>
                     </div>
                 </v-row>
                 <v-row class="secondRow">
                     <v-col v-if="indicator" cols="8" class="firstCol">
                         <v-row class="indicatorsFirstRow">
-                            <v-col :cols="(graphic === 'bar' || graphic === 'pie' || graphic === 'radial') ? 6 : 12" v-for="graphic in indicator.graphic" :key="graphic">
+                            <v-col :cols="(graphic === 'bar' || graphic === 'pie' || graphic === 'radial') ? 6 : 12"
+                                   v-for="graphic in indicator.graphic" :key="graphic">
                                 <IndicatorCard :item="selectedIndicators[0]">
                                     <div slot="indicator-header" class="indicator-header">
                                         <p>{{ indicator.code}} - {{indicator.value}}</p>
                                         <v-icon color="white" @click="changeShowOptions">mdi-dots-vertical</v-icon>
                                     </div>
-                                    <RadialBar v-if="graphic === 'radial'" slot="indicator-chart"> </RadialBar>
-                                    <DonutChart v-if="graphic === 'pie'" slot="indicator-chart"> </DonutChart>
-                                    <BarChart v-if="graphic === 'bar'" slot="indicator-chart"> </BarChart>
+                                    <RadialBar v-if="graphic === 'radial'" slot="indicator-chart"></RadialBar>
+                                    <DonutChart v-if="graphic === 'pie'" slot="indicator-chart"></DonutChart>
+                                    <BarChart v-if="graphic === 'bar'" slot="indicator-chart"></BarChart>
                                     <LineChart v-if="graphic === 'points'" slot="indicator-chart"></LineChart>
                                     <p>{{graphic}}</p>
                                 </IndicatorCard>
@@ -46,25 +48,26 @@
                         >
                             <template slot-scope="{ result: { loading, data, error }}">
                                 <div v-if="loading">
-                                    <v-progress-linear indeterminate color="cyan"> </v-progress-linear>
+                                    <v-progress-linear indeterminate color="cyan"></v-progress-linear>
                                 </div>
                                 <div v-else-if="error">
                                     {{error.message}}
                                 </div>
                                 <div v-else-if="data" class="panel">
-                                    <v-row v-for="report in data.Indicator.reports" :key="report.code" class="panelRow" @click="showActualIndicator(report)">
+                                    <v-row v-for="report in data.Indicator.reports" :key="report.code" class="panelRow"
+                                           @click="showActualIndicator(report)">
                                         <v-col>
                                             <IndicatorCard :item="report" panel="true"/>
                                         </v-col>
                                     </v-row>
                                 </div>
-                                <div v-else class="no-result apollo">Selecciona un Indicador para empezar </div>
+                                <div v-else class="no-result apollo">Selecciona un Indicador para empezar</div>
                             </template>
                         </ApolloQuery>
                     </v-col>
                 </v-row>
                 <v-row>
-                    <Footer />
+                    <Footer/>
                 </v-row>
             </v-container>
         </v-col>
@@ -94,7 +97,7 @@
             BarChart,
             LineChart,
         },
-        data () {
+        data() {
             return {
                 Faculty: {},
                 value: '',
@@ -146,7 +149,7 @@
                 this.showOptions = !this.showOptions
             },
             showActualIndicator(indicator) {
-                    this.indicator = indicator;
+                this.indicator = indicator;
             },
         },
         apollo: {
@@ -161,7 +164,7 @@
                             type
                         }
                     }`,
-                variables () {
+                variables() {
                     return {
                         _id: this.$route.params.faculty
                     }
@@ -179,27 +182,33 @@
         padding: 30px 30px 30px 30px;
         overflow-y: scroll;
     }
+
     .dark-back::-webkit-scrollbar {
         display: none;
     }
+
     .firstRow {
         display: flex;
         justify-content: space-between;
         margin-top: 5px;
         height: 40px;
     }
+
     .select {
         width: auto;
         display: flex;
         margin-left: 12px;
         margin-right: 12px;
     }
+
     .secondRow {
         height: 120%;
     }
+
     .indicatorsFirstRow {
         height: 55%;
     }
+
     .secondCol {
         overflow-y: scroll;
         overflow-x: auto;
@@ -208,12 +217,15 @@
         margin-top: 20px;
         float: right;
     }
+
     .secondCol::-webkit-scrollbar {
         display: none;
     }
+
     .panelRow {
         height: 33%;
     }
+
     .indicator-header {
         display: flex;
         justify-content: space-between;

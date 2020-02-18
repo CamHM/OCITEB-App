@@ -10,14 +10,14 @@
                         :value="subItem._id" :label="subItem.name" dark
                         off-icon="mdi-checkbox-blank-circle-outline"
                         on-icon="mdi-disc" class="checkbox-property"
-                        v-on:change="select(subItem._id)" v-model="enable"/>
+                        v-on:change="select(subItem._id)"/>
         </template>
         <template style="margin: 0" v-if="type === 'I'">
             <v-checkbox v-for="subItem in items" :key="subItem.code" color="primary"
                         :value="subItem.code" :label="subItem.code + ' - ' +subItem.value" dark
                         off-icon="mdi-checkbox-blank-circle-outline"
                         on-icon="mdi-disc" class="checkbox-property"
-                        v-on:change="select(subItem.code)" v-model="enable"/>
+                        v-on:change="select(subItem.code)"/>
         </template>
     </v-list-group>
 </template>
@@ -32,10 +32,6 @@
             }
         },
         methods: {
-            enable() {
-                return this. list.length < 3;
-
-            },
             select(code) {
                 if (this.list.find(item => item === code)) {
                     this.list = this.list.filter(function (e) {
@@ -46,7 +42,7 @@
                         this.list.push(code);
                     }
                 }
-                this.$emit('selectIndicator', this.list);
+                this.$emit('selected', this.list);
             }
         }
     }

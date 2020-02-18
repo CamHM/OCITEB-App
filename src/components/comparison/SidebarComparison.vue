@@ -8,31 +8,30 @@
             <v-list color="secondary" dense>
                 <MenuItemGroup v-bind:key="titleFaculties" v-bind:title="titleFaculties"
                                v-bind:items="Faculties.filter(faculty => faculty.type === 'F')"
-                               type="O"/>
+                               type="O" @selected="setFaculty"/>
                 <MenuItemGroup v-bind:key="titleSectionals" v-bind:title="titleSectionals"
                                v-bind:items="Faculties.filter(faculty => faculty.type === 'S')"
-                               type="O"/>
+                               type="O" @selected="setFaculty"/>
                 <MenuItemGroup v-bind:key="titleSchools" v-bind:title="titleSchools" v-bind:items="Schools"
                                type="O"/>
                 <MenuItemGroup v-bind:key="titleGroups" v-bind:title="titleGroups" v-bind:items="Groups"
                                type="O"/>
             </v-list>
-            <h1>{{selectedIndicators}}</h1>
             <h5 class="white--text">Indicadores</h5>
             <v-divider class="white"/>
             <v-list color="secondary" dense>
                 <MenuItemGroup v-bind:key="titleInvertion" v-bind:title="titleInvertion"
                                v-bind:items="Indicators.find(indicator => indicator.name === 'Inversión').reports"
-                               type="I" @selectIndicator="setIndicator"/>
+                               type="I" @selected="setIndicator"/>
                 <MenuItemGroup v-bind:key="titleFormation" v-bind:title="titleFormation"
                                v-bind:items="Indicators.find(indicator => indicator.name === 'Formación').reports"
-                               type="I" @selectIndicator="setIndicator"/>
+                               type="I" @selected="setIndicator"/>
                 <MenuItemGroup v-bind:key="titleCapacity" v-bind:title="titleCapacity"
                                v-bind:items="Indicators.find(indicator => indicator.name === 'Capacidades').reports"
-                               type="I" @selectIndicator="setIndicator"/>
+                               type="I" @selected="setIndicator"/>
                 <MenuItemGroup v-bind:key="titleProduction" v-bind:title="titleProduction"
                                v-bind:items="Indicators.find(indicator => indicator.name === 'Producción Bibliografica').reports"
-                               type="I" @selectIndicator="setIndicator"/>
+                               type="I" @selected="setIndicator"/>
             </v-list>
         </v-container>
     </v-card>
@@ -49,7 +48,6 @@
         },
         data: () => {
             return {
-                selectedIndicators: [],
                 Faculties: [],
                 titleFaculties: 'Facultades',
                 titleSectionals: 'Seccionales',
@@ -66,7 +64,10 @@
         },
         methods: {
             setIndicator(list) {
-                this.selectedIndicators = list;
+                this.$emit('selectIndicators', list);
+            },
+            setFaculty(list) {
+                this.$emit('selectFaculties', list);
             }
         },
         apollo: {

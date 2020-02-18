@@ -17,39 +17,30 @@
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-col cols="9">
-                        <v-row>
-                            <v-col cols="6">
-                                <IndicatorCard :item="selectedIndicators[0]">
-                                    <div slot="indicator-header" class="indicator-header">
-                                        <p>I01 - Número de proyectos de investigación según financiación</p>
-                                        <v-icon color="white">mdi-dots-vertical</v-icon>
-                                    </div>
-                                    <RadialBar slot="indicator-chart"/>
-                                </IndicatorCard>
-                            </v-col>
-                            <v-col cols="6">
-                                <IndicatorCard :item="selectedIndicators[1]">
-                                    <div slot="indicator-header">
-                                        <p>I01 - Número de proyectos de investigación según financiación</p>
-                                    </div>
-                                    <DonutChart slot="indicator-chart"/>
-                                </IndicatorCard>
-                            </v-col>
-                        </v-row>
-                        <v-row class="indicatorsSecondRow">
-                            <v-col cols="12">
-                                <IndicatorCard :item="mainIndicator">
-                                    <div slot="indicator-header">
-                                        <p>I01 - Número de proyectos de investigación según financiación</p>
-                                    </div>
-                                    <LineChart slot="indicator-chart"/>
-                                </IndicatorCard>
+                    <v-col v-if="indicators.length > 0 && faculties.length > 0" cols="9" class="firstCol">
+                        <v-row class="indicatorsFirstRow">
+                            <v-col cols="3" v-for="faculty in faculties" :key="faculty">
+                                <h1>{{faculty}}</h1>
+                                <v-col :cols="(indicator === 'bar' || indicator === 'pie' || indicator === 'radial') ? 6 : 12"
+                                       v-for="indicator in indicators" :key="indicator">
+                                    <IndicatorCard :item="selectedIndicators[0]">
+                                        <div slot="indicator-header" class="indicator-header">
+                                            <p>{{indicator}}</p>
+                                        </div>
+                                        <RadialBar v-if="indicator === 'radial'" slot="indicator-chart"/>
+                                        <DonutChart v-if="indicator === 'pie'" slot="indicator-chart"/>
+                                        <BarChart v-if="indicator === 'bar'" slot="indicator-chart"/>
+                                        <LineChart v-if="indicator === 'points'" slot="indicator-chart"/>
+                                        <p>{{indicator}}</p>
+                                    </IndicatorCard>
+                                </v-col>
                             </v-col>
                         </v-row>
                     </v-col>
+                    <v-col v-if="indicators.length < 1 || faculties.length < 1" cols="9">
+                    </v-col>
                     <v-col cols="3">
-                        <SidebarComparison/>
+                        <SidebarComparison @selectFaculties="setFaculties" @selectIndicators="setIndicators"/>
                     </v-col>
                 </v-row>
                 <v-row>
@@ -69,6 +60,7 @@
     import RadialBar from "../charts/RadialBar";
     import DonutChart from "../charts/DonutChart";
     import LineChart from "../charts/LineChart";
+    import BarChart from "../charts/BarChart";
 
     export default {
         name: "Comparison",
@@ -80,12 +72,15 @@
             IndicatorCard,
             RadialBar,
             DonutChart,
-            LineChart
+            LineChart,
+            BarChart
         },
         data: function () {
             return {
                 charts: ['Tarta', 'Pie', 'Dona', 'Y todo tipo de comida más'],
                 years: ['2016', '2017', '2018', '2019'],
+                faculties: [],
+                indicators: [],
                 selectedIndicators: [
                     {
                         title: 'I02 - Inversión en I+D a nivel de proyectos',
@@ -108,9 +103,17 @@
                     isPanel: false,
                     bgc: '#e6f7ee',
                     iconColor: '#2dcd7a',
-                }
+                },
             }
         },
+        methods: {
+            setFaculties(list) {
+                this.faculties = list;
+            },
+            setIndicators(list) {
+                this.indicators = list;
+            }
+        }
     }
 </script>
 
@@ -127,6 +130,7 @@
         padding: 30px 30px 10px 30px;
         overflow-y: scroll;
     }
+
     .dark-back::-webkit-scrollbar {
         display: none;
     }
