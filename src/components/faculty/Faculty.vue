@@ -17,7 +17,6 @@
                         <v-select :items="indicators" v-model="value" label="Indicadores" solo dense></v-select>
                     </v-col>
                     <div class="select">
-                        <v-select :items="charts" label="Tipo de gráfico" style="width: 200px" solo dense></v-select>
                         <v-select :items="years" label="Año" solo dense
                                   style="margin-left: 20px; width: 120px"></v-select>
                     </div>
@@ -108,7 +107,6 @@
                 indicators: ['Inversión', 'Formación', 'Capacidades', 'Producción Bibliografica'],
                 cardNumber: 0,
                 indicator: null,
-                charts: ['Tarta', 'Pie', 'Dona', 'Y todo tipo de comida más'],
                 years: ['2016', '2017', '2018', '2019'],
                 selectedIndicators: [
                     {
