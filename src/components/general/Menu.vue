@@ -29,7 +29,12 @@
                         path: '/faculties'
                     },
                     {
-                        title: 'Investigación',
+                        title: 'Investigadores',
+                        icon: 'mdi-account-outline',
+                        path: '/graph'
+                    },
+                    {
+                        title: 'Grupos de investigación',
                         icon: 'mdi-account-group-outline',
                         path: '/graph'
                     },

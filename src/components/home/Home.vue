@@ -97,10 +97,10 @@
                         icon_color: "#ed6464",
                         avatar_size: 40,
                         card_height: 200,
-                        path: '/faculties',
+                        path: '/graph',
                     },
                     {
-                        title: "Investigación",
+                        title: "Grupos de Investigación",
                         icon: "mdi-account-group-outline",
                         description: "Grupos de investigación cientifica de cada escuela",
                         card_color: "secondary",
