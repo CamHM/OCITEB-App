@@ -36,6 +36,7 @@
                                     <DonutChart v-if="graphic === 'pie'" slot="indicator-chart"></DonutChart>
                                     <BarChart v-if="graphic === 'bar'" slot="indicator-chart"></BarChart>
                                     <LineChart v-if="graphic === 'line' || graphic === 'area'" :type="graphic" slot="indicator-chart"></LineChart>
+                                    <LinePoints v-if="graphic === 'line-points'" slot="indicator-chart"> </LinePoints>
                                     <p>{{graphic}}</p>
                                 </IndicatorCard>
                             </v-col>
@@ -83,6 +84,7 @@
     import DonutChart from "../charts/DonutChart";
     import BarChart from "../charts/BarChart";
     import LineChart from "../charts/LineChart";
+    import LinePoints from "../charts/LinePoints";
     import gql from "graphql-tag";
 
     export default {
@@ -96,6 +98,7 @@
             DonutChart,
             BarChart,
             LineChart,
+            LinePoints,
         },
         data() {
             return {

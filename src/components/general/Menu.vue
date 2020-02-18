@@ -29,24 +29,14 @@
                         path: '/faculties'
                     },
                     {
-                        title: 'Investigadores',
-                        icon: 'mdi-account-outline',
-                        path: '/faculties'
-                    },
-                    {
-                        title: 'Grupos de investigación',
+                        title: 'Investigación',
                         icon: 'mdi-account-group-outline',
-                        path: '/faculties'
+                        path: '/graph'
                     },
                     {
                         title: 'Comparación',
                         icon: 'mdi-checkbox-marked-circle-outline',
                         path: '/comparison'
-                    },
-                    {
-                        title: 'Grafo',
-                        icon: 'mdi-checkbox-marked-circle-outline',
-                        path: '/graph'
                     },
                 ]
             }
