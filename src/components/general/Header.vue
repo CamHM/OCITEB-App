@@ -1,11 +1,11 @@
 <template>
     <div class="header">
-        <div class="search">
+        <!--<div class="search">
             <v-icon class="searchIcon" size="25">mdi-magnify</v-icon>
             <label>
                 <input placeholder="Búsqueda" class="searchInput"/>
             </label>
-        </div>
+        </div>-->
         <v-row no-gutters class="infoHeader">
             <div class="navigationInfo">
                 <h3 class="foreground-init font-weight-thin">Inicio</h3>
