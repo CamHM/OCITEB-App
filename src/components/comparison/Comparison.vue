@@ -17,23 +17,27 @@
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-col v-if="indicators.length > 0 && faculties.length > 0" cols="9" class="firstCol">
+                    <v-col v-if="indicators.length > 0 && faculties.length > 0" cols="9"
+                           class="firstCol">
                         <v-row class="indicatorsFirstRow">
-                            <v-col cols="3" v-for="faculty in faculties" :key="faculty">
-                                <h1>{{faculty}}</h1>
-                                <v-col :cols="(indicator === 'bar' || indicator === 'pie' || indicator === 'radial') ? 6 : 12"
-                                       v-for="indicator in indicators" :key="indicator">
-                                    <IndicatorCard :item="selectedIndicators[0]">
-                                        <div slot="indicator-header" class="indicator-header">
-                                            <p>{{indicator}}</p>
-                                        </div>
-                                        <RadialBar v-if="indicator === 'radial'" slot="indicator-chart"/>
-                                        <DonutChart v-if="indicator === 'pie'" slot="indicator-chart"/>
-                                        <BarChart v-if="indicator === 'bar'" slot="indicator-chart"/>
-                                        <LineChart v-if="indicator === 'points'" slot="indicator-chart"/>
+                            <v-col v-for="faculty in faculties" :key="faculty" :cols="12/faculties.length">
+                                <h4>{{faculty}}</h4>
+                                <IndicatorCard :item="selectedIndicators[0]" v-for="indicator in indicators"
+                                               :key="indicator">
+                                    <div slot="indicator-header" class="indicator-header">
                                         <p>{{indicator}}</p>
-                                    </IndicatorCard>
-                                </v-col>
+                                        <BarCompare/>
+                                        <ApolloQuery :query="queryI01" :variables="{faculty: faculty}" v-if="indicator = 'I01'" >
+                                            <template slot-scope="{ result: { loading, error, data } }">
+                                                <span v-if="loading">Loading...</span>
+                                                <span v-else-if="error">{{error}}</span>
+                                                <section v-if="data">
+                                                    <h1>{{data}}</h1>
+                                                </section>
+                                            </template>
+                                        </ApolloQuery>
+                                    </div>
+                                </IndicatorCard>
                             </v-col>
                         </v-row>
                     </v-col>
@@ -60,14 +64,10 @@
     import Footer from "../general/Footer";
     import SidebarComparison from "./SidebarComparison";
     import IndicatorCard from "../indicators/IndicatorCard";
-    import RadialBar from "../charts/RadialBar";
-    import DonutChart from "../charts/DonutChart";
-    import LineChart from "../charts/LineChart";
-    import BarChart from "../charts/BarChart";
     import LinePoints from "../charts/LinePoints";
     import BarPointLine from "../charts/BarPointLine";
     import BarCompare from "../charts/BarCompare";
-    import gql from "graphql-tag";
+    import {I01} from "../../graphql/indicatorsQueries";
 
     export default {
         name: "Comparison",
@@ -77,16 +77,13 @@
             Footer,
             SidebarComparison,
             IndicatorCard,
-            RadialBar,
-            DonutChart,
-            LineChart,
-            BarChart,
             LinePoints,
             BarPointLine,
             BarCompare
         },
         data: function () {
             return {
+                queryI01: I01,
                 charts: ['Tarta', 'Pie', 'Dona', 'Y todo tipo de comida más'],
                 years: ['2016', '2017', '2018', '2019'],
                 faculties: [],
@@ -122,137 +119,6 @@
             },
             setIndicators(list) {
                 this.indicators = list;
-            }
-        },
-        apollo: {
-            Faculties: gql`
-                query faculties {
-                    Faculties {
-                        _id
-                        name
-                        type
-                    }
-                }
-            `,
-            Indicators: gql`
-                query indicators {
-                    Indicators {
-                        name
-                        reports {
-                            code
-                            value
-                        }
-                    }
-                }
-            `,
-            FacultyIndicator: {
-                query(indicator) {
-                    if (indicator === 'IO1') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'IO2') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'IO3') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'IO4') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'IO5') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'IO5') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'F01') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'F02') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'F03') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'C01') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'C02') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'C02.1') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'PB03') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    }
-                }
             }
         }
     }

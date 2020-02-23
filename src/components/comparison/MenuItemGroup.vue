@@ -7,17 +7,17 @@
         </template>
         <template style="margin: 0" v-if="type === 'O'">
             <v-checkbox v-for="subItem in items" :key="subItem._id" color="primary"
-                        :value="subItem._id" :label="subItem.name" dark
-                        off-icon="mdi-checkbox-blank-circle-outline"
+                        :value="subItem.report" :label="subItem.name" dark
+                        off-icon="mdi-checkbox-blank-circle-outline" v-model="list"
                         on-icon="mdi-disc" class="checkbox-property"
-                        v-on:change="select(subItem._id)"/>
+                        v-on:change="selectFaculty()" :disabled="limit_list(subItem.report)"/>
         </template>
         <template style="margin: 0" v-if="type === 'I'">
             <v-checkbox v-for="subItem in items" :key="subItem.code" color="primary"
                         :value="subItem.code" :label="subItem.code + ' - ' +subItem.value" dark
-                        off-icon="mdi-checkbox-blank-circle-outline"
+                        off-icon="mdi-checkbox-blank-circle-outline" v-model="list"
                         on-icon="mdi-disc" class="checkbox-property"
-                        v-on:change="select(subItem.code)"/>
+                        v-on:change="selectIndicator()" :disabled="limit_list(subItem.code)"/>
         </template>
     </v-list-group>
 </template>
@@ -32,16 +32,13 @@
             }
         },
         methods: {
-            select(code) {
-                if (this.list.find(item => item === code)) {
-                    this.list = this.list.filter(function (e) {
-                        return e !== code;
-                    });
-                } else {
-                    if (this.list.length < 3) {
-                        this.list.push(code);
-                    }
-                }
+            limit_list(value) {
+                return this.list.length > 2 && this.list.indexOf(value) === -1;
+            },
+            selectFaculty() {
+                this.$emit('selected', this.list);
+            },
+            selectIndicator() {
                 this.$emit('selected', this.list);
             }
         }

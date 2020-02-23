@@ -86,4 +86,34 @@ const F03 = gql`
     }
 `;
 
-export { I01, I02, I03, I04, I05, I06, F01, F02, F03 }
+const C01 = gql`
+    query reportC01 ($faculty: String!) {
+        ReportC01 (faculty: $faculty) { 
+            year
+            total
+            concept
+        }
+    }
+`;
+
+const C02 = gql`
+    query reportC02 ($faculty: String!) {
+        ReportC02 (faculty: $faculty) { 
+            year
+            total
+            concept
+        }
+    }
+`;
+
+const C02_1 = gql`
+    query reportC02_1 ($faculty: String!) {
+        ReportC02_1 (faculty: $faculty) { 
+            year
+            total
+            concept
+        }
+    }
+`;
+
+export { I01, I02, I03, I04, I05, I06, F01, F02, F03, C01, C02, C02_1 }
