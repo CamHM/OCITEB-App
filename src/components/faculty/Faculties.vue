@@ -15,11 +15,10 @@
                             <v-progress-linear indeterminate color="cyan" v-if="$apollo.queries.Faculties.loading"> </v-progress-linear>
                             <div v-for="faculty in Faculties" :key="faculty._id"
                                  :class="{facultyCard: currentFaculty.length >= 0, facultyCardSelected: currentFaculty === faculty._id}"
-                                 @click="changeCurrentFaculty(faculty._id)" >
+                                 @click="navigate(faculty._id)" >
                                 {{ faculty.name }}
                             </div>
                         </div>
-                        <v-btn color="primary" class="facultyIndicatorButton" @click="navigate" :disabled="currentFaculty === ''">VER INDICADORES</v-btn>
                     </div>
                 </v-row>
                 <v-row class="footer">
@@ -62,13 +61,10 @@
             }
         },
         methods: {
-            changeCurrentFaculty(facultyIndex) {
-                this.currentFaculty = facultyIndex
-            },
-            navigate() {
+            navigate(facultyIndex) {
                 this.$router.push({
                     name: 'faculty',
-                    params: { faculty: `${this.currentFaculty}` },
+                    params: { faculty: `${facultyIndex}` },
                 })
             }
         },
