@@ -6,7 +6,7 @@
         <v-col cols="10">
             <v-container class="dark-back">
                 <v-row>
-                    <Header/>
+                    <Header :items-breadc="itemsBreadc"/>
                 </v-row>
                 <v-row>
                     <v-col cols="2" offset-md="8">
@@ -26,16 +26,19 @@
                                                :key="indicator">
                                     <div slot="indicator-header" class="indicator-header">
                                         <p>{{indicator}}</p>
-                                        <BarCompare/>
-                                        <ApolloQuery :query="queryI01" :variables="{faculty: faculty}" v-if="indicator = 'I01'" >
-                                            <template slot-scope="{ result: { loading, error, data } }">
-                                                <span v-if="loading">Loading...</span>
-                                                <span v-else-if="error">{{error}}</span>
-                                                <section v-if="data">
-                                                    <h1>{{data}}</h1>
-                                                </section>
-                                            </template>
-                                        </ApolloQuery>
+                                        <LinePoints/>
+                                        <div v-for="report in reports" v-bind:key="report.name">
+                                            <ApolloQuery :query="report.query" :variables="{faculty: faculty}"
+                                                         v-if="indicator === report.name">
+                                                <template slot-scope="{ result: { loading, error, data } }">
+                                                    <v-progress-linear indeterminate color="cyan" v-if="loading"/>
+                                                    <span v-else-if="error">Error al cargar la información</span>
+                                                    <section v-if="data">
+                                                        <h5>{{data.Report + report.name}}</h5>
+                                                    </section>
+                                                </template>
+                                            </ApolloQuery>
+                                        </div>
                                     </div>
                                 </IndicatorCard>
                             </v-col>
@@ -43,7 +46,6 @@
                     </v-col>
                     <v-col v-if="indicators.length < 1 || faculties.length < 1" cols="9">
                         <LinePoints/>
-                        <BarPointLine/>
                         <BarCompare/>
                     </v-col>
                     <v-col cols="3">
@@ -65,9 +67,8 @@
     import SidebarComparison from "./SidebarComparison";
     import IndicatorCard from "../indicators/IndicatorCard";
     import LinePoints from "../charts/LinePoints";
-    import BarPointLine from "../charts/BarPointLine";
     import BarCompare from "../charts/BarCompare";
-    import {I01} from "../../graphql/indicatorsQueries";
+    import {I01, I02, I03, I04, I05, I06, F01, F02, F03, C01, C02, C02_1} from "../../graphql/indicatorsQueries";
 
     export default {
         name: "Comparison",
@@ -78,12 +79,24 @@
             SidebarComparison,
             IndicatorCard,
             LinePoints,
-            BarPointLine,
             BarCompare
         },
         data: function () {
             return {
-                queryI01: I01,
+                reports: [
+                    {name: 'I01', query: I01},
+                    {name: 'I02', query: I02},
+                    {name: 'I03', query: I03},
+                    {name: 'I04', query: I04},
+                    {name: 'I05', query: I05},
+                    {name: 'I06', query: I06},
+                    {name: 'F01', query: F01},
+                    {name: 'F02', query: F02},
+                    {name: 'F03', query: F03},
+                    {name: 'C01', query: C01},
+                    {name: 'C02', query: C02},
+                    {name: 'C02_1', query: C02_1}
+                ],
                 charts: ['Tarta', 'Pie', 'Dona', 'Y todo tipo de comida más'],
                 years: ['2016', '2017', '2018', '2019'],
                 faculties: [],
@@ -95,22 +108,20 @@
                         isPanel: false,
                         bgc: '#e6f7ee',
                         iconColor: '#2dcd7a',
+                    }
+                ],
+                itemsBreadc: [
+                    {
+                        text: '',
+                        disabled: false,
+                        href: '/'
                     },
                     {
-                        title: 'I01 - Número de proyectos de investigación según financiación',
-                        icon: 'mdi-currency-usd',
-                        isPanel: false,
-                        bgc: '#e6f7ee',
-                        iconColor: '#2dcd7a',
-                    },
-                ],
-                mainIndicator: {
-                    title: 'I05 - Ingresos recursos propios posgrados',
-                    icon: 'mdi-currency-usd',
-                    isPanel: false,
-                    bgc: '#e6f7ee',
-                    iconColor: '#2dcd7a',
-                },
+                        text: 'Comparación',
+                        disabled: true,
+                        href: '/comparison',
+                    }
+                ]
             }
         },
         methods: {
