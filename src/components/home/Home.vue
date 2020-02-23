@@ -89,7 +89,7 @@
                         path: '/faculties',
                     },
                     {
-                        title: "Invetigadores",
+                        title: "Investigadores",
                         icon: "mdi-account-outline",
                         description: "Investigadores ubicados en la institución academica",
                         card_color: "secondary",
@@ -97,7 +97,7 @@
                         icon_color: "#ed6464",
                         avatar_size: 40,
                         card_height: 200,
-                        path: '/graph',
+                        path: '/graph?active_tab=0',
                     },
                     {
                         title: "Grupos de Investigación",
@@ -108,7 +108,7 @@
                         icon_color: "#ffa34c",
                         avatar_size: 40,
                         card_height: 200,
-                        path: '/graph',
+                        path: '/graph?active_tab=1',
                     }
                 ]
             }
