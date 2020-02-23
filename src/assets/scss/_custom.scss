@@ -50,6 +50,25 @@
   }
 }
 
+.search {
+  margin-bottom: 20px;
+  background-color: #1f232c;
+  color: white;
+  width: 100%;
+  border-radius: 8px;
+  padding: 10px 20px;
+  box-shadow: 0 0 10px #1f232c;
+}
+
+.searchInput {
+  font-size: 17px;
+  width: 92%;
+}
+.searchInput:focus {
+  outline: none !important;
+  border:none;
+}
+
 .v-breadcrumbs .v-breadcrumbs__divider, .v-breadcrumbs__item--disabled {
   color: $white-foreground !important;
 }
@@ -59,6 +78,14 @@
   margin: 0;
   padding: 30px 30px 10px 30px;
   overflow-y: scroll;
+
+  .graph-filter {
+    color: #000;
+
+    .v-select__selections {
+      color: #000 !important;
+    }
+  }
 
   .v-tabs .v-tabs-bar {
     background: $dark-main-background !important;
@@ -91,11 +118,11 @@
     }
   }
 
-  .v-input {
+  .v-input:not(.graph-filter:nth-child(n)) {
     background: $dark-background !important;
 
     input {
-      color: $white-foreground !important;;
+      color: $white-foreground !important;
     }
   }
 
@@ -103,12 +130,12 @@
     color: $white-foreground !important;
     caret-color: $white-foreground !important;
 
-    .v-input__control > .v-input__slot {
+    .v-input__control > .v-input__slot:not(.graph-filter:nth-child(n)) {
       background: lighten($dark-background, 3.83) !important;
     }
   }
 
-  .v-input .v-icon, .v-label {
+  .v-input .v-icon, .v-label:not(.graph-filter:nth-child(n)) {
     color: $white-foreground !important;
   }
 

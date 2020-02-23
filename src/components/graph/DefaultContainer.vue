@@ -5,11 +5,46 @@
         </v-col>
         <v-col cols="10" class="colB">
             <v-container id="cards-section" fluid>
+                <div class="search">
+                    <v-icon class="searchIcon" size="25">mdi-magnify</v-icon>
+                    <label>
+                        <input placeholder="Búsqueda" class="searchInput" v-model="search"/>
+                    </label>
+                </div>
+
                 <v-row>
                     <Header/>
                 </v-row>
 
-                <v-tabs right>
+                <v-row no-gutters>
+                    <!--<v-spacer></v-spacer>-->
+
+                    <v-col cols="3" v-if="faculties.length">
+                        <v-select
+                                class="graph-filter"
+                                v-model="facultySelect"
+                                :items="faculties"
+                                label="Facultades"
+                                item-value="value"
+                                item-text="label"
+                                solo dense
+                        ></v-select>
+                    </v-col>
+
+                    <v-col cols="3" style="margin-left: 15px;" v-if="schools.length">
+                        <v-select
+                                class="graph-filter"
+                                v-model="schoolSelect"
+                                :items="schools"
+                                label="Escuelas"
+                                item-value="value"
+                                item-text="name"
+                                solo dense
+                        ></v-select>
+                    </v-col>
+                </v-row>
+
+                <v-tabs v-model="tab" right>
                     <v-tab>{{ researchersTitle }}</v-tab>
                     <v-tab>{{ groupsTitle }}</v-tab>
                     <v-tab>{{ projectsTitle }}</v-tab>
@@ -171,6 +206,7 @@
                     </v-tab-item>
                 </v-tabs>
 
+
                 <v-row class="footer">
                     <Footer />
                 </v-row>
@@ -184,11 +220,7 @@
 
 <script>
 
-    import  {
-        GET_ALL_RESEARCHERS,
-        GET_ALL_GROUPS,
-        GET_ALL_PROJECTS
-    } from '../../graphql/queries/graphQueries';
+    import * as Queries from '../../graphql/queries/graphQueries';
     import SideBar from "../general/SideBar";
     import Header from "../general/Header";
     import Footer from "../general/Footer";
@@ -198,22 +230,89 @@
         apollo: {
             $client: 'b',
             researchers: {
-                query: GET_ALL_RESEARCHERS,
+                query: Queries.GET_ALL_RESEARCHERS,
                 update: data => data.Researcher,
 
             },
             groups: {
-                query: GET_ALL_GROUPS,
+                query: Queries.GET_ALL_GROUPS,
                 update: data => data.Group
             },
             projects: {
-                query: GET_ALL_PROJECTS,
+                query: Queries.GET_ALL_PROJECTS,
                 update: data => data.Project
+            },
+            schools: {
+                query: Queries.GET_SCHOOLS_BY_FACULTY,
+                variables() {
+                    return {
+                        faculty: this.facultySelect
+                    }
+                },
+                update: data => data.School,
+                skip: true,
+                result() {
+                    this.schools.unshift({ value: null, name:'Ninguna' });
+                }
+            },
+            faculties: {
+                query: Queries.GET_ALL_FACULTIES,
+                update: data => data.facultyList,
+                result() {
+                    this.getFaculties();
+                }
+            },
+            projectsBySchool: {
+                query: Queries.GET_PROJECTS_BY_SCHOOLS,
+                variables() {
+                    return {
+                        school: this.schoolSelect
+                    }
+                },
+                update: data => data.projectBySchool,
+                skip: true,
+                result(data) {
+                    if (!data.loading) {
+                        this.projects = data.data.projectBySchool;
+                    }
+                }
+            },
+            researchersBySchool: {
+                query: Queries.GET_RESEARCHERS_BY_SCHOOLS,
+                variables() {
+                    return {
+                        school: this.schoolSelect
+                    }
+                },
+                update: data => data.researcherBySchool,
+                skip: true,
+                result(data) {
+                    if (!data.loading) {
+                        this.researchers = data.data.researcherBySchool;
+                    }
+                }
+            },
+            groupsBySchool: {
+                query: Queries.GET_GROUP_BY_SCHOOLS,
+                variables() {
+                    return {
+                        school: this.schoolSelect
+                    }
+                },
+                update: data => data.groupBySchool,
+                skip: true,
+                result(data) {
+                    if (!data.loading) {
+                        this.groups = data.data.groupBySchool;
+                    }
+                }
             }
         },
         data() {
             return {
-                tab: null,
+                tab: 0,
+                facultySelect: '',
+                schoolSelect: '',
                 search: '',
                 researchersPage: 1,
                 groupsPage: 1,
@@ -226,7 +325,39 @@
                 projectsTitle: 'Proyectos',
                 researchers: [],
                 groups: [],
-                projects: []
+                projects: [],
+                faculties:[],
+                schools: [],
+                projectsBySchool: [],
+                researchersBySchool: [],
+                groupsBySchool: []
+            }
+        },
+        watch: {
+            '$route.query.active_tab': function (tab) {
+                this.tab = Number(tab);
+            },
+            facultySelect: function (value) {
+                if (value !== null) {
+                    this.$apollo.queries.schools.start();
+                }
+            },
+            schoolSelect: function (value) {
+                let generalProperties = ['researchers', 'groups', 'projects'];
+
+                try {
+                    if (value !== null) {
+                        this.$apollo.queries.projectsBySchool.start();
+                        this.$apollo.queries.researchersBySchool.start();
+                        this.$apollo.queries.groupsBySchool.start();
+                    } else {
+                        generalProperties.forEach(property => {
+                            this.$apollo.queries[property].refresh();
+                        })
+                    }
+                } catch (error) {
+                    throw error;
+                }
             }
         },
         computed: {
@@ -241,7 +372,7 @@
             }
         },
         methods: {
-            nextPage (entity) {
+            nextPage(entity) {
                 switch (entity) {
                     case 'Researchers':
                         if (this.researchersPage + 1 <= this.numberOfPagesResearchers) this.researchersPage += 1;
@@ -254,7 +385,7 @@
                         break;
                 }
             },
-            formerPage (entity) {
+            formerPage(entity) {
                 switch (entity) {
                     case 'Researchers':
                         if (this.researchersPage - 1 >= 1) this.researchersPage -= 1;
@@ -266,9 +397,17 @@
                         if (this.projectsPage - 1 >= 1) this.projectsPage -= 1;
                         break;
                 }
+            },
+            getFaculties() {
+                this.faculties = this.faculties.map((obj) => { return obj.faculty });
+                this.faculties.unshift({ value: null, label: 'Ninguna' });
+            },
+            cleanFilter() {
+
             }
         },
         mounted() {
+            this.tab = Number(this.$route.query.active_tab);
             let loader = this.$loading.show();
             if (this.$apollo.loading) {
                 loader.hide();
@@ -288,12 +427,18 @@
         color: transparent !important;
     }
 
+
     div.text--primary {
         color: transparent !important;
     }
 
     .colB {
         background-color: #3f4a5b;
+    }
+
+    .searchIcon{
+        color: white;
+        margin-right: 20px;
     }
 
 </style>

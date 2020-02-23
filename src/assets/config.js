@@ -1,6 +1,7 @@
 export const graphConfig = {
     container_id: "graph-renderer",
         server_url: "bolt://3.20.217.224:7687",
+        // server_url: "bolt://localhost:7687",
         server_user: "neo4j",
         server_password: "ociteb",
         labels: {
@@ -8,11 +9,11 @@ export const graphConfig = {
             "caption": "name"
         },
         "Group": {
-            "caption": "name"
+            "caption": "initials"
         },
         "Project": {
             "caption": "name"
-        }
+        },
     },
     relationships: {
         "BELONGS": {

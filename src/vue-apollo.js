@@ -52,7 +52,7 @@ const clientAOptions = {
 }
 
 const clientBOptions = {
-  httpEndpoint: 'http://3.20.217.224:4001/graphql'//'http://localhost:4001/graphql',
+  httpEndpoint: 'http://3.20.217.224:4001/graphql'//
 }
 
 

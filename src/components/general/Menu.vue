@@ -31,12 +31,12 @@
                     {
                         title: 'Investigadores',
                         icon: 'mdi-account-outline',
-                        path: '/graph'
+                        path: '/graph?active_tab=0',
                     },
                     {
                         title: 'Grupos de investigación',
                         icon: 'mdi-account-group-outline',
-                        path: '/graph'
+                        path: '/graph?active_tab=1'
                     },
                     {
                         title: 'Comparación',
