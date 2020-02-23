@@ -6,7 +6,7 @@
         <v-col cols="10">
             <v-container class="dark-back">
                 <v-row>
-                    <Header/>
+                    <Header :items-breadc="itemsBreadc"/>
                 </v-row>
                 <v-row>
                     <v-col cols="2" offset-md="8">
@@ -17,29 +17,35 @@
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-col v-if="indicators.length > 0 && faculties.length > 0" cols="9" class="firstCol">
+                    <v-col v-if="indicators.length > 0 && faculties.length > 0" cols="9"
+                           class="firstCol">
                         <v-row class="indicatorsFirstRow">
-                            <v-col cols="3" v-for="faculty in faculties" :key="faculty">
-                                <h1>{{faculty}}</h1>
-                                <v-col :cols="(indicator === 'bar' || indicator === 'pie' || indicator === 'radial') ? 6 : 12"
-                                       v-for="indicator in indicators" :key="indicator">
-                                    <IndicatorCard :item="selectedIndicators[0]">
-                                        <div slot="indicator-header" class="indicator-header">
-                                            <p>{{indicator}}</p>
-                                        </div>
-                                        <RadialBar v-if="indicator === 'radial'" slot="indicator-chart"/>
-                                        <DonutChart v-if="indicator === 'pie'" slot="indicator-chart"/>
-                                        <BarChart v-if="indicator === 'bar'" slot="indicator-chart"/>
-                                        <LineChart v-if="indicator === 'points'" slot="indicator-chart"/>
+                            <v-col v-for="faculty in faculties" :key="faculty" :cols="12/faculties.length">
+                                <h4>{{faculty}}</h4>
+                                <IndicatorCard :item="selectedIndicators[0]" v-for="indicator in indicators"
+                                               :key="indicator">
+                                    <div slot="indicator-header" class="indicator-header">
                                         <p>{{indicator}}</p>
-                                    </IndicatorCard>
-                                </v-col>
+                                        <LinePoints/>
+                                        <div v-for="report in reports" v-bind:key="report.name">
+                                            <ApolloQuery :query="report.query" :variables="{faculty: faculty}"
+                                                         v-if="indicator === report.name">
+                                                <template slot-scope="{ result: { loading, error, data } }">
+                                                    <v-progress-linear indeterminate color="cyan" v-if="loading"/>
+                                                    <span v-else-if="error">Error al cargar la información</span>
+                                                    <section v-if="data">
+                                                        <h5>{{data.Report + report.name}}</h5>
+                                                    </section>
+                                                </template>
+                                            </ApolloQuery>
+                                        </div>
+                                    </div>
+                                </IndicatorCard>
                             </v-col>
                         </v-row>
                     </v-col>
                     <v-col v-if="indicators.length < 1 || faculties.length < 1" cols="9">
                         <LinePoints/>
-                        <BarPointLine/>
                         <BarCompare/>
                     </v-col>
                     <v-col cols="3">
@@ -60,14 +66,9 @@
     import Footer from "../general/Footer";
     import SidebarComparison from "./SidebarComparison";
     import IndicatorCard from "../indicators/IndicatorCard";
-    import RadialBar from "../charts/RadialBar";
-    import DonutChart from "../charts/DonutChart";
-    import LineChart from "../charts/LineChart";
-    import BarChart from "../charts/BarChart";
     import LinePoints from "../charts/LinePoints";
-    import BarPointLine from "../charts/BarPointLine";
     import BarCompare from "../charts/BarCompare";
-    import gql from "graphql-tag";
+    import {I01, I02, I03, I04, I05, I06, F01, F02, F03, C01, C02, C02_1} from "../../graphql/indicatorsQueries";
 
     export default {
         name: "Comparison",
@@ -77,16 +78,25 @@
             Footer,
             SidebarComparison,
             IndicatorCard,
-            RadialBar,
-            DonutChart,
-            LineChart,
-            BarChart,
             LinePoints,
-            BarPointLine,
             BarCompare
         },
         data: function () {
             return {
+                reports: [
+                    {name: 'I01', query: I01},
+                    {name: 'I02', query: I02},
+                    {name: 'I03', query: I03},
+                    {name: 'I04', query: I04},
+                    {name: 'I05', query: I05},
+                    {name: 'I06', query: I06},
+                    {name: 'F01', query: F01},
+                    {name: 'F02', query: F02},
+                    {name: 'F03', query: F03},
+                    {name: 'C01', query: C01},
+                    {name: 'C02', query: C02},
+                    {name: 'C02_1', query: C02_1}
+                ],
                 charts: ['Tarta', 'Pie', 'Dona', 'Y todo tipo de comida más'],
                 years: ['2016', '2017', '2018', '2019'],
                 faculties: [],
@@ -98,22 +108,20 @@
                         isPanel: false,
                         bgc: '#e6f7ee',
                         iconColor: '#2dcd7a',
+                    }
+                ],
+                itemsBreadc: [
+                    {
+                        text: '',
+                        disabled: false,
+                        href: '/'
                     },
                     {
-                        title: 'I01 - Número de proyectos de investigación según financiación',
-                        icon: 'mdi-currency-usd',
-                        isPanel: false,
-                        bgc: '#e6f7ee',
-                        iconColor: '#2dcd7a',
-                    },
-                ],
-                mainIndicator: {
-                    title: 'I05 - Ingresos recursos propios posgrados',
-                    icon: 'mdi-currency-usd',
-                    isPanel: false,
-                    bgc: '#e6f7ee',
-                    iconColor: '#2dcd7a',
-                },
+                        text: 'Comparación',
+                        disabled: true,
+                        href: '/comparison',
+                    }
+                ]
             }
         },
         methods: {
@@ -122,137 +130,6 @@
             },
             setIndicators(list) {
                 this.indicators = list;
-            }
-        },
-        apollo: {
-            Faculties: gql`
-                query faculties {
-                    Faculties {
-                        _id
-                        name
-                        type
-                    }
-                }
-            `,
-            Indicators: gql`
-                query indicators {
-                    Indicators {
-                        name
-                        reports {
-                            code
-                            value
-                        }
-                    }
-                }
-            `,
-            FacultyIndicator: {
-                query(indicator) {
-                    if (indicator === 'IO1') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'IO2') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'IO3') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'IO4') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'IO5') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'IO5') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'F01') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'F02') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'F03') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'C01') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'C02') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'C02.1') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    } else if (indicator === 'PB03') {
-                        return gql`{
-                            randomTag {
-                                id
-                                label
-                                type
-                            }
-                        }`
-                    }
-                }
             }
         }
     }

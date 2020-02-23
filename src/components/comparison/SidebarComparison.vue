@@ -67,7 +67,11 @@
                 this.$emit('selectIndicators', list);
             },
             setFaculty(list) {
-                this.$emit('selectFaculties', list);
+                if (list.length > 0 && list.length < 2) {
+                    this.$emit('selectFaculties', []);
+                } else {
+                    this.$emit('selectFaculties', list);
+                }
             }
         },
         apollo: {
@@ -77,6 +81,7 @@
                         _id
                         name
                         type
+                        report
                     }
                 }
             `,

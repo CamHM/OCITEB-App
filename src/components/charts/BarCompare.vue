@@ -15,11 +15,11 @@
                 series: [
                     {
                         name: 'One',
-                        data: [2.3, 3.1, 4.0]
+                        data: [2.3, 20, 4.0]
                     },
                     {
                         name: 'Two',
-                        data: [1, 3, 5]
+                        data: [1, 3, 10]
                     }
                 ],
                 chartOptions: {
