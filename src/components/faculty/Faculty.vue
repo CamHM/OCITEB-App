@@ -23,6 +23,7 @@
                 </v-row>
                 <v-row class="secondRow">
                     <v-col v-if="indicator" cols="8" class="firstCol">
+                        <p>{{ JSON.stringify(currentResult)}}</p>
                         <v-row class="indicatorsFirstRow">
                             <v-col :cols="(graphic === 'bar' || graphic === 'pie' || graphic === 'radial') ? 6 : 12"
                                    v-for="graphic in indicator.graphic" :key="graphic">
@@ -34,8 +35,8 @@
                                     <RadialBar v-if="graphic === 'radial' || graphic === 'points'"  slot="indicator-chart"></RadialBar>
                                     <DonutChart v-if="graphic === 'pie'" slot="indicator-chart"></DonutChart>
                                     <BarChart v-if="graphic === 'bar'" slot="indicator-chart"></BarChart>
-                                    <LineChart v-if="graphic === 'line' || graphic === 'area'" :type="graphic" slot="indicator-chart"></LineChart>
-                                    <LineChart v-if="graphic === 'line-compare'" type="line" slot="indicator-chart"></LineChart>
+                                    <LineChart v-if="graphic === 'line' || graphic === 'area'" :report="currentResult" :type="graphic" slot="indicator-chart"></LineChart>
+                                    <LineChart v-if="graphic === 'line-compare'" :report="currentResult" type="line" slot="indicator-chart"></LineChart>
                                     <BarCompare v-if="graphic === 'bar-compare'" type="area" slot="indicator-chart"></BarCompare>
                                     <BarPointLine v-if="graphic === 'bar-point-line'" slot="indicator-chart"> </BarPointLine>
                                     <LinePoints v-if="graphic === 'line-points'" slot="indicator-chart"> </LinePoints>
@@ -89,6 +90,7 @@
     import BarCompare from "../charts/BarCompare";
     import BarPointLine from "../charts/BarPointLine";
     import gql from "graphql-tag";
+    import { I01, I02, I03, I04, I05, I06} from "../../graphql/indicatorsQueries";
 
     export default {
         name: "Faculty",
@@ -108,11 +110,12 @@
         data() {
             return {
                 Faculty: {},
-                value: '',
+                value: 'Inversión',
                 showOptions: true,
                 indicators: ['Inversión', 'Formación', 'Capacidades', 'Producción Bibliografica'],
-                cardNumber: 0,
                 indicator: null,
+                currentIndicator: 'I01',
+                currentResult: null,
                 years: ['2016', '2017', '2018', '2019'],
                 selectedIndicators: [
                     {
@@ -122,21 +125,7 @@
                         bgc: '#e6f7ee',
                         iconColor: '#2dcd7a',
                     },
-                    {
-                        title: 'I01 - Número de proyectos de investigación según financiación',
-                        icon: 'mdi-currency-usd',
-                        isPanel: false,
-                        bgc: '#e6f7ee',
-                        iconColor: '#2dcd7a',
-                    },
                 ],
-                mainIndicator: {
-                    title: 'I05 - Ingresos recursos propios posgrados',
-                    icon: 'mdi-currency-usd',
-                    isPanel: false,
-                    bgc: '#e6f7ee',
-                    iconColor: '#2dcd7a',
-                },
                 itemsBreadc: [
                     {
                         text: '',
@@ -157,6 +146,7 @@
             },
             showActualIndicator(indicator) {
                 this.indicator = indicator;
+                this.currentIndicator = indicator.code;
             },
         },
         apollo: {
@@ -177,6 +167,24 @@
                     }
                 }
             },
+            currentResult: {
+                query () {
+                    if (this.currentIndicator === 'I01') { return I01 }
+                    else if (this.currentIndicator === 'I02') { return I02 }
+                    else if (this.currentIndicator === 'I03') { return I03 }
+                    else if (this.currentIndicator === 'I04') { return I04 }
+                    else if (this.currentIndicator === 'I05') { return I05 }
+                    else if (this.currentIndicator === 'I06') { return I06 }
+                },
+                variables () {
+                    return {
+                        faculty: this.Faculty.report
+                    }
+                },
+                update: data => data.ReportI01 || data.ReportI02 || data.ReportI03 || data.ReportI04 || data.ReportI05 || data.ReportI06
+            }
+
+
         }
     }
 </script>

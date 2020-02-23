@@ -12,12 +12,12 @@
         components: {
             VueApexCharts
         },
-        props: ['type'],
+        props: ['type', 'report'],
         data() {
             return {
                 series: [{
                     name: 'Total',
-                    data: [31, 40, 28, 51, 42, 49]
+                    data: this.report.map(r => r['total'])
                 }],
                 chartOptions: {
                     chart: {
@@ -59,7 +59,7 @@
                         },
                     },
                     xaxis: {
-                        categories: ['2014', '2015', '2016', '2017', '2018', '2019'],
+                        categories: this.report.map(r => r['year']),
                         labels: {
                             show: true,
                             trim: true,
@@ -85,6 +85,9 @@
                     colors: ['#8770fa', '#ffa653', '#eb6262'],
                 }
             }
+        },
+        mounted() {
+            alert(JSON.stringify(this.report.map(r => r['year'])))
         }
     }
 </script>
