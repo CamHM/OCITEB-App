@@ -6,18 +6,22 @@
             </v-list-item-content>
         </template>
         <template style="margin: 0" v-if="type === 'O'">
+
             <v-checkbox v-for="subItem in items" :key="subItem._id" color="primary"
-                        :value="subItem.report" :label="subItem.name" dark
+                        :value="{name: subItem.name,report:subItem.report}" :label="subItem.name" dark
                         off-icon="mdi-checkbox-blank-circle-outline" v-model="list"
                         on-icon="mdi-disc" class="checkbox-property"
-                        v-on:change="selectFaculty()" :disabled="limit_list(subItem.report)"/>
+                        v-on:change="selectFaculty()"
+                        :disabled="limit_list({name: subItem.name,report:subItem.report})"/>
         </template>
         <template style="margin: 0" v-if="type === 'I'">
             <v-checkbox v-for="subItem in items" :key="subItem.code" color="primary"
-                        :value="subItem.code" :label="subItem.code + ' - ' +subItem.value" dark
+                        :value="{code: subItem.code, graphic: subItem.graphic, name: subItem.code + ' - ' +subItem.value}"
+                        :label="subItem.code + ' - ' +subItem.value" dark
                         off-icon="mdi-checkbox-blank-circle-outline" v-model="list"
                         on-icon="mdi-disc" class="checkbox-property"
-                        v-on:change="selectIndicator()" :disabled="limit_list(subItem.code)"/>
+                        v-on:change="selectIndicator()"
+                        :disabled="limit_list({code: subItem.code, graphic: subItem.graphic, name: subItem.code + ' - ' +subItem.value})"/>
         </template>
     </v-list-group>
 </template>
