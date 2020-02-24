@@ -24,7 +24,7 @@
                         }
                     },
                     title: {
-                        text: '$658,980,000',
+                        text: '',
                         align: 'left',
                         style: {
                             fontSize: "16px",
