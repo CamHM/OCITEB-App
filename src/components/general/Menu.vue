@@ -23,12 +23,6 @@
                         path: '/faculties'
                     },
                     {
-                        title: 'Escuelas',
-                        icon: 'mdi-file-outline',
-                        active: false,
-                        path: '/faculties'
-                    },
-                    {
                         title: 'Investigadores',
                         icon: 'mdi-account-outline',
                         path: '/graph?active_tab=0',

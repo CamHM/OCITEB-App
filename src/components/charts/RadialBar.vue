@@ -46,9 +46,8 @@
                                     show: true,
                                     label: 'Total',
                                     color: 'white',
-                                    formatter: function () {
-                                        // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
-                                        return this.total
+                                    formatter: function (w) {
+                                        return w.globals.seriesTotals.reduce((a, b) => {return a + b}, 0);
                                     }
                                 }
                             },
