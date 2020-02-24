@@ -101,7 +101,7 @@
     import BarCompare from "../charts/BarCompare";
     import BarPointLine from "../charts/BarPointLine";
     import gql from "graphql-tag";
-    import { I01, I02, I03, I04, I05, I06, F01, F02, F03} from "../../graphql/indicatorsQueries";
+    import { I01, I02, I03, I04, I05, I06, F01, F02, F03, C01, C02, C02_1} from "../../graphql/indicatorsQueries";
 
     export default {
         name: "Faculty",
@@ -197,6 +197,9 @@
                     else if (this.currentIndicator === 'F01') { return F01 }
                     else if (this.currentIndicator === 'F02') { return F02 }
                     else if (this.currentIndicator === 'F03') { return F03 }
+                    else if (this.currentIndicator === 'C01') { return C01 }
+                    else if (this.currentIndicator === 'C02') { return C02 }
+                    else if (this.currentIndicator === 'C02.1') { return C02_1 }
                 },
                 variables () {
                     return {
@@ -204,7 +207,7 @@
                     }
                 },
                 update: data => data.ReportI01 || data.ReportI02 || data.ReportI03 || data.ReportI04 || data.ReportI05 || data.ReportI06
-                        || data.ReportF01 || data.ReportF02 || data.ReportF03
+                        || data.ReportF01 || data.ReportF02 || data.ReportF03 || data.ReportC01.field || data.ReportC02 || data.ReportC02_1
             }
         }
     }

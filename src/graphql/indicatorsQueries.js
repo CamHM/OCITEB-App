@@ -88,10 +88,12 @@ const F03 = gql`
 
 const C01 = gql`
     query reportC01 ($faculty: String!) {
-        ReportC01 (faculty: $faculty) { 
-            year
-            total
-            concept
+        ReportC01 (faculty: $faculty) {
+            field {
+                year
+                concept
+                total
+            }
         }
     }
 `;
