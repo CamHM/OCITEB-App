@@ -9,9 +9,9 @@
                     <Header :items-breadc="itemsBreadc"/>
                 </v-row>
                 <v-row>
-                    <v-col cols="2" offset-md="8">
-                        <v-select :items="charts" label="Tipo de gráfico" solo dense/>
-                    </v-col>
+<!--                    <v-col cols="2" offset-md="8">-->
+<!--                        <v-select :items="charts" label="Tipo de gráfico" solo dense/>-->
+<!--                    </v-col>-->
                     <v-col class="ml-auto" cols="2" offset-md="10">
                         <v-select :items="years" v-model="currentYear" label="Año" solo dense/>
                     </v-col>
@@ -31,39 +31,72 @@
                                                 <v-progress-linear indeterminate color="cyan" v-if="loading"/>
                                                 <span v-else-if="error">Error al cargar la información</span>
                                                 <section v-if="data">
-<!--                                                    <h5 v-if="indicator.code === 'I01'">{{data.ReportI01}}</h5>-->
                                                     <div v-for="graphic in indicator.graphic" :key="graphic">
-                                                        <IndicatorCard :item="selectedIndicators[0]">
-                                                            <div slot="indicator-header" class="indicator-header">
-                                                                <p>{{indicator.name}}</p>
-                                                                <v-icon color="white">mdi-dots-vertical</v-icon>
-                                                            </div>
-                                                            <RadialBar
-                                                                    v-if="graphic === 'radial' || graphic === 'points'"
-                                                                    :series="yearSeries(data.ReportI01)"
-                                                                    :labels="conceptLabels(data.ReportI01)"
-                                                                    slot="indicator-chart" />
-                                                            <DonutChart v-if="graphic === 'pie'"
-                                                                        :series="yearSeries(data.ReportI01)"
-                                                                        :labels="conceptLabels(data.ReportI01)"
-                                                                        slot="indicator-chart"/>
-                                                            <BarChart v-if="graphic === 'bar'" :info="yearSeries(data.ReportI01)"
-                                                                      :labels="conceptLabels(data.ReportI01)"
-                                                                      slot="indicator-chart"/>
-                                                            <LineChart v-if="graphic === 'line' || graphic === 'area'"
-                                                                       :report="data.ReportI01" :type="graphic"
-                                                                       slot="indicator-chart"/>
-                                                            <LineChart v-if="graphic === 'line-compare'"
-                                                                       :report="data.ReportI01" type="line"
-                                                                       slot="indicator-chart"/>
-                                                            <BarCompare v-if="graphic === 'bar-compare'" type="area"
-                                                                        slot="indicator-chart"/>
-                                                            <BarPointLine v-if="graphic === 'bar-point-line'"
-                                                                          slot="indicator-chart"/>
-                                                            <LinePoints v-if="graphic === 'line-points'"
-                                                                        slot="indicator-chart"></LinePoints>
-                                                            <p>{{graphic}}</p>
-                                                        </IndicatorCard>
+                                                        <CardComparison v-if="indicator.code === 'I01'"
+                                                                        v-bind:name="indicator.name"
+                                                                        v-bind:graphic="graphic"
+                                                                        v-bind:dataGraphic="data.ReportI01"
+                                                                        v-bind:year="currentYear"/>
+                                                        <CardComparison v-if="indicator.code === 'I02'"
+                                                                        v-bind:name="indicator.name"
+                                                                        v-bind:graphic="graphic"
+                                                                        v-bind:dataGraphic="data.ReportI02"
+                                                                        v-bind:year="currentYear"/>
+                                                        <CardComparison v-if="indicator.code === 'I03'"
+                                                                        v-bind:name="indicator.name"
+                                                                        v-bind:graphic="graphic"
+                                                                        v-bind:dataGraphic="data.ReportI03"
+                                                                        v-bind:year="currentYear"/>
+                                                        <CardComparison v-if="indicator.code === 'I04'"
+                                                                        v-bind:name="indicator.name"
+                                                                        v-bind:graphic="graphic"
+                                                                        v-bind:dataGraphic="data.ReportI04"
+                                                                        v-bind:year="currentYear"/>
+                                                        <CardComparison v-if="indicator.code === 'I05'"
+                                                                        v-bind:name="indicator.name"
+                                                                        v-bind:graphic="graphic"
+                                                                        v-bind:dataGraphic="data.ReportI05"
+                                                                        v-bind:year="currentYear"/>
+                                                        <CardComparison v-if="indicator.code === 'I06'"
+                                                                        v-bind:name="indicator.name"
+                                                                        v-bind:graphic="graphic"
+                                                                        v-bind:dataGraphic="data.ReportI06"
+                                                                        v-bind:year="currentYear"/>
+                                                        <CardComparison v-if="indicator.code === 'F01'"
+                                                                        v-bind:name="indicator.name"
+                                                                        v-bind:graphic="graphic"
+                                                                        v-bind:dataGraphic="data.ReportF01"
+                                                                        v-bind:year="currentYear"/>
+                                                        <CardComparison v-if="indicator.code === 'F02'"
+                                                                        v-bind:name="indicator.name"
+                                                                        v-bind:graphic="graphic"
+                                                                        v-bind:dataGraphic="data.ReportF02"
+                                                                        v-bind:year="currentYear"/>
+                                                        <CardComparison v-if="indicator.code === 'F03'"
+                                                                        v-bind:name="indicator.name"
+                                                                        v-bind:graphic="graphic"
+                                                                        v-bind:dataGraphic="data.ReportF03"
+                                                                        v-bind:year="currentYear"/>
+                                                        <CardComparison v-if="indicator.code === 'C01'"
+                                                                        v-bind:name="indicator.name"
+                                                                        v-bind:graphic="graphic"
+                                                                        v-bind:dataGraphic="data.ReportC01"
+                                                                        v-bind:year="currentYear"/>
+                                                        <CardComparison v-if="indicator.code === 'C02'"
+                                                                        v-bind:name="indicator.name"
+                                                                        v-bind:graphic="graphic"
+                                                                        v-bind:dataGraphic="data.ReportC02"
+                                                                        v-bind:year="currentYear"/>
+                                                        <CardComparison v-if="indicator.code === 'I06'"
+                                                                        v-bind:name="indicator.name"
+                                                                        v-bind:graphic="graphic"
+                                                                        v-bind:dataGraphic="data.ReportC02_1"
+                                                                        v-bind:year="currentYear"/>
+                                                        <CardComparison v-if="indicator.code === 'PB03'"
+                                                                        v-bind:name="indicator.name"
+                                                                        v-bind:graphic="graphic"
+                                                                        v-bind:dataGraphic="data.ReportPB03"
+                                                                        v-bind:year="currentYear"/>
                                                     </div>
                                                 </section>
                                             </template>
@@ -74,7 +107,13 @@
                         </v-row>
                     </v-col>
                     <v-col v-if="indicators.length < 1 || faculties.length < 1 || currentYear === null" cols="9">
-                        <p>Seleccione al menos dos facultades o seccionales y un indicador, y seleccione un año</p>
+                        <p>Seleccione mínimo dos facultades o seccionales y máximo tres</p>
+                        <v-divider/>
+                        <br>
+                        <p>Seleccione mínimo un indicador y máximo tres</p>
+                        <v-divider/>
+                        <br>
+                        <p>Seleccione un año</p>
                     </v-col>
                     <v-col cols="3">
                         <SidebarComparison @selectFaculties="setFaculties" @selectIndicators="setIndicators"/>
@@ -93,14 +132,7 @@
     import Header from "../general/Header";
     import Footer from "../general/Footer";
     import SidebarComparison from "./SidebarComparison";
-    import IndicatorCard from "../indicators/IndicatorCard";
-    import LinePoints from "../charts/LinePoints";
-    import RadialBar from "../charts/RadialBar";
-    import DonutChart from "../charts/DonutChart";
-    import LineChart from "../charts/LineChart";
-    import BarCompare from "../charts/BarCompare";
-    import BarPointLine from "../charts/BarPointLine";
-    import BarChart from "../charts/BarChart";
+    import CardComparison from "./CardComparison";
     import {I01, I02, I03, I04, I05, I06, F01, F02, F03, C01, C02, C02_1} from "../../graphql/indicatorsQueries";
 
     export default {
@@ -110,14 +142,7 @@
             Header,
             Footer,
             SidebarComparison,
-            IndicatorCard,
-            LinePoints,
-            RadialBar,
-            DonutChart,
-            LineChart,
-            BarCompare,
-            BarPointLine,
-            BarChart
+            CardComparison
         },
         data: function () {
             return {
@@ -141,15 +166,6 @@
                 currentYear: null,
                 faculties: [],
                 indicators: [],
-                selectedIndicators: [
-                    {
-                        title: 'I02 - Inversión en I+D a nivel de proyectos',
-                        icon: 'mdi-currency-usd',
-                        isPanel: false,
-                        bgc: '#e6f7ee',
-                        iconColor: '#2dcd7a',
-                    }
-                ],
                 itemsBreadc: [
                     {
                         text: '',
@@ -173,12 +189,6 @@
             },
             setFaculty(faculty) {
                 this.faculty = faculty;
-            },
-            yearSeries: function (result) {
-                return result.filter(r => r['year'] === this.currentYear).map(r => r['total'])
-            },
-            conceptLabels: function (result) {
-                return result.filter(r => r['year'] === this.currentYear).map(r => r['concept'])
             }
         }
     }

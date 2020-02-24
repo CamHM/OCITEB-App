@@ -12,7 +12,7 @@
                         off-icon="mdi-checkbox-blank-circle-outline" v-model="list"
                         on-icon="mdi-disc" class="checkbox-property"
                         v-on:change="selectFaculty()"
-                        :disabled="limit_list({name: subItem.name,report:subItem.report})"/>
+                        :disabled="limit_list(subItem.name)"/>
         </template>
         <template style="margin: 0" v-if="type === 'I'">
             <v-checkbox v-for="subItem in items" :key="subItem.code" color="primary"
@@ -21,7 +21,7 @@
                         off-icon="mdi-checkbox-blank-circle-outline" v-model="list"
                         on-icon="mdi-disc" class="checkbox-property"
                         v-on:change="selectIndicator()"
-                        :disabled="limit_list({code: subItem.code, graphic: subItem.graphic, name: subItem.code + ' - ' +subItem.value})"/>
+                        :disabled="limit_list(subItem.code + ' - ' +subItem.value)"/>
         </template>
     </v-list-group>
 </template>
@@ -37,7 +37,7 @@
         },
         methods: {
             limit_list(value) {
-                return this.list.length > 2 && this.list.indexOf(value) === -1;
+                return this.list.length > 2 && this.list.find(x => x.name === value) === undefined;
             },
             selectFaculty() {
                 this.$emit('selected', this.list);
