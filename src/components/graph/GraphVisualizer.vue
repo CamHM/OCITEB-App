@@ -71,7 +71,7 @@
                 let node = document.getElementsByClassName('vis-tooltip')[0];
 
                 if (typeof node !== 'undefined') {
-                    let hasChild = typeof node.childNodes[7] !== 'undefined';
+                    let hasChild = node.childNodes[3].innerHTML !== 'id:';
                     let nodeChildren = hasChild ? node.childNodes[7] : node.childNodes[4];
                     let nodeId = nodeChildren.nodeValue.replace(/\s/g, '');
 
