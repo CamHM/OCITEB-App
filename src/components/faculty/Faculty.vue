@@ -183,21 +183,44 @@
         },
         computed: {
             yearSeries: function () {
-                return this.currentResult.filter(r => r['year'] === this.currentYear).map(r => r['total'])
+                if(this.currentIndicator === 'I02') return this.transformI02.filter(r => r['year'] === this.currentYear).map(r => r['total'])
+                else    return this.currentResult.filter(r => r['year'] === this.currentYear).map(r => r['total'])
             },
             conceptLabels: function () {
-                return this.currentResult.filter(r => r['year'] === this.currentYear).map(r => r['concept'])
+                if(this.currentIndicator === 'I02') return this.transformI02.filter(r => r['year'] === this.currentYear).map(r => r['concept'])
+                else return this.currentResult.filter(r => r['year'] === this.currentYear).map(r => r['concept'])
             },
             years: function () {
-                return this.currentResult.map(r => r['year'])
+                if(this.currentIndicator === 'I02') return this.currentResult.map(r => r['year'])
+                else
+                    return this.currentResult.map(r => r['year'])
             },
             seriesCompare: function () {
                 const newSeries = [];
-                this.currentResult.forEach(r => {
-                    let item = newSeries.find(s => s.name === r.concept);
-                    item ? item.data.push(r.total) : newSeries.push({ name: r.concept, data: [r.total]})
-                });
+                if(this.currentIndicator === 'I02') {
+                    this.transformI02.forEach(r => {
+                        let item = newSeries.find(s => s.name === r.concept);
+                        item ? item.data.push(r.total) : newSeries.push({ name: r.concept, data: [r.total]})
+                    });
+                } else {
+                    this.currentResult.forEach(r => {
+                        let item = newSeries.find(s => s.name === r.concept);
+                        item ? item.data.push(r.total) : newSeries.push({ name: r.concept, data: [r.total]})
+                    });
+                }
                 return newSeries
+            },
+            transformI02: function () {
+                let newI02 = [];
+                if(this.currentIndicator === 'I02') {
+                    this.currentResult.forEach(r => {
+                        newI02.push({ year: r.year, concept: "Monto especie interno", total: r.internalS_amount });
+                        newI02.push({ year: r.year, concept: "Monto efectivo interno", total: r.internalE_amount });
+                        newI02.push({ year: r.year, concept: "Monto externo", total: r.external_amount });
+                    });
+                } else
+                    newI02 = this.currentResult;
+                return newI02
             }
         },
         apollo: {
