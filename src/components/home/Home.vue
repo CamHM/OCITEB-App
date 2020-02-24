@@ -17,7 +17,7 @@
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-col cols="3" v-for="item of items" v-bind:key="item.title">
+                    <v-col cols="4" v-for="item of items" v-bind:key="item.title">
                         <Card v-bind:item="item"/>
                     </v-col>
                 </v-row>
@@ -73,17 +73,6 @@
                         card_color: "secondary",
                         avatar_color: "#d5d1fb",
                         icon_color: "#8174f2",
-                        avatar_size: 40,
-                        card_height: 200,
-                        path: '/faculties',
-                    },
-                    {
-                        title: "Escuelas",
-                        icon: "mdi-file-outline",
-                        description: "Escuelas por Facultad",
-                        card_color: "secondary",
-                        avatar_color: "#e6f7ee",
-                        icon_color: "#2dcd7a",
                         avatar_size: 40,
                         card_height: 200,
                         path: '/faculties',

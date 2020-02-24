@@ -13,11 +13,11 @@
                         <v-select :items="charts" label="Tipo de gráfico" solo dense/>
                     </v-col>
                     <v-col class="ml-auto" cols="2" offset-md="10">
-                        <v-select :items="years" label="Año" solo dense/>
+                        <v-select :items="years" v-model="currentYear" label="Año" solo dense/>
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-col v-if="indicators.length > 0 && faculties.length > 0" cols="9"
+                    <v-col v-if="indicators.length > 0 && faculties.length > 0 && currentYear != null" cols="9"
                            class="firstCol">
                         <v-row class="indicatorsFirstRow">
                             <v-col v-for="item in faculties" :key="item.report" :cols="12/faculties.length">
@@ -31,7 +31,7 @@
                                                 <v-progress-linear indeterminate color="cyan" v-if="loading"/>
                                                 <span v-else-if="error">Error al cargar la información</span>
                                                 <section v-if="data">
-                                                    <h5 v-if="indicator.code === 'I01'">{{data.ReportI01}}</h5>
+<!--                                                    <h5 v-if="indicator.code === 'I01'">{{data.ReportI01}}</h5>-->
                                                     <div v-for="graphic in indicator.graphic" :key="graphic">
                                                         <IndicatorCard :item="selectedIndicators[0]">
                                                             <div slot="indicator-header" class="indicator-header">
@@ -40,19 +40,26 @@
                                                             </div>
                                                             <RadialBar
                                                                     v-if="graphic === 'radial' || graphic === 'points'"
-                                                                    slot="indicator-chart"/>
+                                                                    :series="yearSeries(data.ReportI01)"
+                                                                    :labels="conceptLabels(data.ReportI01)"
+                                                                    slot="indicator-chart" />
                                                             <DonutChart v-if="graphic === 'pie'"
+                                                                        :series="yearSeries(data.ReportI01)"
+                                                                        :labels="conceptLabels(data.ReportI01)"
                                                                         slot="indicator-chart"/>
-                                                            <BarChart v-if="graphic === 'bar'" slot="indicator-chart"/>
+                                                            <BarChart v-if="graphic === 'bar'" :info="yearSeries(data.ReportI01)"
+                                                                      :labels="conceptLabels(data.ReportI01)"
+                                                                      slot="indicator-chart"/>
                                                             <LineChart v-if="graphic === 'line' || graphic === 'area'"
-                                                                       :type="graphic" slot="indicator-chart"/>
+                                                                       :report="data.ReportI01" :type="graphic"
+                                                                       slot="indicator-chart"/>
                                                             <LineChart v-if="graphic === 'line-compare'"
-                                                                       :report="data.Report01" type="line"
-                                                                       slot="indicator-chart"></LineChart>
+                                                                       :report="data.ReportI01" type="line"
+                                                                       slot="indicator-chart"/>
                                                             <BarCompare v-if="graphic === 'bar-compare'" type="area"
-                                                                        slot="indicator-chart"></BarCompare>
+                                                                        slot="indicator-chart"/>
                                                             <BarPointLine v-if="graphic === 'bar-point-line'"
-                                                                          slot="indicator-chart"></BarPointLine>
+                                                                          slot="indicator-chart"/>
                                                             <LinePoints v-if="graphic === 'line-points'"
                                                                         slot="indicator-chart"></LinePoints>
                                                             <p>{{graphic}}</p>
@@ -66,8 +73,8 @@
                             </v-col>
                         </v-row>
                     </v-col>
-                    <v-col v-if="indicators.length < 1 || faculties.length < 1" cols="9">
-                        <p>Seleccione al menos dos facultades o seccionales y un indicador</p>
+                    <v-col v-if="indicators.length < 1 || faculties.length < 1 || currentYear === null" cols="9">
+                        <p>Seleccione al menos dos facultades o seccionales y un indicador, y seleccione un año</p>
                     </v-col>
                     <v-col cols="3">
                         <SidebarComparison @selectFaculties="setFaculties" @selectIndicators="setIndicators"/>
@@ -130,7 +137,8 @@
                 ],
                 infoQuery: null,
                 charts: ['Tarta', 'Pie', 'Dona', 'Y todo tipo de comida más'],
-                years: ['2016', '2017', '2018', '2019'],
+                years: [2014, 2015, 2016, 2017, 2018],
+                currentYear: null,
                 faculties: [],
                 indicators: [],
                 selectedIndicators: [
@@ -165,6 +173,12 @@
             },
             setFaculty(faculty) {
                 this.faculty = faculty;
+            },
+            yearSeries: function (result) {
+                return result.filter(r => r['year'] === this.currentYear).map(r => r['total'])
+            },
+            conceptLabels: function (result) {
+                return result.filter(r => r['year'] === this.currentYear).map(r => r['concept'])
             }
         }
     }
