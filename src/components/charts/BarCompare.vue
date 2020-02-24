@@ -10,18 +10,9 @@
         components: {
             VueApexCharts
         },
+        props: ['series', 'labels'],
         data() {
             return {
-                series: [
-                    {
-                        name: 'One',
-                        data: [2.3, 20, 4.0]
-                    },
-                    {
-                        name: 'Two',
-                        data: [1, 3, 10]
-                    }
-                ],
                 chartOptions: {
                     chart: {
                         height: 350,
@@ -47,7 +38,7 @@
                         }
                     },
                     xaxis: {
-                        categories: ["Jan", "Feb", "Mar"],
+                        categories: this.labels,
                         position: 'bottom',
                         labels: {
                             show: false,

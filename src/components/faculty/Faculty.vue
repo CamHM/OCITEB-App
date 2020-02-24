@@ -48,9 +48,9 @@
                                     <BarChart v-if="graphic === 'bar'" :info="yearSeries" :labels="conceptLabels" slot="indicator-chart"></BarChart>
                                     <LineChart v-if="graphic === 'line' || graphic === 'area'" :report="currentResult" :type="graphic" slot="indicator-chart"></LineChart>
                                     <LineChart v-if="graphic === 'line-compare'" :report="currentResult" type="line" slot="indicator-chart"></LineChart>
-                                    <BarCompare v-if="graphic === 'bar-compare'" type="area" slot="indicator-chart"></BarCompare>
-                                    <BarPointLine v-if="graphic === 'bar-point-line'" slot="indicator-chart"> </BarPointLine>
-                                    <LinePoints v-if="graphic === 'line-points'" slot="indicator-chart"> </LinePoints>
+                                    <BarCompare v-if="graphic === 'bar-compare'" :series="seriesCompare" :labels="years" type="area" slot="indicator-chart"></BarCompare>
+                                    <BarPointLine v-if="graphic === 'bar-point-line'"  slot="indicator-chart"> </BarPointLine>
+                                    <LinePoints v-if="graphic === 'line-points'" :series="seriesCompare" :labels="years" slot="indicator-chart"> </LinePoints>
                                     <p>{{graphic}}</p>
                                 </IndicatorCard>
                             </v-col>
@@ -166,6 +166,14 @@
             },
             years: function () {
                 return this.currentResult.map(r => r['year'])
+            },
+            seriesCompare: function () {
+                const newSeries = [];
+                this.currentResult.forEach(r => {
+                    let item = newSeries.find(s => s.name === r.concept);
+                    item ? item.data.push(r.total) : newSeries.push({ name: r.concept, data: [r.total]})
+                });
+                return newSeries
             }
         },
         apollo: {
@@ -207,7 +215,7 @@
                     }
                 },
                 update: data => data.ReportI01 || data.ReportI02 || data.ReportI03 || data.ReportI04 || data.ReportI05 || data.ReportI06
-                        || data.ReportF01 || data.ReportF02 || data.ReportF03 || data.ReportC01.field || data.ReportC02 || data.ReportC02_1
+                        || data.ReportF01 || data.ReportF02 || data.ReportF03 || data.ReportC01 || data.ReportC02 || data.ReportC02_1
             }
         }
     }

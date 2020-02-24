@@ -12,22 +12,9 @@
         components: {
             VueApexCharts
         },
+        props: ['series', 'labels'],
         data() {
             return {
-                series: [
-                    {
-                        name: 'Total',
-                        data: [31, 40, 28, 51, 42, 49]
-                    },
-                    {
-                        name: 'Otro',
-                        data: [49, 31, 100, 200, 50, 20]
-                    },
-                    {
-                        name: 'Linea',
-                        data: [10, 50, 40, 70, 20, 89]
-                    }
-                ],
                 chartOptions: {
                     chart: {
                         height: 350,
@@ -56,7 +43,7 @@
                         colors: ['#8770fa', '#ffa653', '#eb6262']
                     },
                     xaxis: {
-                        categories: ['2014', '2015', '2016', '2017', '2018', '2019'],
+                        categories: this.labels,
                         labels: {
                             show: true,
                             trim: true,
