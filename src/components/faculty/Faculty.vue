@@ -12,7 +12,7 @@
                         href: '',
                     })"/>
                 </v-row>
-                <v-row class="firstRow" v-if="showOptions">
+                <v-row class="firstRow">
                     <v-col cols="4">
                         <v-select :items="indicators" v-model="value" label="Indicadores" solo dense></v-select>
                     </v-col>
@@ -29,12 +29,11 @@
                             </v-col>
                         </v-row>
                         <v-row v-else class="indicatorsFirstRow">
-                            <v-col :cols="(graphic === 'bar' || graphic === 'pie' || graphic === 'radial') ? 6 : 12"
+                            <v-col :cols="(graphic === 'bar' || graphic === 'pie' || graphic === 'radial') ? 12 : 12"
                                    v-for="graphic in indicator.graphic" :key="graphic">
                                 <IndicatorCard v-if="currentYear" :item="selectedIndicators[0]">
                                     <div slot="indicator-header" class="indicator-header">
                                         <p>{{ indicator.code}} - {{indicator.value}}</p>
-                                        <v-icon color="white" @click="changeShowOptions">mdi-dots-vertical</v-icon>
                                     </div>
                                     <RadialBar v-if="graphic === 'radial' || graphic === 'points'"
                                                :series="yearSeries"
@@ -123,7 +122,6 @@
             return {
                 Faculty: {},
                 value: 'Inversión',
-                showOptions: true,
                 indicators: ['Inversión', 'Formación', 'Capacidades', 'Producción Bibliografica'],
                 indicator: null,
                 currentIndicator: 'I01',
@@ -154,12 +152,10 @@
             }
         },
         methods: {
-            changeShowOptions() {
-                this.showOptions = !this.showOptions
-            },
             showActualIndicator(indicator) {
                 this.indicator = indicator;
                 this.currentIndicator = indicator.code;
+                this.currentYear = null
             },
         },
         computed: {
@@ -247,15 +243,22 @@
         overflow-y: scroll;
         overflow-x: auto;
         padding: 20px 10px;
-        height: 110vh;
+        height: 100%;
         margin-top: 20px;
         float: right;
     }
-
     .secondCol::-webkit-scrollbar {
-        display: none;
+        width: 5px;
+        height: 0;
     }
-
+    .secondCol::-webkit-scrollbar-thumb {
+        background: #4abfd4;
+        border-radius: 4px;
+    }
+    .secondCol::-webkit-scrollbar-track {
+        background: #2d394d;
+        border-radius: 4px;
+    }
     .panelRow {
         height: 33%;
     }
