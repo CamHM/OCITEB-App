@@ -64,7 +64,7 @@
                                     <LineChart v-if="graphic === 'line' || graphic === 'area'" :report="currentResult" :type="graphic" slot="indicator-chart"></LineChart>
                                     <LineChart v-if="graphic === 'line-compare'" :report="currentResult" type="line" slot="indicator-chart"></LineChart>
                                     <BarCompare v-if="graphic === 'bar-compare'" :series="seriesCompare" :labels="years" type="area" slot="indicator-chart"></BarCompare>
-                                    <BarPointLine v-if="graphic === 'bar-point-line'"  slot="indicator-chart"> </BarPointLine>
+                                    <BarPointLine v-if="graphic === 'bar-point-line'" :series="seriesCompare" :labels="years" slot="indicator-chart"> </BarPointLine>
                                     <LinePoints v-if="graphic === 'line-points'" :series="seriesCompare" :labels="years" slot="indicator-chart"> </LinePoints>
                                     <p>{{graphic}}</p>
                                 </IndicatorCard>

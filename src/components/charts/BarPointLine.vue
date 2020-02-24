@@ -12,21 +12,9 @@
         components: {
             VueApexCharts
         },
-        props: [],
+        props: ['series', 'labels'],
         data() {
             return {
-                series: [
-                    {
-                        name: 'Total',
-                        type: 'line',
-                        data: [31, 40, 28, 51, 42, 49]
-                    },
-                    {
-                        name: 'Total',
-                        type: 'bar',
-                        data: [31, 40, 28, 51, 42, 49]
-                    }
-                ],
                 chartOptions: {
                     chart: {
                         height: 350,
@@ -51,7 +39,7 @@
                         enabled: false
                     },
                     xaxis: {
-                        categories: ['2014', '2015', '2016', '2017', '2018', '2019'],
+                        categories: this.labels,
                         labels: {
                             show: true,
                             trim: true,
