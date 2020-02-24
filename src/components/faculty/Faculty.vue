@@ -62,7 +62,7 @@
                                     </DonutChart>
                                     <BarChart v-if="graphic === 'bar'" :info="yearSeries" :labels="conceptLabels" slot="indicator-chart"></BarChart>
                                     <LineChart v-if="graphic === 'line' || graphic === 'area'" :report="currentResult" :type="graphic" slot="indicator-chart"></LineChart>
-                                    <LineChart v-if="graphic === 'line-compare'" :report="currentResult" type="line" slot="indicator-chart"></LineChart>
+                                    <LineCompare v-if="graphic === 'line-compare'" :series="seriesCompare" :labels="years" slot="indicator-chart"></LineCompare>
                                     <BarCompare v-if="graphic === 'bar-compare'" :series="seriesCompare" :labels="years" type="area" slot="indicator-chart"></BarCompare>
                                     <BarPointLine v-if="graphic === 'bar-point-line'" :series="seriesCompare" :labels="years" slot="indicator-chart"> </BarPointLine>
                                     <LinePoints v-if="graphic === 'line-points'" :series="seriesCompare" :labels="years" slot="indicator-chart"> </LinePoints>
@@ -117,6 +117,7 @@
     import BarCompare from "../charts/BarCompare";
     import BarPointLine from "../charts/BarPointLine";
     import IndicatorTable from "../general/IndicatorTable";
+    import LineCompare from "../charts/LineCompare";
     import gql from "graphql-tag";
     import { I01, I02, I03, I04, I05, I06, F01, F02, F03, C01, C02, C02_1} from "../../graphql/indicatorsQueries";
 
@@ -135,6 +136,7 @@
             BarCompare,
             BarPointLine,
             IndicatorTable,
+            LineCompare,
         },
         data() {
             return {

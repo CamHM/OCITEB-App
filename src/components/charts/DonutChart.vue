@@ -39,12 +39,12 @@
                         fontSize: '12px',
                         floating: true,
                         labels: {
-                            colors: ['#bdbdbd', '#bdbdbd', '#bdbdbd', '#bdbdbd', '#bdbdbd', '#bdbdbd'],
+                            colors: '#bdbdbd',
                             useSeriesColors: false
                         },
                         width: 200,
                     },
-                    colors: ['#8770fa', '#ffa653', '#eb6262', '#2de0dd', '#e02dd4'],
+                    colors: ['#8770fa', '#eb6262', '#ffa653', '#2de0dd', '#e02dd4', '#ffee8f'],
                     stroke: {
                         show: false,
                         width: 0

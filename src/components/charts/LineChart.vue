@@ -82,7 +82,7 @@
                             }
                         }
                     },
-                    colors: ['#8770fa', '#ffa653', '#eb6262'],
+                    colors: ['#8770fa', '#eb6262', '#ffa653', '#2de0dd', '#e02dd4', '#ffee8f'],
                     tooltip: {
                         enabled: true,
                         style: {

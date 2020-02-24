@@ -37,10 +37,10 @@
                     stroke: {
                         width: 4,
                         curve: 'straight',
-                        colors: ['#8770fa', '#ffa653', '#eb6262'],
+                        colors: ['#8770fa', '#eb6262', '#ffa653', '#2de0dd', '#e02dd4', '#ffee8f'],
                     },
                     fill: {
-                        colors: ['#8770fa', '#ffa653', '#eb6262']
+                        colors: ['#8770fa', '#eb6262', '#ffa653', '#2de0dd', '#e02dd4', '#ffee8f']
                     },
                     xaxis: {
                         categories: this.labels,
@@ -87,7 +87,12 @@
                     },
                     tooltip: {
                         shared: false,
-                        intersect: true
+                        intersect: true,
+                        style: {
+                            fontSize: '12px',
+                        },
+                        fillSeriesColor: true,
+                        theme: 'dark',
                     },
                     legend: {
                         show: true,
@@ -103,7 +108,7 @@
                             colors: '#fff',
                             useSeriesColors: false
                         }
-                    }
+                    },
                 }
             }
         }

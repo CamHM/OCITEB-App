@@ -1,42 +1,23 @@
 <template>
-    <div>
-        <VueApexCharts :series="series" :options="chartOptions" height="220"></VueApexCharts>
-    </div>
+    <VueApexCharts type="bar" height="270" :options="chartOptions" :series="series"></VueApexCharts>
 </template>
 
 <script>
     import VueApexCharts from 'vue-apexcharts';
 
     export default {
-        name: "AreaChart",
+        name: "LineCompare",
         components: {
             VueApexCharts
         },
         props: ['series', 'labels'],
-        data() {
+        data () {
             return {
                 chartOptions: {
-                    chart: {
-                        height: 350,
-                        toolbar: {
-                            show: false
-                        }
-                    },
                     plotOptions: {
                         bar: {
-                            columnWidth: '30%',
-                        }
-                    },
-                    title: {
-                        text: '$658,980,000',
-                        align: 'left',
-                        style: {
-                            fontSize: "16px",
-                            color: '#248a55',
-                        }
-                    },
-                    dataLabels: {
-                        enabled: false
+                            horizontal: false,
+                        },
                     },
                     xaxis: {
                         categories: this.labels,
@@ -62,21 +43,23 @@
                             }
                         }
                     },
-                    colors: ['#8770fa', '#eb6262', '#ffa653', '#2de0dd', '#e02dd4', '#ffee8f'],
                     legend: {
-                        show: true,
-                        showForSingleSeries: true,
-                        showForNullSeries: true,
-                        showForZeroSeries: true,
-                        position: 'bottom',
-                        horizontalAlign: 'center',
-                        floating: false,
-                        fontSize: '12px',
-                        fontFamily: 'Helvetica, Arial, sans-serif',
+                        position: 'right',
+                        offsetY: 40,
+                        floating: true,
                         labels: {
-                            colors: '#fff',
+                            colors: '#bdbdbd',
                             useSeriesColors: false
-                        }
+                        },
+                    },
+                    colors: ['#8770fa', '#eb6262', '#ffa653', '#2de0dd', '#e02dd4', '#ffee8f'],
+                    tooltip: {
+                        enabled: true,
+                        style: {
+                            fontSize: '12px',
+                        },
+                        theme: 'dark',
+                        fillSeriesColor: true,
                     }
                 }
             }

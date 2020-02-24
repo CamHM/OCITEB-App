@@ -28,7 +28,7 @@
                             }
                         }
                     },
-                    colors: ['#8770fa', '#eb6262', '#ffa653'],
+                    colors: ['#8770fa', '#eb6262', '#ffa653', '#2de0dd', '#e02dd4', '#ffee8f'],
                     dataLabels: {
                         enabled: true,
                         offsetY: -20,
@@ -88,6 +88,7 @@
                             fontSize: '12px',
                         },
                         theme: 'dark',
+                        fillSeriesColor: true,
                     }
                 },
             }
