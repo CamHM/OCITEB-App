@@ -8,7 +8,7 @@
             Inicio
         </v-btn>
         <Menu />
-        <v-btn outlined class="child" color="primary" small>Ingresar</v-btn>
+        <v-btn outlined class="child" color="primary" small disabled>Ingresar</v-btn>
     </v-container>
 </template>
 

@@ -238,7 +238,7 @@
                         faculty: this.Faculty.report
                     }
                 },
-                update: data => data.ReportI01 || data.ReportI02 || data.ReportI03 || data.ReportI04 || data.ReportI05 || data.ReportI06
+                update: data => data.ReportI01 || data.ReportI02 || data.ReportI03 || data.ReportI04withYear || data.ReportI05 || data.ReportI06
                         || data.ReportF01 || data.ReportF02 || data.ReportF03 || data.ReportC01 || data.ReportC02 || data.ReportC02_1
             }
         }

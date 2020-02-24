@@ -32,7 +32,8 @@ const I03 = gql`
 
 const I04 = gql`
     query I04($faculty: String!) {
-        ReportI04(faculty: $faculty) {
+        ReportI04withYear(faculty: $faculty) {
+            year
             group
             initials
             proyects

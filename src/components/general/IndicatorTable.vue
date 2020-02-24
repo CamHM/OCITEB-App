@@ -30,6 +30,21 @@
                         { text: 'Total', value: 'total' },
                     ]
                 }
+                else if (this.items[0].group) {
+                    return [
+                        { text: 'Año', value: 'year' },
+                        { text: 'Grupo', value: 'group' },
+                        { text: 'Iniciales', value: 'initials' },
+                        { text: 'Proyectos', value: 'proyects' },
+                        { text: 'Total', value: 'total' },
+                    ]
+                }
+                else if (this.items[0].anio) {
+                    return [
+                        { text: 'Año', value: 'anio' },
+                        { text: 'Total', value: 'total' },
+                    ]
+                }
                 else
                     return [
                         { text: 'Año', value: 'year' },

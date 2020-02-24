@@ -46,8 +46,9 @@
                                     show: true,
                                     label: 'Total',
                                     color: 'white',
-                                    formatter: function (w) {
-                                        return w.globals.seriesTotals.reduce((a, b) => {return a + b}, 0);
+                                    formatter: function () {
+                                        // return w.globals.seriesTotals.reduce((a, b) => {return a + b}, 0);
+                                        return this.total
                                     }
                                 }
                             },
