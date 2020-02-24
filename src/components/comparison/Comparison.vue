@@ -9,9 +9,9 @@
                     <Header :items-breadc="itemsBreadc"/>
                 </v-row>
                 <v-row>
-<!--                    <v-col cols="2" offset-md="8">-->
-<!--                        <v-select :items="charts" label="Tipo de gráfico" solo dense/>-->
-<!--                    </v-col>-->
+                    <!--                    <v-col cols="2" offset-md="8">-->
+                    <!--                        <v-select :items="charts" label="Tipo de gráfico" solo dense/>-->
+                    <!--                    </v-col>-->
                     <v-col class="ml-auto" cols="2" offset-md="10">
                         <v-select :items="years" v-model="currentYear" label="Año" solo dense/>
                     </v-col>
@@ -40,7 +40,7 @@
                                                         <CardComparison v-if="indicator.code === 'I02'"
                                                                         v-bind:name="indicator.name"
                                                                         v-bind:graphic="graphic"
-                                                                        v-bind:dataGraphic="data.ReportI02"
+                                                                        v-bind:dataGraphic="transformIndicatorI02(data.ReportI02)"
                                                                         v-bind:year="currentYear"/>
                                                         <CardComparison v-if="indicator.code === 'I03'"
                                                                         v-bind:name="indicator.name"
@@ -80,7 +80,7 @@
                                                         <CardComparison v-if="indicator.code === 'C01'"
                                                                         v-bind:name="indicator.name"
                                                                         v-bind:graphic="graphic"
-                                                                        v-bind:dataGraphic="data.ReportC01"
+                                                                        v-bind:dataGraphic="transformIndicatorC01(data.ReportC01)"
                                                                         v-bind:year="currentYear"/>
                                                         <CardComparison v-if="indicator.code === 'C02'"
                                                                         v-bind:name="indicator.name"
@@ -189,7 +189,21 @@
             },
             setFaculty(faculty) {
                 this.faculty = faculty;
-            }
+            },
+            transformIndicatorI02: function (value) {
+                let newI02 = [];
+                value.forEach(r => {
+                    newI02.push({year: r.year, concept: "Monto especie interno", total: r.internalS_amount});
+                    newI02.push({year: r.year, concept: "Monto efectivo interno", total: r.internalE_amount});
+                    newI02.push({year: r.year, concept: "Monto externo", total: r.external_amount});
+                });
+                return newI02
+            },
+            transformIndicatorC01: function (value) {
+                let newI02 = [];
+                value.forEach(r => newI02.concat(r));
+                return newI02;
+            },
         }
     }
 </script>
