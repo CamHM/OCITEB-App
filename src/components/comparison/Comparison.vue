@@ -47,7 +47,7 @@
                                                             <LineChart v-if="graphic === 'line' || graphic === 'area'"
                                                                        :type="graphic" slot="indicator-chart"/>
                                                             <LineChart v-if="graphic === 'line-compare'"
-                                                                       :report="currentResult" type="line"
+                                                                       :report="data.Report01" type="line"
                                                                        slot="indicator-chart"></LineChart>
                                                             <BarCompare v-if="graphic === 'bar-compare'" type="area"
                                                                         slot="indicator-chart"></BarCompare>
@@ -128,8 +128,7 @@
                     {name: 'C02', query: C02},
                     {name: 'C02_1', query: C02_1}
                 ],
-                currentResult: null,
-                faculty: null,
+                infoQuery: null,
                 charts: ['Tarta', 'Pie', 'Dona', 'Y todo tipo de comida más'],
                 years: ['2016', '2017', '2018', '2019'],
                 faculties: [],
