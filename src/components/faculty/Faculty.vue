@@ -17,13 +17,28 @@
                         <v-select :items="indicators" v-model="value" label="Indicadores" solo dense></v-select>
                     </v-col>
                     <div v-if="currentResult && indicator" class="select">
+                        <v-tooltip top>
+                            <template v-slot:activator="{ on }">
+                                <v-btn class="mx-2" fab dark small color="cyan" v-on="on" @click="showTable">
+                                    <v-icon dark>mdi-table-large</v-icon>
+                                </v-btn>
+                                <IndicatorTable :open="isTableOpen" :title="indicator.value" :items="currentResult" @close-table="showTable"> </IndicatorTable>
+                            </template>
+                            <span>Ver datos</span>
+                        </v-tooltip>
                         <v-select :items="years" v-model="currentYear" label="Año" solo dense
                                   style="margin-left: 20px; width: 120px"></v-select>
                     </div>
                 </v-row>
                 <v-row class="secondRow">
+                    <v-col v-if="!indicator"> </v-col>
                     <v-col v-if="indicator" cols="8" class="firstCol">
-                        <v-row v-if="currentResult && currentResult.length === 0">
+                        <v-row v-if="!currentYear">
+                            <v-col>
+                                <p>Seleccione un año</p>
+                            </v-col>
+                        </v-row>
+                       <v-row v-if="currentResult && currentResult.length === 0">
                             <v-col>
                                 <p>Por el momento no tenemos información de este indicador.</p>
                             </v-col>
@@ -69,7 +84,8 @@
                                     {{error.message}}
                                 </div>
                                 <div v-else-if="data" class="panel">
-                                    <v-row v-for="report in data.Indicator.reports" :key="report.code" class="panelRow"
+                                    <v-row v-for="report in data.Indicator.reports" :key="report.code"
+                                           :class="{'panelRow': indicator !== report, 'panelRowSelected': indicator === report}"
                                            @click="showActualIndicator(report)">
                                         <v-col>
                                             <IndicatorCard :item="report" panel="true"/>
@@ -100,6 +116,7 @@
     import LinePoints from "../charts/LinePoints";
     import BarCompare from "../charts/BarCompare";
     import BarPointLine from "../charts/BarPointLine";
+    import IndicatorTable from "../general/IndicatorTable";
     import gql from "graphql-tag";
     import { I01, I02, I03, I04, I05, I06, F01, F02, F03, C01, C02, C02_1} from "../../graphql/indicatorsQueries";
 
@@ -117,6 +134,7 @@
             LinePoints,
             BarCompare,
             BarPointLine,
+            IndicatorTable,
         },
         data() {
             return {
@@ -127,6 +145,7 @@
                 currentIndicator: 'I01',
                 currentResult: null,
                 currentYear: null,
+                isTableOpen: false,
                 selectedIndicators: [
                     {
                         title: 'I02 - Inversión en I+D a nivel de proyectos',
@@ -155,6 +174,9 @@
                 this.indicator = indicator;
                 this.currentIndicator = indicator.code;
                 this.currentYear = null
+            },
+            showTable() {
+                this.isTableOpen = !this.isTableOpen
             },
         },
         computed: {
@@ -279,7 +301,10 @@
     .panelRow {
         height: 33%;
     }
-
+    .panelRowSelected {
+        background-color: #727b8a;
+        border-radius: 8px;
+    }
     .indicator-header {
         display: flex;
         justify-content: space-between;
