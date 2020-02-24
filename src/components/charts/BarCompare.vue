@@ -1,5 +1,7 @@
 <template>
-    <VueApexCharts type="bar" height="270" :options="chartOptions" :series="series"></VueApexCharts>
+    <div>
+        <VueApexCharts type="bar" height="270" :options="chartOptions" :series="series"></VueApexCharts>
+    </div>
 </template>
 
 <script>

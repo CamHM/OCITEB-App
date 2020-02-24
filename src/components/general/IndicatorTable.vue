@@ -39,12 +39,6 @@
                         { text: 'Total', value: 'total' },
                     ]
                 }
-                else if (this.items[0].anio) {
-                    return [
-                        { text: 'Año', value: 'anio' },
-                        { text: 'Total', value: 'total' },
-                    ]
-                }
                 else
                     return [
                         { text: 'Año', value: 'year' },

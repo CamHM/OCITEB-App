@@ -81,7 +81,7 @@ const F02 = gql`
 const F03 = gql`
     query F03($faculty: String!) {
         ReportF03(faculty: $faculty) {
-            anio
+            year
             total
         }
     }

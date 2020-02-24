@@ -22,7 +22,7 @@
                                 <v-btn class="mx-2" fab dark small color="cyan" v-on="on" @click="showTable">
                                     <v-icon dark>mdi-table-large</v-icon>
                                 </v-btn>
-                                <IndicatorTable :open="isTableOpen" :title="indicator.value" :items="currentResult" @close-table="showTable"> </IndicatorTable>
+                                <IndicatorTable :open="isTableOpen" :title="indicator.value" :items="getTableData" @close-table="showTable"> </IndicatorTable>
                             </template>
                             <span>Ver datos</span>
                         </v-tooltip>
@@ -62,10 +62,10 @@
                                     </DonutChart>
                                     <BarChart v-if="graphic === 'bar'" :info="yearSeries" :labels="conceptLabels" slot="indicator-chart"></BarChart>
                                     <LineChart v-if="graphic === 'line' || graphic === 'area'" :report="currentResult" :type="graphic" slot="indicator-chart"></LineChart>
-                                    <LineCompare v-if="graphic === 'line-compare'" :series="seriesCompare" :labels="years" slot="indicator-chart"></LineCompare>
-                                    <BarCompare v-if="graphic === 'bar-compare'" :series="seriesCompare" :labels="years" type="area" slot="indicator-chart"></BarCompare>
-                                    <BarPointLine v-if="graphic === 'bar-point-line'" :series="seriesCompare" :labels="years" slot="indicator-chart"> </BarPointLine>
-                                    <LinePoints v-if="graphic === 'line-points'" :series="seriesCompare" :labels="years" slot="indicator-chart"> </LinePoints>
+                                    <LineCompare v-if="graphic === 'line-compare'" :series="seriesCompare" :labels="yearsCompare" slot="indicator-chart"></LineCompare>
+                                    <BarCompare v-if="graphic === 'bar-compare'" :series="seriesCompare" :labels="yearsCompare" type="area" slot="indicator-chart"></BarCompare>
+                                    <BarPointLine v-if="graphic === 'bar-point-line'" :series="seriesCompare" :labels="yearsCompare" slot="indicator-chart"> </BarPointLine>
+                                    <LinePoints v-if="graphic === 'line-points'" :series="seriesCompare" :labels="yearsCompare" slot="indicator-chart"> </LinePoints>
                                     <p>{{graphic}}</p>
                                 </IndicatorCard>
                             </v-col>
@@ -183,34 +183,28 @@
         },
         computed: {
             yearSeries: function () {
-                if(this.currentIndicator === 'I02') return this.transformI02.filter(r => r['year'] === this.currentYear).map(r => r['total'])
-                else    return this.currentResult.filter(r => r['year'] === this.currentYear).map(r => r['total'])
+                return this.transformIndicator.filter(r => r['year'] === this.currentYear).map(r => r['total'])
             },
             conceptLabels: function () {
-                if(this.currentIndicator === 'I02') return this.transformI02.filter(r => r['year'] === this.currentYear).map(r => r['concept'])
-                else return this.currentResult.filter(r => r['year'] === this.currentYear).map(r => r['concept'])
+                return this.transformIndicator.filter(r => r['year'] === this.currentYear).map(r => r['concept'])
             },
             years: function () {
-                if(this.currentIndicator === 'I02') return this.currentResult.map(r => r['year'])
-                else
-                    return this.currentResult.map(r => r['year'])
+                return this.transformIndicator.map(r => r['year']);
             },
             seriesCompare: function () {
                 const newSeries = [];
-                if(this.currentIndicator === 'I02') {
-                    this.transformI02.forEach(r => {
-                        let item = newSeries.find(s => s.name === r.concept);
-                        item ? item.data.push(r.total) : newSeries.push({ name: r.concept, data: [r.total]})
-                    });
-                } else {
-                    this.currentResult.forEach(r => {
-                        let item = newSeries.find(s => s.name === r.concept);
-                        item ? item.data.push(r.total) : newSeries.push({ name: r.concept, data: [r.total]})
-                    });
-                }
+                this.transformIndicator.forEach(r => {
+                    let item = newSeries.find(s => s.name === r.concept);
+                    item ? item.data.push(r.total) : newSeries.push({ name: r.concept, data: [r.total]})
+                });
                 return newSeries
             },
-            transformI02: function () {
+            yearsCompare: function() {
+                let years = [];
+                this.transformIndicator.forEach(r => {if(!years.includes(r.year)) years.push(r.year)});
+                return years
+            },
+            transformIndicator: function () {
                 let newI02 = [];
                 if(this.currentIndicator === 'I02') {
                     this.currentResult.forEach(r => {
@@ -218,9 +212,15 @@
                         newI02.push({ year: r.year, concept: "Monto efectivo interno", total: r.internalE_amount });
                         newI02.push({ year: r.year, concept: "Monto externo", total: r.external_amount });
                     });
+                } else if(this.currentIndicator === 'C01') {
+                    this.currentResult.forEach(r => newI02.concat(r))
                 } else
                     newI02 = this.currentResult;
                 return newI02
+            },
+            getTableData: function () {
+                if(this.currentIndicator === 'I02' || this.currentIndicator === 'C01') return this.transformIndicator;
+                else return this.currentResult
             }
         },
         apollo: {
