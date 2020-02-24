@@ -90,6 +90,13 @@
                             colors: '#fff',
                             useSeriesColors: false
                         }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        style: {
+                            fontSize: '12px',
+                        },
+                        theme: 'dark',
                     }
                 },
             }
