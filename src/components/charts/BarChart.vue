@@ -10,10 +10,11 @@
         components: {
             VueApexCharts
         },
+        props: ['info', 'labels'],
         data() {
             return {
                 series: [{
-                    data: [2.3, 3.1, 4.0]
+                    data: this.info
                 }],
                 chartOptions: {
                     chart: {
@@ -31,7 +32,7 @@
                             },
                         }
                     },
-                    colors: ['#8770fa', '#eb6262', '#ffa653'],
+                    colors: ['#8770fa', '#eb6262', '#ffa653', '#2de0dd', '#e02dd4'],
                     dataLabels: {
                         enabled: true,
                         offsetY: -20,
@@ -41,7 +42,7 @@
                         }
                     },
                     xaxis: {
-                        categories: ["Jan", "Feb", "Mar"],
+                        categories: this.labels,
                         position: 'bottom',
                         labels: {
                             show: false,

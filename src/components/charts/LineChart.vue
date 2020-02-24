@@ -87,7 +87,7 @@
             }
         },
         mounted() {
-            alert(JSON.stringify(this.report.map(r => r['year'])))
+            // alert(JSON.stringify(this.report.map(r => r['year'])))
         }
     }
 </script>

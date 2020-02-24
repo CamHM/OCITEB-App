@@ -16,25 +16,37 @@
                     <v-col cols="4">
                         <v-select :items="indicators" v-model="value" label="Indicadores" solo dense></v-select>
                     </v-col>
-                    <div class="select">
-                        <v-select :items="years" label="Año" solo dense
+                    <div v-if="currentResult && indicator" class="select">
+                        <v-select :items="currentResult.map(r => r['year'])" v-model="currentYear" label="Año" solo dense
                                   style="margin-left: 20px; width: 120px"></v-select>
                     </div>
                 </v-row>
                 <v-row class="secondRow">
                     <v-col v-if="indicator" cols="8" class="firstCol">
-                        <p>{{ JSON.stringify(currentResult)}}</p>
-                        <v-row class="indicatorsFirstRow">
+                        <v-row v-if="currentResult && currentResult.length === 0">
+                            <v-col>
+                                <p>Por el momento no tenemos información de este indicador.</p>
+                            </v-col>
+                        </v-row>
+                        <v-row v-else class="indicatorsFirstRow">
                             <v-col :cols="(graphic === 'bar' || graphic === 'pie' || graphic === 'radial') ? 6 : 12"
                                    v-for="graphic in indicator.graphic" :key="graphic">
-                                <IndicatorCard :item="selectedIndicators[0]">
+                                <IndicatorCard v-if="currentYear" :item="selectedIndicators[0]">
                                     <div slot="indicator-header" class="indicator-header">
                                         <p>{{ indicator.code}} - {{indicator.value}}</p>
                                         <v-icon color="white" @click="changeShowOptions">mdi-dots-vertical</v-icon>
                                     </div>
-                                    <RadialBar v-if="graphic === 'radial' || graphic === 'points'"  slot="indicator-chart"></RadialBar>
-                                    <DonutChart v-if="graphic === 'pie'" slot="indicator-chart"></DonutChart>
-                                    <BarChart v-if="graphic === 'bar'" slot="indicator-chart"></BarChart>
+                                    <RadialBar v-if="graphic === 'radial' || graphic === 'points'"
+                                               :series="yearSeries"
+                                               :labels="conceptLabels"
+                                               slot="indicator-chart">
+                                    </RadialBar>
+                                    <DonutChart v-if="graphic === 'pie'"
+                                                :series="yearSeries"
+                                                :labels="conceptLabels"
+                                                slot="indicator-chart">
+                                    </DonutChart>
+                                    <BarChart v-if="graphic === 'bar'" :info="yearSeries" :labels="conceptLabels" slot="indicator-chart"></BarChart>
                                     <LineChart v-if="graphic === 'line' || graphic === 'area'" :report="currentResult" :type="graphic" slot="indicator-chart"></LineChart>
                                     <LineChart v-if="graphic === 'line-compare'" :report="currentResult" type="line" slot="indicator-chart"></LineChart>
                                     <BarCompare v-if="graphic === 'bar-compare'" type="area" slot="indicator-chart"></BarCompare>
@@ -116,7 +128,8 @@
                 indicator: null,
                 currentIndicator: 'I01',
                 currentResult: null,
-                years: ['2016', '2017', '2018', '2019'],
+                years: ['2016'],
+                currentYear: null,
                 selectedIndicators: [
                     {
                         title: 'I02 - Inversión en I+D a nivel de proyectos',
@@ -148,6 +161,14 @@
                 this.indicator = indicator;
                 this.currentIndicator = indicator.code;
             },
+        },
+        computed: {
+            yearSeries: function () {
+                return this.currentResult.filter(r => r['year'] === this.currentYear).map(r => r['total'])
+            },
+            conceptLabels: function () {
+                return this.currentResult.filter(r => r['year'] === this.currentYear).map(r => r['concept'])
+            }
         },
         apollo: {
             Faculty: {
@@ -183,8 +204,6 @@
                 },
                 update: data => data.ReportI01 || data.ReportI02 || data.ReportI03 || data.ReportI04 || data.ReportI05 || data.ReportI06
             }
-
-
         }
     }
 </script>
