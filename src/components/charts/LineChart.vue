@@ -83,6 +83,14 @@
                         }
                     },
                     colors: ['#8770fa', '#ffa653', '#eb6262'],
+                    tooltip: {
+                        enabled: true,
+                        style: {
+                            fontSize: '12px',
+                        },
+                        fillSeriesColor: true,
+                        theme: 'dark',
+                    }
                 }
             }
         },

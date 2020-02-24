@@ -14,6 +14,7 @@
         data() {
             return {
                 series: [{
+                    name: 'total',
                     data: this.info
                 }],
                 chartOptions: {
@@ -85,6 +86,14 @@
                             colors: '#fff',
                             useSeriesColors: false
                         }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        style: {
+                            fontSize: '12px',
+                        },
+                        fillSeriesColor: true,
+                        theme: 'dark',
                     }
                 },
             }
