@@ -17,7 +17,7 @@
                         <v-select :items="indicators" v-model="value" label="Indicadores" solo dense></v-select>
                     </v-col>
                     <div v-if="currentResult && indicator" class="select">
-                        <v-select :items="currentResult.map(r => r['year'])" v-model="currentYear" label="Año" solo dense
+                        <v-select :items="years" v-model="currentYear" label="Año" solo dense
                                   style="margin-left: 20px; width: 120px"></v-select>
                     </div>
                 </v-row>
@@ -126,7 +126,6 @@
                 indicator: null,
                 currentIndicator: 'I01',
                 currentResult: null,
-                years: ['2016'],
                 currentYear: null,
                 selectedIndicators: [
                     {
@@ -164,6 +163,9 @@
             },
             conceptLabels: function () {
                 return this.currentResult.filter(r => r['year'] === this.currentYear).map(r => r['concept'])
+            },
+            years: function () {
+                return this.currentResult.map(r => r['year'])
             }
         },
         apollo: {
