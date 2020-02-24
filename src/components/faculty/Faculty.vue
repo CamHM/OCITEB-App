@@ -23,7 +23,7 @@
                 </v-row>
                 <v-row class="secondRow">
                     <v-col v-if="indicator" cols="8" class="firstCol">
-                        <p>{{ JSON.stringify(currentResult)}}</p>
+                        <p>{{JSON.stringify(currentResult)}}</p>
                         <v-row class="indicatorsFirstRow">
                             <v-col :cols="(graphic === 'bar' || graphic === 'pie' || graphic === 'radial') ? 6 : 12"
                                    v-for="graphic in indicator.graphic" :key="graphic">
@@ -183,8 +183,6 @@
                 },
                 update: data => data.ReportI01 || data.ReportI02 || data.ReportI03 || data.ReportI04 || data.ReportI05 || data.ReportI06
             }
-
-
         }
     }
 </script>

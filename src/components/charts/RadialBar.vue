@@ -1,6 +1,6 @@
 <template>
     <div>
-        <VueApexCharts type="radialBar" height="270" :options="chartOptions" :series="series"> </VueApexCharts>
+        <VueApexCharts type="radialBar" height="270" :options="chartOptions" :series="series"></VueApexCharts>
     </div>
 </template>
 
@@ -12,7 +12,7 @@
         components: {
             VueApexCharts
         },
-        data () {
+        data() {
             return {
                 chartOptions: {
                     chart: {
@@ -44,9 +44,8 @@
                                 total: {
                                     show: true,
                                     label: 'Total',
-                                    formatter: function () {
-                                        // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
-                                        return 42459
+                                    formatter: function (w) {
+                                        return w.globals.seriesTotals.reduce((a, b) => {return a + b}, 0);
                                     },
                                     color: 'white',
                                 }
@@ -76,7 +75,7 @@
                             strokeColor: '#fff',
                             fillColors: undefined,
                             radius: 12,
-                            customHTML: function() {
+                            customHTML: function () {
                                 return '<span class="custom-marker"><i class="custom-i"></i></span>'
                             },
                             onClick: undefined,

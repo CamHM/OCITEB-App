@@ -12,10 +12,10 @@
                 <MenuItemGroup v-bind:key="titleSectionals" v-bind:title="titleSectionals"
                                v-bind:items="Faculties.filter(faculty => faculty.type === 'S')"
                                type="O" @selected="setFaculty"/>
-                <MenuItemGroup v-bind:key="titleSchools" v-bind:title="titleSchools" v-bind:items="Schools"
-                               type="O"/>
-                <MenuItemGroup v-bind:key="titleGroups" v-bind:title="titleGroups" v-bind:items="Groups"
-                               type="O"/>
+<!--                <MenuItemGroup v-bind:key="titleSchools" v-bind:title="titleSchools" v-bind:items="Schools"-->
+<!--                               type="O"/>-->
+<!--                <MenuItemGroup v-bind:key="titleGroups" v-bind:title="titleGroups" v-bind:items="Groups"-->
+<!--                               type="O"/>-->
             </v-list>
             <h5 class="white--text">Indicadores</h5>
             <v-divider class="white"/>
@@ -92,6 +92,7 @@
                         reports {
                             code
                             value
+                            graphic
                         }
                     }
                 }

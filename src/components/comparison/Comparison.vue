@@ -20,33 +20,54 @@
                     <v-col v-if="indicators.length > 0 && faculties.length > 0" cols="9"
                            class="firstCol">
                         <v-row class="indicatorsFirstRow">
-                            <v-col v-for="faculty in faculties" :key="faculty" :cols="12/faculties.length">
-                                <h4>{{faculty}}</h4>
-                                <IndicatorCard :item="selectedIndicators[0]" v-for="indicator in indicators"
-                                               :key="indicator">
-                                    <div slot="indicator-header" class="indicator-header">
-                                        <p>{{indicator}}</p>
-                                        <LinePoints/>
-                                        <div v-for="report in reports" v-bind:key="report.name">
-                                            <ApolloQuery :query="report.query" :variables="{faculty: faculty}"
-                                                         v-if="indicator === report.name">
-                                                <template slot-scope="{ result: { loading, error, data } }">
-                                                    <v-progress-linear indeterminate color="cyan" v-if="loading"/>
-                                                    <span v-else-if="error">Error al cargar la información</span>
-                                                    <section v-if="data">
-                                                        <h5>{{data.Report + report.name}}</h5>
-                                                    </section>
-                                                </template>
-                                            </ApolloQuery>
-                                        </div>
+                            <v-col v-for="item in faculties" :key="item.report" :cols="12/faculties.length">
+                                <h4>{{item.name}}</h4>
+                                <div v-for="indicator in indicators"
+                                     :key="indicator.code">
+                                    <div v-for="report in reports" v-bind:key="report.name">
+                                        <ApolloQuery :query="report.query" :variables="{faculty: item.report}"
+                                                     v-if="indicator.code === report.name">
+                                            <template slot-scope="{ result: { loading, error, data } }">
+                                                <v-progress-linear indeterminate color="cyan" v-if="loading"/>
+                                                <span v-else-if="error">Error al cargar la información</span>
+                                                <section v-if="data">
+                                                    <h5 v-if="indicator.code === 'I01'">{{data.ReportI01}}</h5>
+                                                    <div v-for="graphic in indicator.graphic" :key="graphic">
+                                                        <IndicatorCard :item="selectedIndicators[0]">
+                                                            <div slot="indicator-header" class="indicator-header">
+                                                                <p>{{indicator.name}}</p>
+                                                                <v-icon color="white">mdi-dots-vertical</v-icon>
+                                                            </div>
+                                                            <RadialBar
+                                                                    v-if="graphic === 'radial' || graphic === 'points'"
+                                                                    slot="indicator-chart"/>
+                                                            <DonutChart v-if="graphic === 'pie'"
+                                                                        slot="indicator-chart"/>
+                                                            <BarChart v-if="graphic === 'bar'" slot="indicator-chart"/>
+                                                            <LineChart v-if="graphic === 'line' || graphic === 'area'"
+                                                                       :type="graphic" slot="indicator-chart"/>
+                                                            <LineChart v-if="graphic === 'line-compare'"
+                                                                       :report="currentResult" type="line"
+                                                                       slot="indicator-chart"></LineChart>
+                                                            <BarCompare v-if="graphic === 'bar-compare'" type="area"
+                                                                        slot="indicator-chart"></BarCompare>
+                                                            <BarPointLine v-if="graphic === 'bar-point-line'"
+                                                                          slot="indicator-chart"></BarPointLine>
+                                                            <LinePoints v-if="graphic === 'line-points'"
+                                                                        slot="indicator-chart"></LinePoints>
+                                                            <p>{{graphic}}</p>
+                                                        </IndicatorCard>
+                                                    </div>
+                                                </section>
+                                            </template>
+                                        </ApolloQuery>
                                     </div>
-                                </IndicatorCard>
+                                </div>
                             </v-col>
                         </v-row>
                     </v-col>
                     <v-col v-if="indicators.length < 1 || faculties.length < 1" cols="9">
-                        <LinePoints/>
-                        <BarCompare/>
+                        <p>Seleccione al menos dos facultades o seccionales y un indicador</p>
                     </v-col>
                     <v-col cols="3">
                         <SidebarComparison @selectFaculties="setFaculties" @selectIndicators="setIndicators"/>
@@ -67,7 +88,12 @@
     import SidebarComparison from "./SidebarComparison";
     import IndicatorCard from "../indicators/IndicatorCard";
     import LinePoints from "../charts/LinePoints";
+    import RadialBar from "../charts/RadialBar";
+    import DonutChart from "../charts/DonutChart";
+    import LineChart from "../charts/LineChart";
     import BarCompare from "../charts/BarCompare";
+    import BarPointLine from "../charts/BarPointLine";
+    import BarChart from "../charts/BarChart";
     import {I01, I02, I03, I04, I05, I06, F01, F02, F03, C01, C02, C02_1} from "../../graphql/indicatorsQueries";
 
     export default {
@@ -79,7 +105,12 @@
             SidebarComparison,
             IndicatorCard,
             LinePoints,
-            BarCompare
+            RadialBar,
+            DonutChart,
+            LineChart,
+            BarCompare,
+            BarPointLine,
+            BarChart
         },
         data: function () {
             return {
@@ -97,6 +128,8 @@
                     {name: 'C02', query: C02},
                     {name: 'C02_1', query: C02_1}
                 ],
+                currentResult: null,
+                faculty: null,
                 charts: ['Tarta', 'Pie', 'Dona', 'Y todo tipo de comida más'],
                 years: ['2016', '2017', '2018', '2019'],
                 faculties: [],
@@ -130,6 +163,9 @@
             },
             setIndicators(list) {
                 this.indicators = list;
+            },
+            setFaculty(faculty) {
+                this.faculty = faculty;
             }
         }
     }
