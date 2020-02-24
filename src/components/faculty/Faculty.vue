@@ -16,7 +16,7 @@
                     <v-col cols="4">
                         <v-select :items="indicators" v-model="value" label="Indicadores" solo dense></v-select>
                     </v-col>
-                    <div v-if="currentResult && indicator" class="select">
+                    <div v-if="currentResult && indicator && !(currentResult && currentResult.length === 0)" class="select">
                         <v-tooltip top>
                             <template v-slot:activator="{ on }">
                                 <v-btn class="mx-2" fab dark small color="cyan" v-on="on" @click="showTable">
@@ -50,7 +50,7 @@
                                     <div slot="indicator-header" class="indicator-header">
                                         <p>{{ indicator.code}} - {{indicator.value}}</p>
                                     </div>
-                                    <RadialBar v-if="graphic === 'radial' || graphic === 'points'"
+                                    <RadialBar v-if="graphic === 'radial'"
                                                :series="yearSeries"
                                                :labels="conceptLabels"
                                                slot="indicator-chart">
@@ -119,7 +119,7 @@
     import IndicatorTable from "../general/IndicatorTable";
     import LineCompare from "../charts/LineCompare";
     import gql from "graphql-tag";
-    import { I01, I02, I03, I04, I05, I06, F01, F02, F03, C01, C02, C02_1} from "../../graphql/indicatorsQueries";
+    import { I01, I02, I03, I04, I05, I06, F01, F02, F03, C01, C02, C02_1, PB01, PB021, PB022, PB03} from "../../graphql/indicatorsQueries";
 
     export default {
         name: "Faculty",
@@ -255,6 +255,10 @@
                     else if (this.currentIndicator === 'C01') { return C01 }
                     else if (this.currentIndicator === 'C02') { return C02 }
                     else if (this.currentIndicator === 'C02.1') { return C02_1 }
+                    else if (this.currentIndicator === 'PB01') { return PB01 }
+                    else if (this.currentIndicator === 'PB02.1') { return PB021 }
+                    else if (this.currentIndicator === 'PB02.2') { return PB022 }
+                    else if (this.currentIndicator === 'PB03') { return PB03 }
                 },
                 variables () {
                     return {
@@ -263,6 +267,7 @@
                 },
                 update: data => data.ReportI01 || data.ReportI02 || data.ReportI03 || data.ReportI04withYear || data.ReportI05 || data.ReportI06
                         || data.ReportF01 || data.ReportF02 || data.ReportF03 || data.ReportC01 || data.ReportC02 || data.ReportC02_1
+                        || data.ReportPB01 || data.ReportPB021 || data.ReportPB022 || data.ReportPB03
             }
         }
     }
